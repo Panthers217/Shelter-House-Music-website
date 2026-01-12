@@ -1,0 +1,38 @@
+To use your uploadImages async function for uploading images:
+
+1. Upload a single image: Pass an array with one object and optionally provide custom logic for fileName, safeName, publicId, or imgPath.
+
+Example:
+
+const singleArtist = [{
+  name: "My Artist",
+  img: "/src/assets/artist_mockup_pics/artist_card_pic/Link-1.png"
+}];
+
+uploadImages({ array: singleArtist });
+
+Or with custom logic:
+
+uploadImages({
+  array: singleArtist,
+  getFileName: (item) => "custom.png",
+  getSafeName: (item) => "MY_ARTIST",
+  getPublicId: (item) => "MY_ARTIST_custom",
+  getImgPath: (item) => "/absolute/path/to/image.png"
+});
+
+
+2. Upload multiple images: Pass an array of objects (like your artists array). The function will map over each and upload all concurrently.
+
+Example:
+
+uploadImages({
+  array: artists,
+  getPublicId: (item, idx) => `artist_${idx}_${item.name.replace(/\\s/g, '_')}`
+});
+
+Summary:
+
+For one image: pass an array with one object.
+For many images: pass an array with all objects.
+Optionally, provide custom logic for file naming or path resolution using the callback options.

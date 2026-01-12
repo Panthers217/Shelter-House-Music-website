@@ -1,11 +1,12 @@
 // src/components/NewArrivals.js
 import React from 'react';
+import ImageCarousel from './ImageCarousel';
 
 const NewArrivals = () => {
   return (
     <section>
       <h2>New Arrivals</h2>
-      <p>Carousel of new albums will be displayed here.</p>
+      <ImageCarousel visibleImages={3} />
     </section>
   );
 };

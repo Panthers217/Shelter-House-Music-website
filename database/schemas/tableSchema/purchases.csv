@@ -1,0 +1,5 @@
+"Field","Type","Null","Key","Default","Extra"
+"id","bigint unsigned","NO","PRI","","auto_increment"
+"user_id","int","YES","","",""
+"track_id","int","YES","","",""
+"purchased_at","timestamp","YES","","CURRENT_TIMESTAMP","DEFAULT_GENERATED"

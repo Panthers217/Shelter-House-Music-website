@@ -1,4 +1,13 @@
 :root {
+  /* Dynamic Theme Colors - Set by ThemeContext */
+  --color-primary: #aa2a46;
+  --color-secondary: #d63c65;
+  --color-accent: #fffced;
+  --color-background: #1a1b22;
+  --color-card-background: #21212b;
+  --color-text-primary: #fffced;
+  --color-text-secondary: #ffffff;
+  
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -13,6 +22,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -24,7 +34,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  display: block;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -65,4 +75,77 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Webkit fill available utility classes */
+.h-fill-available {
+  height: -webkit-fill-available;
+}
+
+.min-h-fill-available {
+  min-height: -webkit-fill-available;
+}
+
+/* Responsive variants */
+@media (max-width: 425px) {
+  .sm\:h-fill-available {
+    height: -webkit-fill-available;
+  }
+  
+  .sm\:min-h-fill-available {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Modern Scrollbar Styles */
+.custom-scrollbar {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #aa2a46 transparent;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, transparent 0%, rgba(26, 27, 34, 0.3) 50%, transparent 100%);
+  border-radius: 10px;
+  margin: 0 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #aa2a46 0%, #c90036 100%);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #c90036 0%, #e63946 100%);
+  border: 2px solid rgba(255, 252, 237, 0.2);
+  box-shadow: 0 0 10px rgba(201, 0, 54, 0.5);
+  transform: scaleY(1.1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(135deg, #8a1f35 0%, #aa2a46 100%);
+  box-shadow: 0 0 15px rgba(201, 0, 54, 0.8);
+}
+
+/* Smooth scroll behavior */
+.custom-scrollbar {
+  scroll-behavior: smooth;
+}
+
+/* Add subtle glow effect on hover for the entire scrollable container */
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #c90036 0%, #e63946 100%);
 }

@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Woman Like Me",
+        "artist": "Little Mix Feat. Nicki Minaj",
+        "img": "/src/assets/artist_mockup_pics%20/artist_top_track_card_pic/Link.png"
+    },
+    {
+        "name": "Later Bitches",
+        "artist": "The Prince Karma",
+        "img": "/src/assets/artist_mockup_pics%20/artist_top_track_card_pic/Link-1.png"
+    },
+    {
+        "name": "Happier",
+        "artist": "Marshmello & Bastille",
+        "img": "/src/assets/artist_mockup_pics%20/artist_top_track_card_pic/Link-2.png"
+    },
+    {
+        "name": "ZEZE",
+        "artist": "Kodak Black Feat. Offset &",
+        "img": "/src/assets/artist_mockup_pics%20/artist_top_track_card_pic/Link-3.png"
+    },
+    {
+        "name": "Electricity",
+        "artist": "Silk City & Dua Lipa Feat.",
+        "img": "/src/assets/artist_mockup_pics%20/artist_top_track_card_pic/Link-4.png"
+    },
+    {
+        "name": "In My Mind",
+        "artist": "Dynoro & Gigi D’Agostino",
+        "img": "/src/assets/artist_mockup_pics%20/artist_top_track_card_pic/Link-5.png"
+    }
+]
