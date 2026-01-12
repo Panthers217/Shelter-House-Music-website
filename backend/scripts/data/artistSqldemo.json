@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Panic! At The Disco",
+    "artist_country": "All countries",
+    "img": "trackcardImage[0]",
+    "track": "Woman Like Me",
+    "demo": true
+  },
+  {
+    "name": "Lukas Graham",
+    "artist_country": "Australia",
+    "img": "trackcardImage[1]",
+    "track": "Later Bitches",
+    "demo": true
+  },
+  {
+    "name": "Marshmello & Bastille",
+    "artist_country": "Canada",
+    "img": "trackcardImage[2]",
+    "track": "Happier",
+    "demo": true
+  },
+  {
+    "name": "XXXTENTACION & Lil",
+    "artist_country": "France",
+    "img": "trackcardImage[3]",
+    "track": "ZEZE",
+    "demo": true
+  },
+  {
+    "name": "Gucci Mane, Bruno",
+    "artist_country": "Germany",
+    "img": "trackcardImage[4]",
+    "track": "Electricity",
+    "demo": true
+  },
+  {
+    "name": "Loud Luxury Feat.",
+    "artist_country": "Ireland",
+    "img": "trackcardImage[5]",
+    "track": "In My Mind",
+    "demo": true
+  },
+  {
+    "name": "Lil Wayne",
+    "artist_country": "Netherlands",
+    "img": "trackcardImage[6]",
+    "track": "Woman Like Me",
+    "demo": true
+  },
+  {
+    "name": "Silk City & Dua Lipa",
+    "artist_country": "New Zealand",
+    "img": "trackcardImage[7]",
+    "track": "Later Bitches",
+    "demo": true
+  },
+  {
+    "name": "Khalid",
+    "artist_country": "United Kingdom",
+    "img": "trackcardImage[8]",
+    "track": "Happier",
+    "demo": true
+  },
+  {
+    "name": "Bad Bunny Feat.",
+    "artist_country": "USA",
+    "img": "trackcardImage[9]",
+    "track": "ZEZE",
+    "demo": true
+  },
+  {
+    "name": "Dynoro & Gigi",
+    "artist_country": "All countries",
+    "img": "trackcardImage[10]",
+    "track": "Electricity",
+    "demo": true
+  },
+  {
+    "name": "Benny Blanco, Halsey",
+    "artist_country": "Australia",
+    "img": "trackcardImage[11]",
+    "track": "In My Mind",
+    "demo": true
+  },
+  {
+    "name": "Rita Ora",
+    "artist_country": "Canada",
+    "img": "trackcardImage[12]",
+    "track": "Woman Like Me",
+    "demo": true
+  },
+  {
+    "name": "Ariana Grande",
+    "artist_country": "France",
+    "img": "trackcardImage[13]",
+    "track": "Later Bitches",
+    "demo": true
+  },
+  {
+    "name": "Clean Bandit Feat.",
+    "artist_country": "Germany",
+    "img": "trackcardImage[14]",
+    "track": "Happier",
+    "demo": true
+  },
+  {
+    "name": "DJ Snake Feat.",
+    "artist_country": "Ireland",
+    "img": "trackcardImage[15]",
+    "track": "ZEZE",
+    "demo": true
+  },
+  {
+    "name": "Don Diablo Feat.",
+    "artist_country": "Netherlands",
+    "img": "trackcardImage[16]",
+    "track": "Electricity",
+    "demo": true
+  },
+  {
+    "name": "The Prince Karma",
+    "artist_country": "New Zealand",
+    "img": "trackcardImage[17]",
+    "track": "In My Mind",
+    "demo": true
+  }
+]

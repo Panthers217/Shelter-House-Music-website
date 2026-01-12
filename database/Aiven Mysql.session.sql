@@ -1,0 +1,1 @@
+ALTER TABLE community_events ADD COLUMN image_public_identifier VARCHAR(255);

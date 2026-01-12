@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Panic! At The Disco",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link.png"
+    },
+    {
+        "name": "Lukas Graham",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-1.png"
+    },
+    {
+        "name": "Marshmello & Bastille",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-2.png"
+    },
+    {
+        "name": "XXXTENTACION & Lil",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-3.png"
+    },
+    {
+        "name": "Gucci Mane, Bruno",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-4.png"
+    },
+    {
+        "name": "Loud Luxury Feat.",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-5.png"
+    },
+    {
+        "name": "Lil Wayne",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-6.png"
+    },
+    {
+        "name": "Silk City & Dua Lipa",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-7.png"
+    },
+    {
+        "name": "Khalid",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-8.png"
+    },
+    {
+        "name": "Bad Bunny Feat.",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-9.png"
+    },
+    {
+        "name": "Dynoro & Gigi",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-10.png"
+    },
+    {
+        "name": "Benny Blanco, Halsey",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-11.png"
+    },
+    {
+        "name": "Rita Ora",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-12.png"
+    },
+    {
+        "name": "Ariana Grande",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-14.png"
+    },
+    {
+        "name": "Clean Bandit Feat.",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-14.png"
+    },
+    {
+        "name": "DJ Snake Feat.",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-15.png"
+    },
+    {
+        "name": "Don Diablo Feat.",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-16.png"
+    },
+    {
+        "name": "The Prince Karma",
+        "img": "/src/assets/artist_mockup_pics%20/artist_card_pic/Link-17.png"
+    }
+]

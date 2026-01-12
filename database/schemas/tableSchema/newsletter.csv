@@ -1,0 +1,6 @@
+"Field","Type","Null","Key","Default","Extra"
+"id","bigint unsigned","NO","PRI","","auto_increment"
+"email","varchar(100)","NO","UNI","",""
+"phone_number","varchar(20)","YES","","",""
+"subscribed_at","timestamp","YES","","CURRENT_TIMESTAMP","DEFAULT_GENERATED"
+"is_active","tinyint(1)","YES","","1",""
