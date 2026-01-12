@@ -1,4 +1,4 @@
-# Soul Felt Music 🎵
+# Shelter House Music 🎵
 
 A modern music streaming platform built with React and Node.js, featuring artist management, music streaming, merchandise store, and community features.
 
@@ -115,7 +115,7 @@ See `frontend/.env.example` for all required variables:
 ## 📂 Project Structure
 
 ```
-Soul-Felt-Music-site/
+Shelter-House-Music-site/
 ├── backend/              # Node.js/Express backend
 │   ├── config/          # Configuration files
 │   ├── controllers/     # Route controllers
@@ -184,4 +184,4 @@ This is a private project. Contact the repository owner for contribution guideli
 
 ---
 
-**Built with ❤️ by the Soul Felt Music team**
+**Built with ❤️ by the Shelter House Music team**

@@ -1,4 +1,4 @@
-# 📁 Soul Felt Music - Project Structure
+# 📁 Shelter House Music - Project Structure
 
 ## 📊 Complete Folder Structure Diagram
 

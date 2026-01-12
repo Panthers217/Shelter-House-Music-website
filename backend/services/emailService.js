@@ -300,7 +300,7 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
     </head>
     <body>
       <div class="header">
-        <h1>Soul Felt Music</h1>
+        <h1>Shelter House Music</h1>
         <p>${campaign.subject}</p>
       </div>
       
@@ -369,13 +369,13 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
       </div>
       
       <div class="footer">
-        <p>© ${new Date().getFullYear()} Soul Felt Music. All rights reserved.</p>
+        <p>© ${new Date().getFullYear()} Shelter House Music. All rights reserved.</p>
         <div class="unsubscribe">
           <a href="${
             process.env.FRONTEND_URL || "https://soulfeltmusic.com"
           }" style="color: #666;">Visit our website</a>
           <br><br>
-          You're receiving this because you subscribed to Soul Felt Music newsletter.
+          You're receiving this because you subscribed to Shelter House Music newsletter.
           <br>
           <a href="${
             process.env.FRONTEND_URL || "https://soulfeltmusic.com"
@@ -1179,7 +1179,7 @@ export async function testEmailConfig(testRecipient) {
     from: `"${fromName}" <${fromEmail}>`,
     to: testRecipient,
     replyTo: config.email_reply_to || fromEmail,
-    subject: "Test Email - Soul Felt Music",
+    subject: "Test Email - Shelter House Music",
     text: `This is a test email from Soul Felt Music newsletter system.\n\nProvider: ${
       config.email_provider || "smtp"
     }`,

@@ -1,7 +1,7 @@
 {
-  "name": "soul-felt-music-backend",
+  "name": "shelter-house-music-backend",
   "version": "1.0.0",
-  "description": "Backend for Soul Felt Music site",
+  "description": "Backend for Shelter House Music site",
   "main": "server.js",
   "type": "module",
   "scripts": {

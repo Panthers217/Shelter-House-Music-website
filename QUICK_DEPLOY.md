@@ -9,8 +9,8 @@ This is the **fast track** guide. For detailed instructions, see [DEPLOYMENT_GUI
 1. **Go to** https://render.com and sign up with GitHub
 
 2. **New Web Service**:
-   - Connect repository: `Soul-Felt-Music-site`
-   - Name: `soul-felt-music-backend`
+   - Connect repository: `Shelter-House-Music-site`
+   - Name: `shelter-house-music-backend`
    - Root Directory: `backend`
    - Environment: `Node`
    - Build Command: `npm install`
@@ -93,7 +93,7 @@ Commit and push - Render will auto-redeploy.
    VITE_FIREBASE_APP_ID=your-app-id
    VITE_STRIPE_PUBLIC_KEY=pk_live_xxxxx
    VITE_SITE_URL=https://your-site.netlify.app
-   VITE_SITE_NAME=Soul Felt Music
+   VITE_SITE_NAME=Shelter House Music
    ```
 
 4. **Click "Deploy Site"** and wait 5-10 minutes

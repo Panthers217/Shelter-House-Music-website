@@ -1,4 +1,4 @@
-# 🚀 Deployment Guide - Soul Felt Music
+# 🚀 Deployment Guide - Shelter House Music
 
 ## Overview
 
