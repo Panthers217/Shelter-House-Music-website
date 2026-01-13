@@ -1,3 +1,5 @@
 node_modules/
 .env
 .vscode/
+ca.pem
+aiven_dump.sql
