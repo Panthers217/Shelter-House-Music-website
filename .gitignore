@@ -3,3 +3,7 @@ node_modules/
 .vscode/
 ca.pem
 aiven_dump.sql
+
+# Docker volumes and temp files
+docker-compose.override.yml
+.docker/
