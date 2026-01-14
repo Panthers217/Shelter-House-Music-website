@@ -7,6 +7,7 @@ import { useNavbar } from "../context/NavbarContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import SearchBar from "./SearchBar";
+import shelterLogo from "../assets/Shelter-house-logo.png";
 
 export default function ResponsiveNavbar() {
   const { websiteUser, websiteSettings } = useApiData();
@@ -18,31 +19,15 @@ export default function ResponsiveNavbar() {
   const isUserAccountsEnabled = isEnabled('enable_user_accounts');
   
   const cartCount = getCartCount();
-  // const [_searchResults, setSearchResults] = useState(null);
   
-  // // Pages that use SearchBar - memoize to prevent unnecessary re-renders
-  // const showSearchBar = useMemo(() => {
-  //   const searchPages = ['/music', '/artists', '/videos', '/store'];
-  //   return searchPages.some(path => location.pathname.startsWith(path));
-  // }, [location.pathname]);
-
-  // Fallback logo
-  // const defaultLogo = (
-  //   <div className="flex flex-col items-center">
-  //     <span className="text-[#e6cfa7] text-xs tracking-widest">SOULFELT</span>
-  //     <span className="text-[#e6cfa7] text-lg font-medium tracking-widest">MUSIC</span>
-  //     <div className="w-20 h-1 bg-[#f7c900] mt-1 mb-1" />
-  //     <span className="text-[#e6cfa7] text-[7px] tracking-widest">FEEL THE VIBES</span>
-  //   </div>
-  // );
   
   // Fallback logo 2 with customizable text
   const defaultLogo2 = (
     <div className="flex flex-col items-center">
-      <span className="logoLine1 text-[#e6cfa7] text-xs tracking-widest">
+      <span className="logoLine1 text-shelter-honey text-xs tracking-widest">
         {websiteSettings?.logo_line1 || null}
       </span>
-      <span className="logoLine2 text-[#e6cfa7] text-lg font-medium tracking-widest">
+      <span className="logoLine2 text-shelter-honey text-lg font-medium tracking-widest">
         {websiteSettings?.logo_line2 || null}
       </span>
     </div>
@@ -61,10 +46,10 @@ export default function ResponsiveNavbar() {
     const { isNavbarOpen, toggleNavbar, closeNavbar } = useNavbar();
   
     return (
-      <nav className="bg-[#0c0504] w-full  fixed top-0 left-0 right-0 z-[100]">
+      <nav className="bg-shelter-charcoal w-full  fixed top-0 left-0 right-0 z-[100]">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Logo */}
-          <Link to="/" className="flex items-center" onClick={closeNavbar}>
+          <Link to="/" className="flex items-center gap-3" onClick={closeNavbar}>
             {websiteSettings?.logo_url ? (
               <img 
                 src={websiteSettings.logo_url} 
@@ -72,19 +57,26 @@ export default function ResponsiveNavbar() {
                 className="h-12 w-auto object-contain"
               />
             ) : (
-              defaultLogo2
+              <img 
+                src={shelterLogo} 
+                alt="Shelter House Music" 
+                className="h-12 w-auto object-contain"
+              />
             )}
+            <span className="text-shelter-white text-2xl font-['Brush_Script_MT','Lucida_Handwriting','cursive'] italic">
+              Shelter House Music
+            </span>
           </Link>
           
           {/* Right Side - Cart & Hamburger */}
           <div className="flex items-center gap-4">
             {/* Cart Icon */}
             <Link to="/cart" className="relative" onClick={closeNavbar}>
-              <svg className="w-7 h-7 text-[#e6cfa7] hover:text-[#f7c900] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-7 h-7 text-shelter-white hover:text-shelter-honey transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#c90036] text-[#e6cfa7] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-shelter-amber text-shelter-charcoal text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -92,22 +84,22 @@ export default function ResponsiveNavbar() {
             
             {/* Hamburger */}
             <button
-              className="text-[#e6cfa7] focus:outline-none"
+              className="text-shelter-white focus:outline-none"
               onClick={toggleNavbar}
               aria-label="Toggle menu"
             >
               <svg width="32" height="32" fill="none" viewBox="0 0 32 32">
-                <rect y="8" width="32" height="2" rx="1" fill="#e6cfa7" />
-                <rect y="15" width="32" height="2" rx="1" fill="#e6cfa7" />
-                <rect y="22" width="32" height="2" rx="1" fill="#e6cfa7" />
+                <rect y="8" width="32" height="2" rx="1" fill="currentColor" />
+                <rect y="15" width="32" height="2" rx="1" fill="currentColor" />
+                <rect y="22" width="32" height="2" rx="1" fill="currentColor" />
               </svg>
             </button>
           </div>
         </div>
         {/* Menu */}
         {isNavbarOpen && (
-          <div className="bg-[#0c0504] border-t border-[#1a1312] w-full">
-            <ul className="flex flex-col py-2 px-4 space-y-3 text-[#e6cfa7] text-base">
+          <div className="bg-shelter-charcoal border-t border-shelter-slate w-full">
+            <ul className="flex flex-col py-2 px-4 space-y-3 text-shelter-white text-base">
               <Link to="/" onClick={closeNavbar}>Home</Link>
               {isMerchandiseEnabled && <Link to="/store" onClick={closeNavbar}>Store</Link>}
               <Link to="/music" onClick={closeNavbar}>Music</Link>
@@ -119,31 +111,31 @@ export default function ResponsiveNavbar() {
               <Link to="/contact" onClick={closeNavbar}>Contact</Link>
               {websiteUser?.isAdmin && (
                 <>
-                  <Link to="/admin/dashboard" className="text-[#f7c900] font-semibold" onClick={closeNavbar}>🔧 Admin Dashboard</Link>
-                  <Link to="/admin/newsletter" className="text-[#f7c900] font-semibold" onClick={closeNavbar}>📧 Newsletter</Link>
-                  <Link to="/admin/faq" className="text-[#f7c900] font-semibold" onClick={closeNavbar}>❓ FAQ Management</Link>
+                  <Link to="/admin/dashboard" className="text-shelter-honey font-semibold" onClick={closeNavbar}>🔧 Admin Dashboard</Link>
+                  <Link to="/admin/newsletter" className="text-shelter-honey font-semibold" onClick={closeNavbar}>📧 Newsletter</Link>
+                  <Link to="/admin/faq" className="text-shelter-honey font-semibold" onClick={closeNavbar}>❓ FAQ Management</Link>
                 </>
               )}
             </ul>
             <div className="px-4 pb-4">
-              <div className="border border-[#1a1312] rounded-md p-3 w-40 flex flex-col gap-2">
+              <div className="border border-shelter-slate rounded-md p-3 w-40 flex flex-col gap-2">
                 {websiteUser ? (
                   <>
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-8 h-8 rounded-full bg-[#c90036] flex items-center justify-center">
-                        <span className="text-[#e6cfa7] font-bold text-sm">
+                      <div className="w-8 h-8 rounded-full bg-shelter-honey flex items-center justify-center">
+                        <span className="text-shelter-charcoal font-bold text-sm">
                           {websiteUser.email?.[0]?.toUpperCase() || 'U'}
                         </span>
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[#e6cfa7] text-xs truncate max-w-[100px]">
+                        <span className="text-shelter-white text-xs truncate max-w-[100px]">
                           {websiteUser.email}
                         </span>
                       </div>
                     </div>
                     <Link 
                       to="/purchase-history"
-                      className="text-[#e6cfa7] text-base hover:text-[#f7c900] transition-colors flex items-center gap-2"
+                      className="text-shelter-white text-base hover:text-shelter-honey transition-colors flex items-center gap-2"
                       onClick={closeNavbar}
                     >
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -156,7 +148,7 @@ export default function ResponsiveNavbar() {
                         handleSignOut();
                         closeNavbar();
                       }}
-                      className="text-[#c90036] text-base hover:text-[#1976d2] transition-colors"
+                      className="text-shelter-amber text-base hover:text-shelter-honey transition-colors"
                     >
                       Sign Out
                     </button>
@@ -165,8 +157,8 @@ export default function ResponsiveNavbar() {
                   <>
                     {(isUserAccountsEnabled || websiteUser?.isAdmin) && (
                       <>
-                        <Link to="/sign-up" className="text-[#1976d2] text-base" onClick={closeNavbar}>Sign Up</Link>
-                        <Link to="/login" className="text-[#1976d2] text-base" onClick={closeNavbar}>Login</Link>
+                        <Link to="/sign-up" className="text-shelter-honey text-base hover:text-shelter-amber" onClick={closeNavbar}>Sign Up</Link>
+                        <Link to="/login" className="text-shelter-honey text-base hover:text-shelter-amber" onClick={closeNavbar}>Login</Link>
                       </>
                     )}
                   </>
@@ -196,16 +188,25 @@ export default function ResponsiveNavbar() {
 
   const DesktopNavbar = () => {
     return (
-      <nav className="bg-[#1a0b0d] w-full flex items-center flex-wrap fixed top-0 left-0 right-0 z-[100]">
+      <nav className="bg-shelter-charcoal w-full flex items-center flex-wrap fixed top-0 left-0 right-0 z-[100]">
         {/* Logo Section */}
-        <Link to="/" className="flex items-center justify-center px-6 py-2 bg-[#0c0504]" style={{ minWidth: 145 }}>
+        <Link to="/" className="flex items-center justify-center gap-4 px-6 py-2 bg-[#0c0504]" style={{ minWidth: 145 }}>
           {websiteSettings?.logo_url ? (
             <img 
               src={websiteSettings.logo_url} 
               alt="Soul Felt Music" 
               className="h-16 w-auto object-contain"
             />
-          ) : (defaultLogo2)}
+          ) : (
+            <img 
+              src={shelterLogo} 
+              alt="Shelter House Music" 
+              className="h-16 w-auto object-contain"
+            />
+          )}
+          <span className="text-[#e6cfa7] text-3xl font-['Brush_Script_MT','Lucida_Handwriting','cursive'] italic whitespace-nowrap">
+            Shelter House Music
+          </span>
         </Link>
         {/* Nav Links */}
         <ul className="flex-1 flex justify-center items-center gap-[1rem] md:gap-[1rem] xl:gap-16 lg:text-md xl:text-[1.5rem] text-[#e6cfa7] xl:text-lg text-[1rem] font-normal">

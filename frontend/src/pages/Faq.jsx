@@ -73,22 +73,22 @@ const Faq = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0908] flex items-center justify-center">
-        <div className="text-[#fffced] text-xl">Loading FAQs...</div>
+      <div className="min-h-screen bg-shelter-charcoal flex items-center justify-center">
+        <div className="text-shelter-white text-xl">Loading FAQs...</div>
       </div>
     );
   }
 
   return (
     <ZoomFit>
-    <div className="min-h-screen bg-[#0a0908] py-12 px-4">
+    <div className="min-h-screen bg-shelter-charcoal py-12 px-4">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#fffced] mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-shelter-white mb-4">
             Frequently Asked Questions
           </h1>
-          <p className="text-[#fffced]/70 text-lg">
+          <p className="text-shelter-gray text-lg">
             Find answers to common questions about Soul Felt Music
           </p>
         </div>
@@ -97,13 +97,13 @@ const Faq = () => {
         <div className="mb-8 space-y-4">
           {/* Search Bar */}
           <div className="relative">
-            <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#fffced]/40" />
+            <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-shelter-gray" />
             <input
               type="text"
-              placeholder="Search questions..."
+              placeholder="Search FAQs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-[#1d1e26] text-[#fffced] rounded-lg border border-[#2a2b35] focus:border-[#aa2a46] focus:outline-none"
+              className="w-full pl-12 pr-4 py-3 bg-shelter-slate text-shelter-white rounded-lg border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20"
             />
           </div>
 
@@ -113,8 +113,8 @@ const Faq = () => {
               onClick={() => setSelectedCategory('all')}
               className={`px-4 py-2 rounded-lg transition ${
                 selectedCategory === 'all'
-                  ? 'bg-[#aa2a46] text-white'
-                  : 'bg-[#1d1e26] text-[#fffced]/70 hover:bg-[#2a2b35]'
+                  ? 'bg-shelter-honey text-shelter-charcoal font-semibold'
+                  : 'bg-shelter-slate text-shelter-gray hover:bg-shelter-slate/80'
               }`}
             >
               All Categories
@@ -125,8 +125,8 @@ const Faq = () => {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-lg transition ${
                   selectedCategory === category
-                    ? 'bg-[#aa2a46] text-white'
-                    : 'bg-[#1d1e26] text-[#fffced]/70 hover:bg-[#2a2b35]'
+                    ? 'bg-shelter-honey text-shelter-charcoal font-semibold'
+                    : 'bg-shelter-slate text-shelter-gray hover:bg-shelter-slate/80'
                 }`}
               >
                 {category}
@@ -136,7 +136,7 @@ const Faq = () => {
 
           {/* Results Count */}
           {searchQuery && (
-            <p className="text-[#fffced]/60 text-sm">
+            <p className="text-shelter-gray text-sm">
               Found {totalQuestions} {totalQuestions === 1 ? 'question' : 'questions'}
             </p>
           )}
@@ -145,7 +145,7 @@ const Faq = () => {
         {/* FAQ List */}
         {Object.keys(filteredFaqs).length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-[#fffced]/60 text-lg">
+            <p className="text-shelter-gray text-lg">
               No questions found matching your search.
             </p>
           </div>
@@ -154,7 +154,7 @@ const Faq = () => {
             {Object.entries(filteredFaqs).map(([category, categoryFaqs]) => (
               <div key={category} className="space-y-4">
                 {/* Category Header */}
-                <h2 className="text-2xl font-bold text-[#aa2a46] mb-4 pb-2 border-b border-[#2a2b35]">
+                <h2 className="text-2xl font-bold text-shelter-honey mb-4 pb-2 border-b border-shelter-slate">
                   {category}
                 </h2>
 
@@ -163,27 +163,27 @@ const Faq = () => {
                   {categoryFaqs.map(faq => (
                     <div
                       key={faq.id}
-                      className="bg-[#1d1e26] rounded-lg border border-[#2a2b35] overflow-hidden transition hover:border-[#aa2a46]/50"
+                      className="bg-shelter-slate rounded-lg border border-shelter-slate overflow-hidden transition hover:border-shelter-honey/50"
                     >
                       {/* Question */}
                       <button
                         onClick={() => toggleItem(faq.id)}
-                        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[#2a2b35]/30 transition"
+                        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-shelter-charcoal/30 transition"
                       >
-                        <span className="text-[#fffced] font-medium pr-4">
+                        <span className="text-shelter-white font-medium pr-4">
                           {faq.question}
                         </span>
                         {openItems[faq.id] ? (
-                          <FaChevronUp className="text-[#aa2a46] flex-shrink-0" />
+                          <FaChevronUp className="text-shelter-honey flex-shrink-0" />
                         ) : (
-                          <FaChevronDown className="text-[#fffced]/40 flex-shrink-0" />
+                          <FaChevronDown className="text-shelter-gray flex-shrink-0" />
                         )}
                       </button>
 
                       {/* Answer */}
                       {openItems[faq.id] && (
-                        <div className="px-6 py-4 border-t border-[#2a2b35] bg-[#0a0908]/50">
-                          <p className="text-[#fffced]/80 whitespace-pre-wrap leading-relaxed">
+                        <div className="px-6 py-4 border-t border-shelter-slate bg-shelter-charcoal/50">
+                          <p className="text-shelter-gray whitespace-pre-wrap leading-relaxed">
                             {faq.answer}
                           </p>
                         </div>
@@ -197,16 +197,16 @@ const Faq = () => {
         )}
 
         {/* Help Footer */}
-        <div className="mt-16 text-center bg-[#1d1e26] rounded-lg border border-[#2a2b35] p-8">
-          <h3 className="text-xl font-bold text-[#fffced] mb-2">
+        <div className="mt-16 text-center bg-shelter-slate rounded-lg border border-shelter-slate p-8">
+          <h3 className="text-xl font-bold text-shelter-white mb-2">
             Still have questions?
           </h3>
-          <p className="text-[#fffced]/70 mb-4">
+          <p className="text-shelter-gray mb-4">
             Can't find the answer you're looking for? Contact our support team.
           </p>
           <a
             href="/contact"
-            className="inline-block px-6 py-3 bg-[#aa2a46] text-white rounded-lg hover:bg-[#8a1f36] transition"
+            className="inline-block px-6 py-3 bg-shelter-honey text-shelter-charcoal font-semibold rounded-lg hover:bg-shelter-amber transition"
           >
             Contact Support
           </a>

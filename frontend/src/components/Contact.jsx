@@ -106,33 +106,33 @@ const Contact = () => {
             className="w-full max-w-[425px] min-w-[320px] bg-black flex flex-col items-start overflow-hidden mx-auto"
         >
             <div className="w-full bg-white flex flex-col items-start overflow-hidden pr-0 sm:pr-0">
-                <div className="w-full py-3 bg-[#1a1b22] flex flex-col items-center">
-                    <div className="w-full h-[1px] bg-[#6e5049]/20" />
-                    <div className="w-full max-w-[368px] pb-0.5 bg-[#21212b] flex flex-col items-start">
+                <div className="w-full py-3 bg-shelter-charcoal flex flex-col items-center">
+                    <div className="w-full h-[1px] bg-shelter-slate" />
+                    <div className="w-full max-w-[368px] pb-0.5 bg-shelter-slate flex flex-col items-start">
                         <div className="w-full relative">
                             <div className="relative left-0 top-0 w-full max-w-[368px] h-auto flex flex-col justify-center items-start gap-4 pr-4 pb-1">
-                                <div className="text-white text-nowrap text-5xl sm:text-6xl font-bold font-['Roboto'] leading-tight sm:pl-[5%] ">Contact Us</div>
-                                <div className="w-full max-w-[350px] text-white/80 text-base font-normal font-['Roboto'] leading-6 sm:text-xs sm:pl-[5%]">Get in touch with the Soul Felt Music team. We're here to help with any questions about our artists, music, or community.</div>
+                                <div className="text-shelter-white text-nowrap text-5xl sm:text-6xl font-bold font-['Roboto'] leading-tight sm:pl-[5%] ">Contact Us</div>
+                                <div className="w-full max-w-[350px] text-shelter-gray text-base font-normal font-['Roboto'] leading-6 sm:text-xs sm:pl-[5%]">Get in touch with the Soul Felt Music team. We're here to help with any questions about our artists, music, or community.</div>
                             </div>
                         </div>
                         <div className="relative left-0  w-full flex flex-col gap-12">
-                            <div className="w-full px-6 pt-6 pb-7 bg-[#1d1e26] rounded-lg shadow-md flex flex-col gap-7">
-                                <div className="w-full pb-1 border border-white/10 rounded flex justify-center gap-2">
+                            <div className="w-full px-6 pt-6 pb-7 bg-shelter-slate rounded-lg shadow-md flex flex-col gap-7">
+                                <div className="w-full pb-1 border border-shelter-slate rounded flex justify-center gap-2">
                                     {inquiryTabs.map(tab => (
                                         <button
                                             key={tab.value}
                                             type="button"
                                             className={`px-3 pt-1 pb-5 border rounded flex flex-col items-center justify-center transition-all duration-200 hover:scale-105 ${
                                                 activeTab === tab.value 
-                                                    ? 'border-[#aa2a46] bg-[#aa2a46]/10' 
-                                                    : 'border-white/20 hover:border-[#aa2a46]/50'
+                                                    ? 'border-shelter-honey bg-shelter-honey/10' 
+                                                    : 'border-shelter-slate hover:border-shelter-honey/50'
                                             }`}
                                             onClick={() => setActiveTab(tab.value)}
                                         >
                                             <div className={`text-center text-xs font-medium font-['Public_Sans'] leading-snug whitespace-nowrap ${
                                                 activeTab === tab.value 
-                                                    ? 'text-[#aa2a46]' 
-                                                    : 'text-white/60'
+                                                    ? 'text-shelter-honey' 
+                                                    : 'text-shelter-gray'
                                             }`}>{tab.label}</div>
                                         </button>
                                     ))}
@@ -145,11 +145,11 @@ const Contact = () => {
                                                 name="name"
                                                 value={form.name}
                                                 onChange={handleChange}
-                                                className="absolute left-0 top-6 w-full h-11 bg-[#060200] rounded-md border border-white/10 px-4 text-white placeholder:text-gray-500"
+                                                className="absolute left-0 top-6 w-full h-11 bg-shelter-charcoal rounded-md border border-shelter-slate focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/20 px-4 text-shelter-white placeholder:text-shelter-gray"
                                                 placeholder="Enter your full name"
                                                 required
                                             />
-                                            <div className="absolute left-0 top-0 text-[#fffced] text-xs font-medium font-['Public_Sans'] leading-5">Full Name *</div>
+                                            <div className="absolute left-0 top-0 text-shelter-white text-xs font-medium font-['Public_Sans'] leading-5">Full Name *</div>
                                         </div>
                                         <div className="w-full max-w-[310px] h-16 relative">
                                             <input
@@ -157,11 +157,11 @@ const Contact = () => {
                                                 name="email"
                                                 value={form.email}
                                                 onChange={handleChange}
-                                                className="absolute left-0 top-6 w-full h-11 bg-[#060200] rounded-md border border-white/10 px-4 text-white placeholder:text-gray-500"
+                                                className="absolute left-0 top-6 w-full h-11 bg-shelter-charcoal rounded-md border border-shelter-slate focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/20 px-4 text-shelter-white placeholder:text-shelter-gray"
                                                 placeholder="Enter your email"
                                                 required
                                             />
-                                            <div className="absolute left-0 top-0 text-[#fffced] text-xs font-medium font-['Public_Sans'] leading-5">Email Address *</div>
+                                            <div className="absolute left-0 top-0 text-shelter-white text-xs font-medium font-['Public_Sans'] leading-5">Email Address *</div>
                                         </div>
                                     </div>
                                     <div className="w-full max-w-[310px] h-16 relative">
@@ -170,19 +170,19 @@ const Contact = () => {
                                             name="subject"
                                             value={form.subject}
                                             onChange={handleChange}
-                                            className="absolute left-0 top-6 w-full h-11 bg-[#060200] rounded-md border border-white/10 px-4 text-white placeholder:text-gray-500"
+                                            className="absolute left-0 top-6 w-full h-11 bg-shelter-charcoal rounded-md border border-shelter-slate focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/20 px-4 text-shelter-white placeholder:text-shelter-gray"
                                             placeholder="What's this about?"
                                             required
                                         />
-                                        <div className="absolute left-0 top-0 text-[#fffced] text-xs font-medium font-['Public_Sans'] leading-5">Subject *</div>
+                                        <div className="absolute left-0 top-0 text-shelter-white text-xs font-medium font-['Public_Sans'] leading-5">Subject *</div>
                                     </div>
                                     <div className="w-full flex flex-col gap-2 pb-2">
-                                        <div className="text-[#fffced] text-xs font-medium font-['Public_Sans'] leading-5">Message *</div>
+                                        <div className="text-shelter-white text-xs font-medium font-['Public_Sans'] leading-5">Message *</div>
                                         <textarea
                                             name="message"
                                             value={form.message}
                                             onChange={handleChange}
-                                            className="w-full max-w-[310px] h-36 bg-[#060200] rounded-md border border-white/10 p-3 text-white placeholder:text-gray-500"
+                                            className="w-full max-w-[310px] h-36 bg-shelter-charcoal rounded-md border border-shelter-slate focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/20 p-3 text-shelter-white placeholder:text-shelter-gray"
                                             required
                                         />
                                     </div>
@@ -197,11 +197,11 @@ const Contact = () => {
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className={`w-1/2 py-3 bg-[#aa2a46] rounded-md flex flex-col items-center ${
-                                                loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#8a223a]'
+                                            className={`w-1/2 py-3 bg-shelter-honey text-shelter-charcoal font-semibold rounded-md flex flex-col items-center ${
+                                                loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-shelter-amber'
                                             }`}
                                         >
-                                            <div className="text-center text-[#fffced] text-sm font-medium font-['Public_Sans'] leading-snug">
+                                            <div className="text-center text-shelter-charcoal text-sm font-medium font-['Public_Sans'] leading-snug">
                                                 {loading ? 'Sending...' : 'Send Message'}
                                             </div>
                                         </button>
@@ -209,39 +209,39 @@ const Contact = () => {
                                 </form>
                             </div>
                             <div className="w-full flex flex-col gap-7 pt-0.5">
-                                <div className="w-full px-5 pt-5 pb-5 bg-[#1d1e26] rounded-lg shadow-md flex flex-col gap-5">
-                                    <div className="text-[#fffced] text-lg font-medium font-['Roboto'] leading-7">Get In Touch</div>
+                                <div className="w-full px-5 pt-5 pb-5 bg-shelter-slate rounded-lg shadow-md flex flex-col gap-5">
+                                    <div className="text-shelter-white text-lg font-medium font-['Roboto'] leading-7">Get In Touch</div>
                                     <div className="w-full flex flex-col gap-5">
                                         <div className="w-full flex gap-4 items-start">
-                                            <div className="p-2 bg-[#aa2a46] rounded-full flex items-center justify-center">
-                                                <div className="w-4 h-3 outline outline-2 outline-[#fffced]" />
+                                            <div className="p-2 bg-shelter-honey rounded-full flex items-center justify-center">
+                                                <div className="w-4 h-3 outline outline-2 outline-shelter-charcoal" />
                                             </div>
                                             <div className="flex flex-col gap-1">
-                                                <div className="text-[#fffced] text-sm font-medium font-['Public_Sans'] leading-snug">Email</div>
+                                                <div className="text-shelter-white text-sm font-medium font-['Public_Sans'] leading-snug">Email</div>
                                                 {getEmails().map((email, idx) => (
-                                                  <div key={idx} className="text-white/70 text-xs font-normal font-['Public_Sans'] leading-5">{email}</div>
+                                                  <div key={idx} className="text-shelter-gray text-xs font-normal font-['Public_Sans'] leading-5">{email}</div>
                                                 ))}
                                             </div>
                                         </div>
                                         <div className="w-full flex gap-4 items-start">
-                                            <div className="p-2 bg-[#aa2a46] rounded-full flex items-center justify-center">
-                                                <div className="w-4 h-4 outline outline-2 outline-[#fffced]" />
+                                            <div className="p-2 bg-shelter-honey rounded-full flex items-center justify-center">
+                                                <div className="w-4 h-4 outline outline-2 outline-shelter-charcoal" />
                                             </div>
                                             <div className="flex flex-col gap-0.5">
-                                                <div className="text-[#fffced] text-sm font-medium font-['Public_Sans'] leading-snug">Phone</div>
-                                                <div className="text-white/70 text-xs font-normal font-['Public_Sans'] leading-5">{contactInfo.contact_phone}</div>
-                                                <div className="text-white/50 text-[0.7rem] font-normal font-['Public_Sans'] leading-none">Mon-Fri, 9AM-6PM EST</div>
+                                                <div className="text-shelter-white text-sm font-medium font-['Public_Sans'] leading-snug">Phone</div>
+                                                <div className="text-shelter-gray text-xs font-normal font-['Public_Sans'] leading-5">{contactInfo.contact_phone}</div>
+                                                <div className="text-shelter-gray/70 text-[0.7rem] font-normal font-['Public_Sans'] leading-none">Mon-Fri, 9AM-6PM EST</div>
                                             </div>
                                         </div>
                                         <div className="w-full flex gap-4 items-start">
-                                            <div className="p-2 bg-[#aa2a46] rounded-full flex items-center justify-center">
-                                                <div className="w-3 h-4 outline outline-2 outline-[#fffced]" />
-                                                <div className="w-1 h-1 outline outline-2 outline-[#fffced] ml-2 mt-1" />
+                                            <div className="p-2 bg-shelter-honey rounded-full flex items-center justify-center">
+                                                <div className="w-3 h-4 outline outline-2 outline-shelter-charcoal" />
+                                                <div className="w-1 h-1 outline outline-2 outline-shelter-charcoal ml-2 mt-1" />
                                             </div>
                                             <div className="flex flex-col gap-1">
-                                                <div className="text-[#fffced] text-sm font-medium font-['Public_Sans'] leading-snug">Address</div>
+                                                <div className="text-shelter-white text-sm font-medium font-['Public_Sans'] leading-snug">Address</div>
                                                 {getAddressLines().map((line, idx) => (
-                                                  <div key={idx} className="text-white/70 text-xs font-normal font-['Public_Sans'] leading-5">{line}</div>
+                                                  <div key={idx} className="text-shelter-gray text-xs font-normal font-['Public_Sans'] leading-5">{line}</div>
                                                 ))}
                                             </div>
                                         </div>

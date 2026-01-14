@@ -270,9 +270,10 @@ const PopularAlbumsCarousel = () => {
   );
 
   return (
-    <section className="pb-[2.5%] lg:pb-[5%] w-full flex flex-col items-center py-8 bg-gradient-to-b from-[#232b2d] to-[#4d5c5f] [perspective:1000px] overflow-hidden">
+    <section className="pb-[2.5%] lg:pb-[5%] w-full flex flex-col items-center py-8 bg-gradient-to-br from-shelter-charcoal to-shelter-honey/100
+ [perspective:1000px] overflow-hidden">
       <div className="[transform:scale(1.2)] transition-transform duration-500">
-        <h2 className="sm:text-2xl text-3xl md:text-5xl font-bold text-[#8b9697] mb-8 tracking-wide text-center md:pt-[3%] lg:pt-[3%] xl:pt-[3%]">
+        <h2 className="sm:text-2xl text-3xl md:text-5xl font-bold text-shelter-white mb-8 tracking-wide text-center md:pt-[3%] lg:pt-[3%] xl:pt-[3%] ">
           POPULAR ALBUMS
         </h2>
         {/* Mobile: Use SingleImageCarousel */}

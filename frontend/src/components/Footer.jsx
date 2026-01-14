@@ -48,11 +48,11 @@ const Footer = () => {
   const isNewsletterEnabled = isEnabled('enable_newsletter');
 
   return (
-    <footer className="bg-[#120c0a] text-[#fffced] pt-8 pb-4 px-2">
-      <div className="max-w-7xl mx-auto border border-[#231f1c] rounded-sm p-6 md:p-8 flex flex-col md:flex-col lg:flex-row xl:flex-row md:items-start gap-8 md:gap-0">
+    <footer className="bg-shelter-charcoal text-shelter-white pt-8 pb-4 px-2">
+      <div className="max-w-7xl mx-auto border border-shelter-slate rounded-sm p-6 md:p-8 flex flex-col md:flex-col lg:flex-row xl:flex-row md:items-start gap-8 md:gap-0">
         {/* Left column */}
         <div className="flex-1 mb-6 md:mb-0">
-          <span className="text-[#aa2a46] text-2xl font-bold">
+          <span className="text-shelter-honey text-2xl font-bold">
             Soul Felt Music
           </span>
           <p className="mt-6 mb-0">
@@ -79,20 +79,20 @@ const Footer = () => {
         </div>
         {/* Support & Social */}
         <div className="flex-1 flex flex-col md:ml-8 mb-6 md:mb-0">
-          <div className="font-bold text-[#aa2a46] mb-2">Support</div>
+          <div className="font-bold text-shelter-honey mb-2">Support</div>
           <ul className="space-y-1 mb-3">
             {supportLinks.map((link) => (
               <li key={link.label}>
                 <Link
                   to={link.to}
-                  className="hover:text-[#aa2a46] focus:text-[#aa2a46] transition-colors underline-offset-2"
+                  className="hover:text-shelter-honey focus:text-shelter-honey transition-colors underline-offset-2"
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="font-bold text-[#aa2a46] mb-2">Follow Us</div>
+          <div className="font-bold text-shelter-honey mb-2">Follow Us</div>
           <div className="flex gap-3 text-2xl">
             <SocialMediaLinks
               iconSize={14}
@@ -116,7 +116,7 @@ const Footer = () => {
           />
         )}
       </div>
-      <div className="max-w-7xl mx-auto mt-4 text-xs text-[#fffced]">
+      <div className="max-w-7xl mx-auto mt-4 text-xs text-shelter-white">
         © 2024 Soul Felt Music. All rights reserved.
       </div>
     </footer>

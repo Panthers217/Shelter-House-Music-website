@@ -3,6 +3,7 @@ import AdminLogin from './components/AdminLogin'; // Import AdminLogin component
 import AdminSqlViewer from './components/AdminSqlViewer';
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import backgroundImage from './assets/Shelter-House-img2.png';
 import { NavbarProvider, useNavbar } from './context/NavbarContext';
 
 // Import your components here
@@ -122,21 +123,29 @@ function AppContent() {
     
       <Router>
        
-        <div className="main-class min-h-screen  flex flex-col ">
+        <div 
+          className="main-class min-h-screen flex flex-col relative"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: '#000'
+          }}
+        >
           <ScrollToTop />
           <Toaster />
-          <ProjectWalkthroughVideo />
+          {/* <ProjectWalkthroughVideo />
           <WelcomeToast />
-          <ProjectStructureViewer />
+          <ProjectStructureViewer /> */}
           {/* <NavBar /> */}
           <div className="flex w-full ">
           <ResponsiveNavbar />
           </div>
          
-          <main className={`flex-1 bg-[black] pt-[4rem] lg:pt-[3rem] xl:pt-[3rem] ${isNavbarOpen ? (user ? 'sm:pt-[35rem] md:pt-[30rem]' : 'sm:pt-[35rem] md:pt-[35rem]') : 'sm:pt-[4rem] md:pt-[4rem] ' } transition-all duration-300`}>
-          <div className=" pt-[0rem]" >
-          <DemoBanner/>
-          </div>
+          <main className={`flex-1 pt-[4rem] lg:pt-[3rem] xl:pt-[3rem] ${isNavbarOpen ? (user ? 'sm:pt-[35rem] md:pt-[30rem]' : 'sm:pt-[35rem] md:pt-[35rem]') : 'sm:pt-[4rem] md:pt-[4rem] ' } transition-all duration-300`}>
+          
           <Routes>
             <Route path="/" element={<Home />} />
             {/* <Route path="/store" element={<Store />} /> */}

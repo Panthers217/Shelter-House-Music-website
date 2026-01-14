@@ -7,7 +7,18 @@ export default {
   theme: {
     extend: {
        colors: {
-        // Dynamic theme colors from CSS variables
+        // Shelter House Music Brand Colors
+        shelter: {
+          white: '#F5F5F2',
+          honey: '#D4A24C',
+          amber: '#B8872A',
+          charcoal: '#1E1E1E',
+          slate: '#2A2A2A',
+          gray: '#8A8A85',
+          olive: '#6F7D5C',
+        },
+        
+        // Dynamic theme colors from CSS variables (for backward compatibility)
         'primary': 'var(--color-primary)',
         'secondary': 'var(--color-secondary)',
         'accent': 'var(--color-accent)',

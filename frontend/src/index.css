@@ -1,12 +1,24 @@
 :root {
-  /* Dynamic Theme Colors - Set by ThemeContext */
-  --color-primary: #aa2a46;
-  --color-secondary: #d63c65;
-  --color-accent: #fffced;
-  --color-background: #1a1b22;
-  --color-card-background: #21212b;
-  --color-text-primary: #fffced;
-  --color-text-secondary: #ffffff;
+  /* Shelter House Music Brand Colors */
+  --shelter-white: #F5F5F2;
+  --shelter-honey: #D4A24C;
+  --shelter-amber: #B8872A;
+  --shelter-charcoal: #1E1E1E;
+  --shelter-slate: #2A2A2A;
+  --shelter-gray: #8A8A85;
+  --shelter-olive: #6F7D5C;
+
+  /* Dynamic Theme Colors - Mapped to Shelter Brand */
+  --color-primary: #D4A24C;         /* honey (main CTA) */
+  --color-secondary: #B8872A;       /* amber (hover/active) */
+  --color-accent: #6F7D5C;          /* olive (sparingly) */
+
+  --color-background: #1E1E1E;      /* charcoal (main background) */
+  --color-card-background: #2A2A2A; /* slate (cards/sections) */
+
+  --color-text-primary: #F5F5F2;    /* shelter white */
+  --color-text-secondary: #8A8A85;  /* warm gray */
+
   
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -105,7 +117,7 @@ button:focus-visible {
 .custom-scrollbar {
   /* Firefox */
   scrollbar-width: thin;
-  scrollbar-color: #aa2a46 transparent;
+  scrollbar-color: #D4A24C transparent;
 }
 
 /* Webkit browsers (Chrome, Safari, Edge) */
@@ -115,13 +127,13 @@ button:focus-visible {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: linear-gradient(90deg, transparent 0%, rgba(26, 27, 34, 0.3) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(30, 30, 30, 0.3) 50%, transparent 100%);
   border-radius: 10px;
   margin: 0 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #aa2a46 0%, #c90036 100%);
+  background: linear-gradient(135deg, #D4A24C 0%, #B8872A 100%);
   border-radius: 10px;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -129,15 +141,15 @@ button:focus-visible {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #c90036 0%, #e63946 100%);
-  border: 2px solid rgba(255, 252, 237, 0.2);
-  box-shadow: 0 0 10px rgba(201, 0, 54, 0.5);
+  background: linear-gradient(135deg, #B8872A 0%, #D4A24C 100%);
+  border: 2px solid rgba(245, 245, 242, 0.2);
+  box-shadow: 0 0 10px rgba(212, 162, 76, 0.5);
   transform: scaleY(1.1);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(135deg, #8a1f35 0%, #aa2a46 100%);
-  box-shadow: 0 0 15px rgba(201, 0, 54, 0.8);
+  background: linear-gradient(135deg, #B8872A 0%, #D4A24C 100%);
+  box-shadow: 0 0 15px rgba(212, 162, 76, 0.8);
 }
 
 /* Smooth scroll behavior */
