@@ -108,11 +108,11 @@ const Footer = () => {
               containerClassName="flex gap-2"
               iconClassName="text-gray-400 hover:text-white"
               showTitle={false}
-              platformFilter={['facebook', 'youtube']}
-              customLinks={{
-    facebook: 'https://www.facebook.com/shelterhousemusicministry',
-    youtube: 'https://www.youtube.com/@ShelterHouseMusic'
-  }}
+  //             platformFilter={['facebook', 'youtube']}
+  //             customLinks={{
+  //   facebook: 'https://www.facebook.com/shelterhousemusicministry',
+  //   youtube: 'https://www.youtube.com/@ShelterHouseMusic'
+  // }}
             />
           </div>
         </div>

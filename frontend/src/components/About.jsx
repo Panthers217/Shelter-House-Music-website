@@ -72,13 +72,13 @@ const About = () => {
 
   return (
     <ZoomFit>
-    <div className="min-h-screen py-16 px-4" style={{ backgroundColor: themeColors?.background || '#0c0504' }}>
+    <div className="min-h-screen py-16 px-4 bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal">
       <div className="max-w-7xl mx-auto">
         
         {/* Demo Banner - Detailed variant for About page */}
-        <div className="mb-12">
+        {/* <div className="mb-12">
           <DemoBanner variant="detailed" showAdminInfo={true} />
-        </div>
+        </div> */}
 
         {/* Hero Section with Logo */}
         <div className="text-center mb-20">
@@ -86,44 +86,40 @@ const About = () => {
             {websiteSettings?.logo_url ? (
               <img 
                 src={websiteSettings.logo_url} 
-                alt="Soul Felt Music Logo" 
+                alt="Shelter House Music Logo" 
                 className="h-32 md:h-40 w-auto object-contain animate-fade-in"
               />
             ) : (
               <div className="flex flex-col items-center">
-                <span className="text-5xl md:text-6xl font-bold" style={{ color: themeColors?.accent || '#aa2a46' }}>
-                  Soul Felt Music
+                <span className="text-5xl md:text-6xl font-bold text-shelter-honey">
+                  Shelter House Music
                 </span>
-                <div className="w-32 h-1 mt-4" style={{ backgroundColor: themeColors?.secondary || '#f7c900' }}></div>
+                <div className="w-32 h-1 mt-4 bg-shelter-amber"></div>
               </div>
             )}
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: themeColors?.text || '#e6cfa7' }}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-shelter-white">
             {websiteSettings?.about_page_title || 'About Us'}
           </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed" style={{ color: themeColors?.textSecondary || '#fffced', opacity: 0.9 }}>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-shelter-gray">
             {websiteSettings?.about_hero_tagline || 'Where passion meets melody, and artists connect with souls who truly feel the music.'}
           </p>
         </div>
 
         {/* Our Story Section */}
-        <div className="mb-20 bg-gradient-to-br p-8 md:p-12 rounded-2xl shadow-2xl" 
-          style={{ 
-            background: `linear-gradient(135deg, ${themeColors?.primary || '#1a0b0d'} 0%, ${themeColors?.background || '#0c0504'} 100%)`,
-            border: `1px solid ${themeColors?.accent || '#aa2a46'}33`
-          }}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center" style={{ color: themeColors?.accent || '#aa2a46' }}>
+        <div className="mb-20 bg-gradient-to-br from-shelter-slate to-shelter-charcoal p-8 md:p-12 rounded-2xl shadow-2xl border border-shelter-honey/20">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-shelter-honey">
             Our Story
           </h2>
-          <div className="prose prose-lg max-w-none" style={{ color: themeColors?.textSecondary || '#fffced' }}>
-            <p className="text-lg md:text-xl leading-relaxed mb-6 opacity-90">
-              {websiteSettings?.about_story_paragraph1 || 'Soul Felt Music was born from a simple belief: that music has the power to touch souls and transform lives. Founded by passionate music enthusiasts, we set out to create more than just another music platform—we wanted to build a home for artists and listeners who believe in the raw, authentic power of music.'}
+          <div className="prose prose-lg max-w-none text-shelter-white">
+            <p className="text-lg md:text-xl leading-relaxed mb-6 text-shelter-white">
+              {websiteSettings?.about_story_paragraph1 || 'Shelter House Music was born from a simple belief: that music has the power to touch souls and transform lives. Founded by passionate music enthusiasts, we set out to create more than just another music platform—we wanted to build a home for artists and listeners who believe in the raw, authentic power of music.'}
             </p>
-            <p className="text-lg md:text-xl leading-relaxed mb-6 opacity-90">
+            <p className="text-lg md:text-xl leading-relaxed mb-6 text-shelter-white">
               {websiteSettings?.about_story_paragraph2 || 'In an industry often dominated by algorithms and mainstream trends, we champion the independent spirit. We provide a space where emerging artists can showcase their talent, where established musicians can connect deeply with their fans, and where music lovers can discover sounds that resonate with their souls.'}
             </p>
-            <p className="text-lg md:text-xl leading-relaxed opacity-90">
-              {websiteSettings?.about_story_paragraph3 || 'Today, Soul Felt Music has grown into a thriving community of artists, producers, and fans united by their love for authentic, soulful music. Every track, every album, every artist on our platform represents a story waiting to be heard—and we\'re honored to be part of that journey.'}
+            <p className="text-lg md:text-xl leading-relaxed text-shelter-white">
+              {websiteSettings?.about_story_paragraph3 || 'Today, Shelter House Music has grown into a thriving community of artists, producers, and fans united by their love for authentic, soulful music. Every track, every album, every artist on our platform represents a story waiting to be heard—and we\'re honored to be part of that journey.'}
             </p>
           </div>
         </div>
@@ -133,21 +129,17 @@ const About = () => {
           {missionPoints.map((point, index) => (
             <div 
               key={index}
-              className="p-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
-              style={{ 
-                backgroundColor: themeColors?.primary || '#1a0b0d',
-                border: `2px solid ${themeColors?.accent || '#aa2a46'}33`
-              }}
+              className="bg-shelter-slate p-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 border-2 border-shelter-honey/20 hover:border-shelter-honey/50"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-full" style={{ backgroundColor: `${themeColors?.accent || '#aa2a46'}22`, color: themeColors?.accent || '#aa2a46' }}>
+                <div className="p-3 rounded-full bg-shelter-honey/15 text-shelter-honey">
                   {point.icon}
                 </div>
-                <h3 className="text-2xl font-bold" style={{ color: themeColors?.accent || '#aa2a46' }}>
+                <h3 className="text-2xl font-bold text-shelter-honey">
                   {point.title}
                 </h3>
               </div>
-              <p className="text-lg leading-relaxed" style={{ color: themeColors?.textSecondary || '#fffced', opacity: 0.9 }}>
+              <p className="text-lg leading-relaxed text-shelter-white">
                 {point.description}
               </p>
             </div>
@@ -155,49 +147,42 @@ const About = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="mb-20 p-8 md:p-12 rounded-2xl shadow-2xl" 
-          style={{ 
-            background: `linear-gradient(135deg, ${themeColors?.accent || '#aa2a46'} 0%, ${themeColors?.primary || '#1a0b0d'} 100%)`
-          }}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" style={{ color: themeColors?.textSecondary || '#fffced' }}>
+        {/* <div className="mb-20 p-8 md:p-12 rounded-2xl shadow-2xl bg-gradient-to-br from-shelter-honey to-shelter-amber">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-shelter-charcoal">
             Our Impact
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center transform hover:scale-110 transition-transform duration-300">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: themeColors?.secondary || '#f7c900' }}>
+                <div className="text-4xl md:text-5xl font-bold mb-2 text-shelter-charcoal">
                   {stat.number}
                 </div>
-                <div className="text-lg" style={{ color: themeColors?.textSecondary || '#fffced', opacity: 0.9 }}>
+                <div className="text-lg text-shelter-charcoal/80">
                   {stat.label}
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Core Values */}
         <div className="mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" style={{ color: themeColors?.text || '#e6cfa7' }}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-shelter-white">
             What We Stand For
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {coreValues.map((value, index) => (
               <div 
                 key={index}
-                className="p-6 rounded-xl text-center transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl"
-                style={{ 
-                  backgroundColor: themeColors?.primary || '#1a0b0d',
-                  border: `1px solid ${themeColors?.accent || '#aa2a46'}33`
-                }}
+                className="bg-shelter-slate p-6 rounded-xl text-center transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl border border-shelter-honey/20 hover:border-shelter-honey/50"
               >
-                <div className="mb-4 flex justify-center" style={{ color: themeColors?.accent || '#aa2a46' }}>
+                <div className="mb-4 flex justify-center text-shelter-honey">
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-3" style={{ color: themeColors?.text || '#e6cfa7' }}>
+                <h3 className="text-xl font-bold mb-3 text-shelter-white">
                   {value.title}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: themeColors?.textSecondary || '#fffced', opacity: 0.85 }}>
+                <p className="text-sm leading-relaxed text-shelter-white">
                   {value.description}
                 </p>
               </div>
@@ -206,24 +191,19 @@ const About = () => {
         </div>
 
         {/* Contact Info Section */}
-        <div className="mb-20 p-8 md:p-12 rounded-2xl shadow-2xl" 
-          style={{ 
-            backgroundColor: themeColors?.primary || '#1a0b0d',
-            border: `2px solid ${themeColors?.accent || '#aa2a46'}33`
-          }}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center" style={{ color: themeColors?.accent || '#aa2a46' }}>
+        <div className="mb-20 bg-shelter-slate p-8 md:p-12 rounded-2xl shadow-2xl border-2 border-shelter-honey/20">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-shelter-honey">
             Get In Touch
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {websiteSettings?.email && (
               <div className="flex items-start gap-4">
-                <MdEmail className="text-3xl flex-shrink-0" style={{ color: themeColors?.accent || '#aa2a46' }} />
+                <MdEmail className="text-3xl flex-shrink-0 text-shelter-honey" />
                 <div>
-                  <h3 className="font-bold text-lg mb-2" style={{ color: themeColors?.text || '#e6cfa7' }}>Email</h3>
+                  <h3 className="font-bold text-lg mb-2 text-shelter-white">Email</h3>
                   <a 
                     href={`mailto:${websiteSettings.email}`}
-                    className="hover:underline"
-                    style={{ color: themeColors?.textSecondary || '#fffced', opacity: 0.9 }}
+                    className="text-shelter-gray hover:text-shelter-honey hover:underline transition-colors"
                   >
                     {websiteSettings.email}
                   </a>
@@ -232,13 +212,12 @@ const About = () => {
             )}
             {websiteSettings?.phone && (
               <div className="flex items-start gap-4">
-                <MdPhone className="text-3xl flex-shrink-0" style={{ color: themeColors?.accent || '#aa2a46' }} />
+                <MdPhone className="text-3xl flex-shrink-0 text-shelter-honey" />
                 <div>
-                  <h3 className="font-bold text-lg mb-2" style={{ color: themeColors?.text || '#e6cfa7' }}>Phone</h3>
+                  <h3 className="font-bold text-lg mb-2 text-shelter-white">Phone</h3>
                   <a 
                     href={`tel:${websiteSettings.phone}`}
-                    className="hover:underline"
-                    style={{ color: themeColors?.textSecondary || '#fffced', opacity: 0.9 }}
+                    className="text-shelter-gray hover:text-shelter-honey hover:underline transition-colors"
                   >
                     {websiteSettings.phone}
                   </a>
@@ -247,10 +226,10 @@ const About = () => {
             )}
             {websiteSettings?.address && (
               <div className="flex items-start gap-4">
-                <MdLocationOn className="text-3xl flex-shrink-0" style={{ color: themeColors?.accent || '#aa2a46' }} />
+                <MdLocationOn className="text-3xl flex-shrink-0 text-shelter-honey" />
                 <div>
-                  <h3 className="font-bold text-lg mb-2" style={{ color: themeColors?.text || '#e6cfa7' }}>Location</h3>
-                  <p style={{ color: themeColors?.textSecondary || '#fffced', opacity: 0.9 }}>
+                  <h3 className="font-bold text-lg mb-2 text-shelter-white">Location</h3>
+                  <p className="text-shelter-gray">
                     {websiteSettings.address}
                   </p>
                 </div>
@@ -260,35 +239,23 @@ const About = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center p-12 rounded-2xl shadow-2xl" 
-          style={{ 
-            background: `linear-gradient(135deg, ${themeColors?.accent || '#aa2a46'} 0%, ${themeColors?.primary || '#1a0b0d'} 100%)`
-          }}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: themeColors?.textSecondary || '#fffced' }}>
+        <div className="text-center p-12 rounded-2xl shadow-2xl bg-gradient-to-br from-shelter-honey to-shelter-amber">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-shelter-charcoal">
             {websiteSettings?.about_cta_title || 'Join Our Community'}
           </h2>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: themeColors?.textSecondary || '#fffced', opacity: 0.9 }}>
-            {websiteSettings?.about_cta_description || 'Whether you\'re an artist looking to share your sound or a music lover seeking authentic experiences, Soul Felt Music is your home.'}
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-shelter-charcoal">
+            {websiteSettings?.about_cta_description || 'Whether you\'re an artist looking to share your sound or a music lover seeking authentic experiences, Shelter House Music is your home.'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/artists"
-              className="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
-              style={{
-                backgroundColor: themeColors?.secondary || '#f7c900',
-                color: themeColors?.background || '#0c0504'
-              }}
+              className="bg-shelter-charcoal text-shelter-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:bg-shelter-slate"
             >
               Explore Artists
             </Link>
             <Link
               to="/contact"
-              className="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 border-2"
-              style={{
-                borderColor: themeColors?.textSecondary || '#fffced',
-                color: themeColors?.textSecondary || '#fffced',
-                backgroundColor: 'transparent'
-              }}
+              className="bg-transparent border-2 border-shelter-charcoal text-shelter-charcoal px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:bg-shelter-charcoal hover:text-shelter-white"
             >
               Contact Us
             </Link>
