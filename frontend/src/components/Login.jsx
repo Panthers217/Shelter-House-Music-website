@@ -71,9 +71,9 @@ const Login = () => {
 
 	return (
 		<ZoomFit>
-		<section className="w-full min-h-screen bg-[#1a1b22] flex flex-col items-center justify-center py-10 px-4">
-			<div className="w-full max-w-md bg-[#21212b] rounded-lg shadow-lg p-8 flex flex-col gap-6">
-				<h2 className="text-[#fffced] text-3xl md:text-4xl font-bold font-['Roboto'] mb-2 text-center">Login</h2>
+		<section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center justify-center py-10 px-4">
+			<div className="w-full max-w-md bg-shelter-slate rounded-lg shadow-lg p-8 flex flex-col gap-6 ring-1 ring-shelter-honey/20">
+				<h2 className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-3xl md:text-4xl font-bold font-['Roboto'] mb-2 text-center">Login</h2>
 				
 				{error && (
 					<div className="bg-red-500/20 border border-red-500 text-red-500 px-4 py-3 rounded-md text-sm">
@@ -88,7 +88,7 @@ const Login = () => {
 						value={form.email}
 						onChange={handleChange}
 						placeholder="Email Address"
-						className="w-full px-4 py-3 rounded-md bg-[#1d1e26] text-[#fffced] border border-[#aa2a46] focus:outline-none focus:border-[#fffced] font-medium"
+						className="w-full px-4 py-3 rounded-md bg-shelter-charcoal text-shelter-white border border-shelter-honey/20 focus:outline-none focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/30 placeholder:text-shelter-gray font-medium"
 						required
 						disabled={loading}
 					/>
@@ -98,14 +98,14 @@ const Login = () => {
 						value={form.password}
 						onChange={handleChange}
 						placeholder="Password"
-						className="w-full px-4 py-3 rounded-md bg-[#1d1e26] text-[#fffced] border border-[#aa2a46] focus:outline-none focus:border-[#fffced] font-medium"
+						className="w-full px-4 py-3 rounded-md bg-shelter-charcoal text-shelter-white border border-shelter-honey/20 focus:outline-none focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/30 placeholder:text-shelter-gray font-medium"
 						required
 						disabled={loading}
 					/>
 					<button
 						type="submit"
 						disabled={loading}
-						className="w-full py-3 bg-[#aa2a46] text-[#fffced] rounded-md font-bold text-lg hover:bg-[#fffced] hover:text-[#aa2a46] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+						className="w-full py-3 bg-shelter-honey text-shelter-charcoal rounded-md font-bold text-lg hover:bg-shelter-amber focus:ring-2 focus:ring-shelter-honey transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 					>
 						{loading ? 'Logging in...' : 'Login'}
 					</button>
@@ -117,9 +117,9 @@ const Login = () => {
 					</div>
 				)}
 				
-				<div className="text-center text-[#fffced]/70 text-sm">
+				<div className="text-center text-shelter-gray text-sm">
 					Don't have an account?{' '}
-					<Link to="/sign-up" className="text-[#aa2a46] hover:text-[#fffced] font-semibold">
+					<Link to="/sign-up" className="text-shelter-honey hover:text-shelter-amber font-semibold">
 						Sign up here
 					</Link>
 				</div>

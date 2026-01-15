@@ -92,10 +92,10 @@ const ArtistPlaylist = () => {
   }
 
   return (
-    <div className="w-full bg-gradient-to-br from-[#21212b] to-[#1a1b22] rounded-xl shadow-2xl  border border-[#aa2a46]/20">
+    <div className="w-full bg-gradient-to-br from-shelter-slate to-shelter-charcoal rounded-xl shadow-2xl border border-shelter-honey/20">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#aa2a46] to-[#d63c65] px-6 py-4">
-        <h3 className="text-[#fffced] text-2xl font-bold flex items-center gap-3">
+      <div className="bg-gradient-to-r from-shelter-honey to-shelter-amber px-6 py-4">
+        <h3 className="text-shelter-charcoal text-2xl font-bold flex items-center gap-3">
           <span className="i-lucide-list-video text-3xl"></span>
           Artist Playlist
         </h3>
@@ -110,9 +110,9 @@ const ArtistPlaylist = () => {
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
-          <div className="flex-wrap inline-block w-[50%] sm:inline-block sm:w-[100%] md:w-[100%] lg:w-[100%] bg-[#1d1e26] rounded-xl overflow-hidden shadow-lg border-2 border-[#aa2a46]/30 hover:border-[#aa2a46] transition-all duration-300">
+          <div className="flex-wrap inline-block w-[50%] sm:inline-block sm:w-[100%] md:w-[100%] lg:w-[100%] bg-shelter-slate rounded-xl overflow-hidden shadow-lg border-2 border-shelter-honey/30 hover:border-shelter-honey transition-all duration-300">
             {/* Artist Image */}
-            <div className="w-[16.1875rem] h-[16.1875rem] relative aspect-square overflow-hidden bg-gradient-to-br from-[#aa2a46]/20 to-[#d63c65]/20">
+            <div className="w-[16.1875rem] h-[16.1875rem] relative aspect-square overflow-hidden bg-gradient-to-br from-shelter-honey/20 to-shelter-amber/20">
               {getArtistImage(currentArtist.id) ? (
                 <img
                   src={getArtistImage(currentArtist.id)}
@@ -121,32 +121,32 @@ const ArtistPlaylist = () => {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="i-lucide-user text-[#aa2a46] text-8xl opacity-30"></span>
+                  <span className="i-lucide-user text-shelter-honey text-8xl opacity-30"></span>
                 </div>
               )}
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1d1e26] via-transparent to-transparent opacity-60"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-shelter-slate via-transparent to-transparent opacity-60"></div>
             </div>
 
             {/* Artist Info */}
             <div className="p-6">
-              <h4 className="text-[#fffced] text-2xl font-bold mb-2 line-clamp-2">
+              <h4 className="text-shelter-white text-2xl font-bold mb-2 line-clamp-2">
                 {currentArtist.name || currentArtist.artist_name}
               </h4>
 
               {currentArtist.bio && (
-                <p className="text-[#fffced]/70 text-lg mb-4 line-clamp-3 overflow-auto max-h-24 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <p className="text-shelter-gray text-lg mb-4 line-clamp-3 overflow-auto max-h-24 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                   {currentArtist.bio}
                 </p>
               )}
 
               {/* Stats */}
-              <div className="flex items-center gap-4 text-[#aa2a46] text-sm font-semibold">
+              <div className="flex items-center gap-4 text-shelter-honey text-sm font-semibold">
                 <div className="flex items-center gap-1">
                   <span className="i-lucide-film"></span>
                   <span>{currentVideoUrls.length} Videos</span>
                 </div>
-                <div className="flex text-lg text-[green] items-center gap-1">
+                <div className="flex text-lg text-shelter-olive items-center gap-1">
                   <span className="i-lucide-music"></span>
                   <span>{currentArtist.genre || "Various"}</span>
                 </div>
@@ -160,14 +160,14 @@ const ArtistPlaylist = () => {
                       prev === 0 ? artists.length - 1 : prev - 1
                     )
                   }
-                  className="px-4 py-2 bg-[#aa2a46] text-[#fffced] rounded-lg font-bold hover:bg-[#d63c65] transition-all duration-300 flex items-center gap-2"
+                  className="px-4 py-2 bg-shelter-honey text-shelter-charcoal rounded-lg font-bold hover:bg-shelter-amber transition-all duration-300 flex items-center gap-2 focus:ring-2 focus:ring-shelter-honey disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={artists.length <= 1}
                 >
                   <span className="i-lucide-chevron-left"></span>
                   Prev
                 </button>
 
-                <div className="text-[#fffced]/60 text-sm font-semibold">
+                <div className="text-shelter-gray text-sm font-semibold">
                   {currentArtistIndex + 1} / {artists.length}
                 </div>
 
@@ -175,7 +175,7 @@ const ArtistPlaylist = () => {
                   onClick={() =>
                     setCurrentArtistIndex((prev) => (prev + 1) % artists.length)
                   }
-                  className="px-4 py-2 bg-[#aa2a46] text-[#fffced] rounded-lg font-bold hover:bg-[#d63c65] transition-all duration-300 flex items-center gap-2"
+                  className="px-4 py-2 bg-shelter-honey text-shelter-charcoal rounded-lg font-bold hover:bg-shelter-amber transition-all duration-300 flex items-center gap-2 focus:ring-2 focus:ring-shelter-honey disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={artists.length <= 1}
                 >
                   Next
@@ -184,9 +184,9 @@ const ArtistPlaylist = () => {
               </div>
 
               {/* Auto-play Indicator */}
-              <div className="mt-4 px-3 py-2 bg-[#aa2a46]/20 rounded-lg text-center">
-                <p className="text-[white] text-lg font-semibold flex items-center justify-center gap-2">
-                  <span className="i-lucide-shuffle animate-pulse"></span>
+              <div className="mt-4 px-3 py-2 bg-shelter-honey/20 rounded-lg text-center">
+                <p className="text-shelter-white text-lg font-semibold flex items-center justify-center gap-2">
+                  <span className="i-lucide-shuffle animate-pulse text-shelter-honey"></span>
                   Auto-playing next artist when playlist ends
                 </p>
               </div>
@@ -204,19 +204,19 @@ const ArtistPlaylist = () => {
       </div>
 
       {/* Playlist Info Bar */}
-      <div className="bg-[#1d1e26] px-6 py-4 border-t border-[#aa2a46]/20">
-        <div className="flex items-center justify-between text-[#fffced]/70 text-sm">
+      <div className="bg-shelter-slate px-6 py-4 border-t border-shelter-honey/20">
+        <div className="flex items-center justify-between text-shelter-gray text-sm">
           <div className="flex items-center gap-2">
-            <span className="i-lucide-play-circle text-[#aa2a46]"></span>
+            <span className="i-lucide-play-circle text-shelter-honey"></span>
             <span>
               Now Playing:{" "}
-              <span className="text-[#fffced] font-semibold">
+              <span className="text-shelter-white font-semibold">
                 {currentArtist.name || currentArtist.artist_name}
               </span>
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="i-lucide-list text-[#aa2a46]"></span>
+            <span className="i-lucide-list text-shelter-honey"></span>
             <span>{currentVideoUrls.length} videos in queue</span>
           </div>
         </div>

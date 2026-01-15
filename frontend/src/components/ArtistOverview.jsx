@@ -34,11 +34,11 @@ function GetMusic({ artistName, musicText, buttonText, supportText, artistId }) 
 
   return (
     <section className="mx-auto mt-6 md:mt-10 lg:mt-12 mb-16 w-[92%] md:w-[90%] lg:w-[86%]">
-      <div className="rounded-xl bg-white/[0.035] ring-1 ring-white/10 p-4 md:p-6 lg:p-8">
-        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">
+      <div className="rounded-xl bg-shelter-slate/30 ring-1 ring-shelter-honey/20 p-4 md:p-6 lg:p-8">
+        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-shelter-white">
           Get {artistName}&apos;s Music & Merchandise
         </h2>
-        {/* <p className="mt-3 text-sm md:text-[15px] text-white/80 xl:text-lg">
+        {/* <p className="mt-3 text-sm md:text-[15px] text-shelter-gray xl:text-lg">
           {musicText ||
             `Stream or purchase ${artistName}'s music on your favorite platform`}
         </p> */}
@@ -46,20 +46,20 @@ function GetMusic({ artistName, musicText, buttonText, supportText, artistId }) 
         <div className="mt-5 md:mt-6">
           <button 
             onClick={() => navigate(`/store/${artistId}`)}
-            className="w-full md:w-[320px] rounded-md bg-gradient-to-r from-[#d63c65] to-[#aa2a46] px-4 py-4 text-sm md:text-[15px] font-bold text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2"
+            className="w-full md:w-[320px] rounded-md bg-gradient-to-r from-shelter-honey to-shelter-amber px-4 py-4 text-sm md:text-[15px] font-bold text-shelter-charcoal shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 focus:ring-2 focus:ring-shelter-honey"
           >
             <span className="i-lucide-shopping-bag text-base" aria-hidden />
             {buttonText || "Visit Artist Store"}
           </button>
         </div>
 
-        <div className="mt-6 rounded-md border border-white/10 bg-white/[0.02] p-4 md:p-5 flex items-start gap-3">
-          <span className="i-lucide-flame mt-0.5" aria-hidden />
+        <div className="mt-6 rounded-md border border-shelter-honey/30 bg-shelter-charcoal/40 p-4 md:p-5 flex items-start gap-3">
+          <span className="i-lucide-flame mt-0.5 text-shelter-honey" aria-hidden />
           <div>
-            <p className="text-sm md:text-[15px] font-semibold text-white">
+            <p className="text-sm md:text-[15px] font-semibold text-shelter-white">
               Support Independent Music
             </p>
-            <p className="mt-1 text-xs md:text-sm text-white/70 xl:text-lg">
+            <p className="mt-1 text-xs md:text-sm text-shelter-gray xl:text-lg">
               {supportText ||
                 "When you purchase directly from artists, more of your money goes to supporting their creative work and future projects."}
             </p>
@@ -172,9 +172,9 @@ function FeaturedTracks({ tracks, artistId }) {
   return (
     <section className="mx-auto mt-6 md:mt-10 lg:mt-12 w-[92%] md:w-[90%] lg:w-[86%]">
       <NotAvailableModal isOpen={showModal} onClose={() => setShowModal(false)} />
-      <div className="rounded-xl bg-white/[0.035] ring-1 ring-white/10 p-4 md:p-6 lg:p-8">
+      <div className="rounded-xl bg-shelter-slate/30 ring-1 ring-shelter-honey/20 p-4 md:p-6 lg:p-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-shelter-white">
             Featured Tracks
           </h2>
         </div>
@@ -188,10 +188,10 @@ function FeaturedTracks({ tracks, artistId }) {
           ).map((track, idx) => (
             <div
               key={idx}
-              className="group sm:flex sm:flex-col sm:w-[200%] relative bg-[#181818] rounded-lg overflow-hidden ring-1 ring-white/5 hover:bg-[#282828] transition-all duration-300"
+              className="group sm:flex sm:flex-col sm:w-[200%] relative bg-shelter-charcoal rounded-lg overflow-hidden ring-1 ring-shelter-honey/10 hover:bg-shelter-slate hover:ring-shelter-honey/30 transition-all duration-300"
             >
               {/* Track Image - Square Album Cover */}
-              <div className="relative w-full aspect-square overflow-hidden bg-[#282828]">
+              <div className="relative w-full aspect-square overflow-hidden bg-shelter-slate">
                 <img
                   src={
                     track.img ||
@@ -202,7 +202,7 @@ function FeaturedTracks({ tracks, artistId }) {
                 />
                 {/* Play overlay */}
                 <div
-                  className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity duration-200 ${
+                  className={`absolute inset-0 flex items-center justify-center bg-shelter-charcoal/60 transition-opacity duration-200 ${
                     playingTrack === idx
                       ? "opacity-100"
                       : "opacity-0 group-hover:opacity-100"
@@ -210,38 +210,38 @@ function FeaturedTracks({ tracks, artistId }) {
                 >
                   <button
                     onClick={() => handleTrackClick(idx)}
-                    className="w-12 h-12 rounded-full bg-[#1ed760] flex items-center justify-center shadow-xl hover:scale-105 hover:bg-[#1fdf64] transition-all duration-200"
+                    className="w-12 h-12 rounded-full bg-shelter-honey flex items-center justify-center shadow-xl hover:scale-105 hover:bg-shelter-amber transition-all duration-200 focus:ring-2 focus:ring-shelter-honey"
                   >
                     {playingTrack === idx && isPlaying ? (
                       <div className="flex gap-1">
-                        <div className="w-1 h-4 bg-black rounded-sm"></div>
-                        <div className="w-1 h-4 bg-black rounded-sm"></div>
+                        <div className="w-1 h-4 bg-shelter-charcoal rounded-sm"></div>
+                        <div className="w-1 h-4 bg-shelter-charcoal rounded-sm"></div>
                       </div>
                     ) : (
-                      <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-black border-b-[8px] border-b-transparent ml-1"></div>
+                      <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-shelter-charcoal border-b-[8px] border-b-transparent ml-1"></div>
                     )}
                   </button>
                 </div>
                 {/* Playing indicator */}
                 {playingTrack === idx && isPlaying && (
-                  <div className="absolute top-2 right-2 px-2 py-1 bg-[#1ed760] rounded-full text-black text-[10px] font-bold flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse"></div>
+                  <div className="absolute top-2 right-2 px-2 py-1 bg-shelter-honey rounded-full text-shelter-charcoal text-[10px] font-bold flex items-center gap-1">
+                    <div className="w-1.5 h-1.5 bg-shelter-charcoal rounded-full animate-pulse"></div>
                   </div>
                 )}
               </div>
 
               {/* Track Info */}
               <div className="p-3">
-                <h3 className="text-white font-semibold text-sm mb-1 line-clamp-1 hover:underline cursor-pointer">
+                <h3 className="text-shelter-white font-semibold text-sm mb-1 line-clamp-1 hover:underline cursor-pointer">
                   {track.title}
                 </h3>
-                <p className="text-white/60 text-xs mb-3 line-clamp-1">
+                <p className="text-shelter-gray text-xs mb-3 line-clamp-1">
                   {track.artist_name || track.artist || "Unknown Artist"}
                 </p>
 
                 {/* Audio Player - shown when playing */}
                 {track.promo_audio_url && playingTrack === idx && (
-                  <div className="mb-3 -mx-3 px-3 py-2 bg-black/30">
+                  <div className="mb-3 -mx-3 px-3 py-2 bg-shelter-charcoal/50">
                     <ReactPlayer
                       src={track.promo_audio_url}
                       playing={isPlaying}
@@ -271,7 +271,7 @@ function FeaturedTracks({ tracks, artistId }) {
                   isStripeEnabled ? (
                   <button
                     onClick={(e) => handleBuyClick(e, track)}
-                    className="w-full py-2 px-2 bg-white hover:bg-white/90 rounded-md text-black text-[10px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 shadow-md hover:scale-105"
+                    className="w-full py-2 px-2 bg-shelter-honey hover:bg-shelter-amber rounded-md text-shelter-charcoal text-[10px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 shadow-md hover:scale-105 focus:ring-2 focus:ring-shelter-honey"
                   >
                     <span className="i-lucide-shopping-cart text-[10px] sm:text-xs" />
                     <span className="truncate">Add to Cart</span>
@@ -282,7 +282,7 @@ function FeaturedTracks({ tracks, artistId }) {
                     target="_blank" 
                     rel="noopener noreferrer"
                     onClick={(e) => handleBuyClick(e, track)}
-                    className="w-full py-2 px-2 bg-white hover:bg-white/90 rounded-md text-black text-[10px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 shadow-md hover:scale-105"
+                    className="w-full py-2 px-2 bg-shelter-honey hover:bg-shelter-amber rounded-md text-shelter-charcoal text-[10px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 shadow-md hover:scale-105 focus:ring-2 focus:ring-shelter-honey"
                   >
                     <span className="i-lucide-shopping-cart text-[10px] sm:text-xs" />
                     <span className="truncate">Buy Now</span>
@@ -300,7 +300,7 @@ function FeaturedTracks({ tracks, artistId }) {
 // Dynamic Influences component
 function Influences({ influences }) {
   return (
-    <ul className="mt-3 space-y-2 md:text-[15px] text-white/85 list-disc list-inside marker:text-white/40 text-xl">
+    <ul className="mt-3 space-y-2 md:text-[15px] text-shelter-gray list-disc list-inside marker:text-shelter-honey/60 text-xl">
       {(influences && influences.length > 0
         ? influences
         : ["Vangelis", "Jean-Michel Jarre", "Boards of Canada", "Aphex Twin"]
@@ -313,7 +313,7 @@ function Influences({ influences }) {
 // Dynamic ArtistBio component
 function ArtistBio({ bio }) {
   return (
-    <div className="mt-4 space-y-4 text-[13.5px] leading-6 md:text-lg md:leading-7 text-white/85 xl:text-xl ">
+    <div className="mt-4 space-y-4 text-[13.5px] leading-6 md:text-lg md:leading-7 text-shelter-gray xl:text-xl ">
       {bio ? bio : "No biography available."}
     </div>
   );
@@ -321,7 +321,7 @@ function ArtistBio({ bio }) {
 // Dynamic CareerHighlights component
 function CareerHighlights({ highlights }) {
   return (
-    <ul className="mt-3 space-y-2 text-sm md:text-[15px] text-white/85 list-disc list-inside marker:text-white/40 xl:text-xl">
+    <ul className="mt-3 space-y-2 text-sm md:text-[15px] text-shelter-gray list-disc list-inside marker:text-shelter-honey/60 xl:text-xl">
       {(highlights && highlights.length > 0
         ? highlights
         : [
@@ -338,7 +338,7 @@ function CareerHighlights({ highlights }) {
 }
 
 const Pill = ({ children }) => (
-  <span className="inline-flex items-center rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs md:text-[13px] font-medium text-white/80">
+  <span className="inline-flex items-center rounded-md border border-shelter-honey/30 bg-shelter-honey/10 px-3 py-1 text-xs md:text-[13px] font-medium text-shelter-honey">
     {children}
   </span>
 );
@@ -525,7 +525,7 @@ function ArtistOverview() {
 
   return (
     <ZoomFit>
-    <div className="relative flex flex-col min-h-screen w-full bg-[#0f1116] text-white overflow-hidden">
+    <div className="relative flex flex-col min-h-screen w-full bg-shelter-charcoal text-shelter-white overflow-hidden">
       {/* Artist Background Image */}
       {optimizedBackgroundUrl && (
         <div 
@@ -539,9 +539,9 @@ function ArtistOverview() {
           }}
         >
           {/* Multi-layer gradient overlays for modern effect */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0f1116]/80 via-[#0f1116]/50 to-[#0f1116]/80"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f1116]/70 via-transparent to-[#0f1116]/70"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f1116]/70 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-shelter-charcoal/80 via-shelter-charcoal/50 to-shelter-charcoal/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-shelter-charcoal/70 via-transparent to-shelter-charcoal/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-shelter-charcoal/70 via-transparent to-transparent"></div>
         </div>
       )}
       
@@ -558,7 +558,7 @@ function ArtistOverview() {
               className="w-full h-full object-cover rounded-lg shadow-2xl ring-2 ring-white/10"
             />
           </div>
-          <h1 className="mt-6 md:mt-8 lg:mt-10 text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+          <h1 className="mt-6 md:mt-8 lg:mt-10 text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white">
             {artistName}
           </h1>
           {/* Genre pills */}
@@ -568,7 +568,7 @@ function ArtistOverview() {
             )) : null}
           </div>
           {/* Stats row */}
-          <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
+          <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-shelter-gray">
             <div className="flex items-center gap-2">
               <span className="i-lucide-star" aria-hidden />
               <span>{rating}/5 Rating</span>
@@ -585,7 +585,7 @@ function ArtistOverview() {
           {/* CTA buttons */}
           <div className="mt-5 md:mt-6 flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <button className="rounded-md bg-[#d63c65] px-4 py-2 text-sm md:text-[15px] font-semibold text-white shadow-sm hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-[#d63c65]/60">
+              <button className="rounded-md bg-shelter-honey px-4 py-2 text-sm md:text-[15px] font-semibold text-shelter-charcoal shadow-sm hover:bg-shelter-amber focus:outline-none focus:ring-2 focus:ring-shelter-honey transition-all duration-200">
                 Biography
               </button>
               <button 
@@ -593,8 +593,8 @@ function ArtistOverview() {
                 disabled={followLoading}
                 className={`rounded-md border px-4 py-2 text-sm md:text-[15px] font-semibold transition-all duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed ${
                   isFollowing 
-                    ? 'border-white/20 bg-white/10 text-white hover:bg-white/15 focus:ring-white/30' 
-                    : 'border-white/10 bg-white/[0.03] text-white/90 hover:bg-white/[0.06] focus:ring-white/20'
+                    ? 'border-shelter-honey/50 bg-shelter-honey/20 text-shelter-white hover:bg-shelter-honey/30 focus:ring-shelter-honey' 
+                    : 'border-shelter-honey/30 bg-shelter-slate text-shelter-white hover:bg-shelter-slate/80 focus:ring-shelter-honey'
                 }`}
               >
                 <span className="flex items-center gap-2">
@@ -621,33 +621,33 @@ function ArtistOverview() {
             {hasSocialMedia && (
               <div className="flex items-center gap-3">
                 {socialMedia.spotify && (
-                  <a href={socialMedia.spotify} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-[#1DB954]/20 border border-white/10 hover:border-[#1DB954]/50 transition-all duration-200 hover:scale-110 group" title="Spotify">
-                    <FaSpotify className="text-white/80 group-hover:text-[#1DB954]" size={18} />
+                  <a href={socialMedia.spotify} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-shelter-slate hover:bg-[#1DB954]/20 border border-shelter-honey/20 hover:border-[#1DB954]/50 transition-all duration-200 hover:scale-110 group focus:ring-2 focus:ring-shelter-honey" title="Spotify">
+                    <FaSpotify className="text-shelter-gray group-hover:text-[#1DB954]" size={18} />
                   </a>
                 )}
                 {socialMedia.instagram && (
-                  <a href={socialMedia.instagram} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-gradient-to-br hover:from-[#f9ce34]/20 hover:via-[#ee2a7b]/20 hover:to-[#6228d7]/20 border border-white/10 hover:border-[#ee2a7b]/50 transition-all duration-200 hover:scale-110 group" title="Instagram">
-                    <Instagram className="text-white/80 group-hover:text-[#ee2a7b]" size={18} />
+                  <a href={socialMedia.instagram} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-shelter-slate hover:bg-gradient-to-br hover:from-[#f9ce34]/20 hover:via-[#ee2a7b]/20 hover:to-[#6228d7]/20 border border-shelter-honey/20 hover:border-[#ee2a7b]/50 transition-all duration-200 hover:scale-110 group focus:ring-2 focus:ring-shelter-honey" title="Instagram">
+                    <Instagram className="text-shelter-gray group-hover:text-[#ee2a7b]" size={18} />
                   </a>
                 )}
                 {socialMedia.twitter && (
-                  <a href={socialMedia.twitter} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-black/20 border border-white/10 hover:border-white/30 transition-all duration-200 hover:scale-110 group" title="X (Twitter)">
-                    <FaXTwitter className="text-white/80 group-hover:text-white" size={18} />
+                  <a href={socialMedia.twitter} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-shelter-slate hover:bg-black/20 border border-shelter-honey/20 hover:border-shelter-white/30 transition-all duration-200 hover:scale-110 group focus:ring-2 focus:ring-shelter-honey" title="X (Twitter)">
+                    <FaXTwitter className="text-shelter-gray group-hover:text-shelter-white" size={18} />
                   </a>
                 )}
                 {socialMedia.youtube && (
-                  <a href={socialMedia.youtube} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-[#FF0000]/20 border border-white/10 hover:border-[#FF0000]/50 transition-all duration-200 hover:scale-110 group" title="YouTube">
-                    <Youtube className="text-white/80 group-hover:text-[#FF0000]" size={18} />
+                  <a href={socialMedia.youtube} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-shelter-slate hover:bg-[#FF0000]/20 border border-shelter-honey/20 hover:border-[#FF0000]/50 transition-all duration-200 hover:scale-110 group focus:ring-2 focus:ring-shelter-honey" title="YouTube">
+                    <Youtube className="text-shelter-gray group-hover:text-[#FF0000]" size={18} />
                   </a>
                 )}
                 {socialMedia.appleMusic && (
-                  <a href={socialMedia.appleMusic} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-black/20 border border-white/10 hover:border-white/30 transition-all duration-200 hover:scale-110 group" title="Apple Music">
-                    <FaApple className="text-white/80 group-hover:text-white" size={18} />
+                  <a href={socialMedia.appleMusic} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-shelter-slate hover:bg-black/20 border border-shelter-honey/20 hover:border-shelter-white/30 transition-all duration-200 hover:scale-110 group focus:ring-2 focus:ring-shelter-honey" title="Apple Music">
+                    <FaApple className="text-shelter-gray group-hover:text-shelter-white" size={18} />
                   </a>
                 )}
                 {socialMedia.tiktok && (
-                  <a href={socialMedia.tiktok} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-[#00f2ea]/20 border border-white/10 hover:border-[#00f2ea]/50 transition-all duration-200 hover:scale-110 group" title="TikTok">
-                    <FaTiktok className="text-white/80 group-hover:text-[#00f2ea]" size={18} />
+                  <a href={socialMedia.tiktok} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-full bg-shelter-slate hover:bg-[#00f2ea]/20 border border-shelter-honey/20 hover:border-[#00f2ea]/50 transition-all duration-200 hover:scale-110 group focus:ring-2 focus:ring-shelter-honey" title="TikTok">
+                    <FaTiktok className="text-shelter-gray group-hover:text-[#00f2ea]" size={18} />
                   </a>
                 )}
               </div>
@@ -664,7 +664,7 @@ function ArtistOverview() {
             />
           </div>
           <div className="flex-1 flex flex-col justify-center">
-            <h1 className="mt-0 text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+            <h1 className="mt-0 text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white">
               {artistName}
             </h1>
             {/* Genre pills */}
@@ -674,7 +674,7 @@ function ArtistOverview() {
               )) : null}
             </div>
             {/* Stats row */}
-            <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
+            <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-shelter-gray">
               <div className="flex items-center gap-2">
                 <span className="i-lucide-star" aria-hidden />
                 <span>{rating}/5 Rating</span>
@@ -765,20 +765,20 @@ function ArtistOverview() {
 
       {/* About section */}
       <section className="mx-auto mt-6 md:mt-10 lg:mt-12 w-[92%] md:w-[90%] lg:w-[86%] ">
-        <div className="rounded-xl md:rounded-2xl bg-white/[0.035] p-4 md:p-6 lg:p-8 ring-1 ring-white/10">
-          <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">
+        <div className="rounded-xl md:rounded-2xl bg-shelter-slate/30 p-4 md:p-6 lg:p-8 ring-1 ring-shelter-honey/20">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-shelter-white">
             About {artistName}
           </h2>
           <ArtistBio bio={artistBio} />
 
           {/* Two info cards (static for now, replace with dynamic if available) */}
           <div className="mt-5 md:mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            <div className="rounded-lg bg-white/[0.03] p-4 md:p-5 ring-1 ring-white/10">
-              <h3 className="font-semibold text-white">Career Highlights</h3>
+            <div className="rounded-lg bg-shelter-charcoal/40 p-4 md:p-5 ring-1 ring-shelter-honey/20">
+              <h3 className="font-semibold text-shelter-white">Career Highlights</h3>
               <CareerHighlights highlights={parsedHighlights} />
             </div>
-            <div className="rounded-lg bg-white/[0.03] p-4 md:p-5 ring-1 ring-white/10">
-              <h3 className="font-semibold text-white">Influences</h3>
+            <div className="rounded-lg bg-shelter-charcoal/40 p-4 md:p-5 ring-1 ring-shelter-honey/20">
+              <h3 className="font-semibold text-shelter-white">Influences</h3>
               <Influences influences={parsedInfluences} />
             </div>
           </div>

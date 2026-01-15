@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const NewsletterSubscription = ({ 
-  title = "Soul Felt Music Newsletter",
+  title = "Shelter House Music Newsletter",
   description = "Subscribe to our newsletter for the latest updates.",
   containerClassName = "flex-1 flex flex-col md:ml-8",
-  inputClassName = "rounded-md px-4 py-2 bg-[#231f1c] text-[#fffced] placeholder:text-gray-500 font-semibold focus:outline-none",
-  buttonClassName = "rounded-full border border-blue-400 text-green-400 py-2 transition hover:bg-blue-400 hover:text-white",
+  inputClassName = "rounded-md px-4 py-2 bg-shelter-charcoal text-shelter-white placeholder:text-shelter-gray font-semibold focus:outline-none focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/30 border border-shelter-honey/20",
+  buttonClassName = "rounded-full border border-shelter-honey text-shelter-honey py-2 transition hover:bg-shelter-honey hover:text-shelter-charcoal",
   unsubscribeButtonClassName = "rounded-full border border-red-400 text-red-400 py-2 transition hover:bg-red-400 hover:text-white",
   showTitle = true,
   showDescription = true
@@ -94,12 +94,12 @@ const NewsletterSubscription = ({
     <>
       <div className={containerClassName}>
         {showTitle && (
-          <div className="font-bold text-[#aa2a46] mb-2">
+          <div className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white mb-2">
             {title}
           </div>
         )}
         {showDescription && (
-          <p className="mb-3">
+          <p className="mb-3 text-shelter-gray">
             {description}
           </p>
         )}
@@ -132,12 +132,12 @@ const NewsletterSubscription = ({
               </button>
             )}
           </div>
-          <div className="text-xs text-[#fffced]/60 mt-1">
+          <div className="text-xs text-shelter-gray mt-1">
             Want to unsubscribe?{" "}
             <button
               type="button"
               onClick={() => setShowUnsubscribe(!showUnsubscribe)}
-              className="text-[#aa2a46] hover:underline focus:underline"
+              className="text-shelter-honey hover:text-shelter-amber hover:underline focus:underline"
             >
               Click here
             </button>
@@ -159,12 +159,12 @@ const NewsletterSubscription = ({
       {/* Unsubscribe Confirmation Modal */}
       {showUnsubscribeModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-[#1d1e26] rounded-lg shadow-xl max-w-md w-full p-6 border border-[#aa2a46]/30">
-            <h3 className="text-xl font-bold text-[#fffced] mb-4">
+          <div className="bg-shelter-slate rounded-lg shadow-xl max-w-md w-full p-6 border border-shelter-honey/30 ring-1 ring-shelter-honey/20">
+            <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white mb-4">
               Confirm Unsubscribe
             </h3>
-            <p className="text-[#fffced]/80 mb-6">
-              Are you sure you want to unsubscribe <strong className="text-[#aa2a46]">{email}</strong> from our newsletter?
+            <p className="text-shelter-gray mb-6">
+              Are you sure you want to unsubscribe <strong className="text-shelter-honey">{email}</strong> from our newsletter?
               <br />
               <br />
               You will no longer receive updates about new music, events, and exclusive content.
@@ -172,7 +172,7 @@ const NewsletterSubscription = ({
             <div className="flex gap-3">
               <button
                 onClick={handleUnsubscribeCancel}
-                className="flex-1 px-4 py-2 rounded-full border border-gray-400 text-gray-300 hover:bg-gray-700 transition"
+                className="flex-1 px-4 py-2 rounded-full border border-shelter-gray text-shelter-white hover:bg-shelter-charcoal transition"
               >
                 Cancel
               </button>

@@ -63,7 +63,7 @@ export default function ResponsiveNavbar() {
                 className="h-12 w-auto object-contain"
               />
             )}
-            <span className="text-shelter-white text-2xl font-['Brush_Script_MT','Lucida_Handwriting','cursive'] italic">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-2xl font-['Brush_Script_MT','Lucida_Handwriting','cursive'] italic">
               Shelter House Music
             </span>
           </Link>
@@ -204,7 +204,7 @@ export default function ResponsiveNavbar() {
               className="h-16 w-auto object-contain"
             />
           )}
-          <span className="text-[#e6cfa7] text-3xl font-['Brush_Script_MT','Lucida_Handwriting','cursive'] italic whitespace-nowrap">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-3xl font-['Brush_Script_MT','Lucida_Handwriting','cursive'] italic whitespace-nowrap">
             Shelter House Music
           </span>
         </Link>

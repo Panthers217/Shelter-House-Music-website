@@ -59,7 +59,7 @@ const Footer = () => {
               alt="Shelter House Music Logo" 
               className="h-16 w-auto object-contain flex-shrink-0"
             />
-            <span className="text-shelter-honey text-2xl font-bold font-[bold'] leading-tight">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-2xl font-bold font-[bold'] leading-tight">
               Shelter House Music
             </span>
           </div>
@@ -119,7 +119,7 @@ const Footer = () => {
         {/* Newsletter */}
         {isNewsletterEnabled && (
           <NewsletterSubscription 
-            title="Soul Felt Music Newsletter"
+            title="Shelter House Music Newsletter"
             description={
               <>
                 Subscribe to our newsletter
@@ -131,7 +131,7 @@ const Footer = () => {
         )}
       </div>
       <div className="max-w-7xl mx-auto mt-4 text-xs text-shelter-white">
-        © 2024 Soul Felt Music. All rights reserved.
+        © 2026 Soul Felt Music. All rights reserved.
       </div>
     </footer>
   );

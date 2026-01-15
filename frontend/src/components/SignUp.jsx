@@ -100,9 +100,9 @@ const SignUp = () => {
 
   return (
     <ZoomFit>
-    <section className="w-full min-h-screen bg-[#1a1b22] flex flex-col items-center justify-center py-10 px-4">
-      <div className="w-full max-w-md bg-[#21212b] rounded-lg shadow-lg p-8 flex flex-col gap-6">
-        <h2 className="text-[#fffced] text-3xl md:text-4xl font-bold font-['Roboto'] mb-2 text-center">
+    <section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center justify-center py-10 px-4">
+      <div className="w-full max-w-md bg-shelter-slate rounded-lg shadow-lg p-8 flex flex-col gap-6 ring-1 ring-shelter-honey/20">
+        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-3xl md:text-4xl font-bold font-['Roboto'] mb-2 text-center">
           Sign Up
         </h2>
         {error && (
@@ -118,7 +118,7 @@ const SignUp = () => {
             value={form.firstName}
             onChange={handleChange}
             placeholder="First Name"
-            className="w-full px-4 py-3 rounded-md bg-[#1d1e26] text-[#fffced] border border-[#aa2a46] focus:outline-none focus:border-[#fffced] font-medium"
+            className="w-full px-4 py-3 rounded-md bg-shelter-charcoal text-shelter-white border border-shelter-honey/20 focus:outline-none focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/30 placeholder:text-shelter-gray font-medium"
             required
             disabled={loading}
           />
@@ -128,7 +128,7 @@ const SignUp = () => {
             value={form.lastName}
             onChange={handleChange}
             placeholder="Last Name"
-            className="w-full px-4 py-3 rounded-md bg-[#1d1e26] text-[#fffced] border border-[#aa2a46] focus:outline-none focus:border-[#fffced] font-medium"
+            className="w-full px-4 py-3 rounded-md bg-shelter-charcoal text-shelter-white border border-shelter-honey/20 focus:outline-none focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/30 placeholder:text-shelter-gray font-medium"
             required
             disabled={loading}
           />
@@ -138,7 +138,7 @@ const SignUp = () => {
             value={form.email}
             onChange={handleChange}
             placeholder="Email Address"
-            className="w-full px-4 py-3 rounded-md bg-[#1d1e26] text-[#fffced] border border-[#aa2a46] focus:outline-none focus:border-[#fffced] font-medium"
+            className="w-full px-4 py-3 rounded-md bg-shelter-charcoal text-shelter-white border border-shelter-honey/20 focus:outline-none focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/30 placeholder:text-shelter-gray font-medium"
             required
             disabled={loading}
           />
@@ -148,7 +148,7 @@ const SignUp = () => {
             value={form.password}
             onChange={handleChange}
             placeholder="Password (min. 6 characters)"
-            className="w-full px-4 py-3 rounded-md bg-[#1d1e26] text-[#fffced] border border-[#aa2a46] focus:outline-none focus:border-[#fffced] font-medium"
+            className="w-full px-4 py-3 rounded-md bg-shelter-charcoal text-shelter-white border border-shelter-honey/20 focus:outline-none focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/30 placeholder:text-shelter-gray font-medium"
             required
             minLength={6}
             disabled={loading}
@@ -156,7 +156,7 @@ const SignUp = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-[#aa2a46] text-[#fffced] rounded-md font-bold text-lg hover:bg-[#fffced] hover:text-[#aa2a46] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 bg-shelter-honey text-shelter-charcoal rounded-md font-bold text-lg hover:bg-shelter-amber focus:ring-2 focus:ring-shelter-honey transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Creating Account..." : "Sign Up"}
           </button>

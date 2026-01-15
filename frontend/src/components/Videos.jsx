@@ -118,12 +118,12 @@ const Videos = () => {
 
   return (
     <ZoomFit>
-    <section className="w-full min-h-screen bg-[#1a1b22] flex flex-col items-center py-10 px-4 md:px-12">
+    <section className="w-full min-h-screen bg-shelter-charcoal flex flex-col items-center py-10 px-4 md:px-12">
       <div className="w-full max-w-7xl flex flex-col gap-8">
         {/* Header */}
         <div className="text-center">
-          <h2 className="text-[#fffced] text-4xl md:text-5xl font-extrabold font-['Roboto'] mb-4 drop-shadow-lg">
-            Soul Felt Music Videos
+          <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-4xl md:text-5xl font-extrabold font-['Roboto'] mb-4 drop-shadow-lg">
+            Shelter House Music Videos
           </h2>
         </div>
 
@@ -136,10 +136,10 @@ const Videos = () => {
             <button
               key={tab.key}
               onClick={() => toggleTab(tab.key)}
-              className={`px-5 py-2 rounded-full font-bold text-lg transition-all duration-300 border-2 border-[#aa2a46] focus:outline-none ${
+              className={`px-5 py-2 rounded-full font-bold text-lg transition-all duration-300 border-2 border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey ${
                 activeTabs.includes(tab.key)
-                  ? "bg-[#aa2a46] text-[#fffced] scale-105"
-                  : "bg-[#1d1e26] text-[#aa2a46] hover:bg-[#aa2a46] hover:text-[#fffced]"
+                  ? "bg-shelter-honey text-shelter-charcoal scale-105"
+                  : "bg-shelter-slate text-shelter-honey hover:bg-shelter-honey hover:text-shelter-charcoal"
               }`}
             >
               {tab.label}
@@ -151,11 +151,11 @@ const Videos = () => {
         {filteredVideoUrls.length > 0 ? (
           <VideoPlayerComponent videoUrls={filteredVideoUrls} />
         ) : (
-          <div className="w-full max-w-5xl mx-auto bg-[#21212b] rounded-lg shadow-lg p-12 text-center">
-            <p className="text-[#fffced] text-xl font-bold mb-4">
+          <div className="w-full max-w-5xl mx-auto bg-shelter-slate rounded-lg shadow-lg p-12 text-center ring-1 ring-shelter-honey/20">
+            <p className="text-shelter-white text-xl font-bold mb-4">
               No videos available
             </p>
-            <p className="text-[#fffced]/60 text-sm">
+            <p className="text-shelter-gray text-sm">
               Add videos in the Admin Dashboard and mark them as active to display them here.
             </p>
           </div>
