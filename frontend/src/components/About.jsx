@@ -101,7 +101,7 @@ const About = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-shelter-white">
             {websiteSettings?.about_page_title || 'About Us'}
           </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-shelter-gray">
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-shelter-white">
             {websiteSettings?.about_hero_tagline || 'Where passion meets melody, and artists connect with souls who truly feel the music.'}
           </p>
         </div>
