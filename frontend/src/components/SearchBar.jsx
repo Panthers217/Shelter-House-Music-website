@@ -116,7 +116,7 @@ function SearchBar({ onSearchResults, viewMode }) {
     <div className="w-full max-w-2xl mx-auto mb-8">
       <div className="relative">
         {/* Search Icon */}
-        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#aa2a46]">
+        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-shelter-honey">
           <span className={`i-lucide-search text-xl ${isSearching ? 'animate-pulse' : ''}`} />
         </div>
 
@@ -126,14 +126,14 @@ function SearchBar({ onSearchResults, viewMode }) {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder={`Search for ${viewMode === 'tracks' ? 'tracks, artists' : 'albums, artists'}...`}
-          className="w-full pl-12 pr-12 py-4 bg-[#1d1e26] text-[#fffced] text-lg rounded-xl border-2 border-[#aa2a46]/30 focus:border-[#aa2a46] focus:outline-none transition-all duration-300 placeholder-[#fffced]/40"
+          className="w-full pl-12 pr-12 py-4 bg-shelter-charcoal text-shelter-white text-lg rounded-xl border-2 border-shelter-honey/30 focus:border-shelter-honey focus:ring-2 focus:ring-shelter-honey/20 focus:outline-none transition-all duration-300 placeholder-shelter-gray"
         />
 
         {/* Clear Button */}
         {searchQuery && (
           <button
             onClick={handleClear}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#aa2a46] hover:text-[#fffced] transition-colors duration-200"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-shelter-honey hover:text-shelter-white transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
           >
             <span className="i-lucide-x text-xl" />
           </button>
@@ -142,7 +142,7 @@ function SearchBar({ onSearchResults, viewMode }) {
 
       {/* Search Info */}
       {searchQuery && (
-        <div className="mt-2 text-center text-[#fffced]/60 text-sm">
+        <div className="mt-2 text-center text-shelter-gray text-sm">
           {isSearching ? (
             <span className="flex items-center justify-center gap-2">
               <span className="i-lucide-loader-2 animate-spin" />

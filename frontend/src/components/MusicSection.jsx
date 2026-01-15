@@ -34,7 +34,7 @@ const MusicSection = ({
 
   return (
     <div key={section.key} className="mb-8 ">
-      <h2 className="text-[#aa2a46] text-3xl font-bold mb-6 font-['Public_Sans'] text-center">
+      <h2 className="text-shelter-honey text-3xl font-bold mb-6 font-['Public_Sans'] text-center">
         {section.label}
       </h2>
       {/* Container with arrows and scrollable content */}
@@ -43,11 +43,11 @@ const MusicSection = ({
         {!isMobile && (
           <button
             onClick={scrollLeft}
-            className="flex-shrink-0 w-12 h-12 rounded-full bg-[#21212b] border-2 border-[#fffced] hover:bg-[#aa2a46] hover:border-[#aa2a46] hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center group shadow-lg hover:shadow-[0_0_20px_rgba(170,42,70,0.5)]"
+            className="flex-shrink-0 w-12 h-12 rounded-full bg-shelter-slate border-2 border-shelter-honey hover:bg-shelter-honey hover:border-shelter-honey hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center group shadow-lg hover:shadow-[0_0_20px_rgba(212,162,76,0.5)] focus:ring-2 focus:ring-shelter-honey"
             aria-label="Previous"
           >
             <svg 
-              className="w-6 h-6 text-[#fffced] group-hover:text-[#fffced] transition-colors" 
+              className="w-6 h-6 text-shelter-honey group-hover:text-shelter-charcoal transition-colors" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -117,11 +117,11 @@ const MusicSection = ({
         {!isMobile && (
           <button
             onClick={scrollRight}
-            className="flex-shrink-0 w-12 h-12 rounded-full bg-[#21212b] border-2 border-[#fffced] hover:bg-[#aa2a46] hover:border-[#aa2a46] hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center group shadow-lg hover:shadow-[0_0_20px_rgba(170,42,70,0.5)]"
+            className="flex-shrink-0 w-12 h-12 rounded-full bg-shelter-slate border-2 border-shelter-honey hover:bg-shelter-honey hover:border-shelter-honey hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center group shadow-lg hover:shadow-[0_0_20px_rgba(212,162,76,0.5)] focus:ring-2 focus:ring-shelter-honey"
             aria-label="Next"
           >
             <svg 
-              className="w-6 h-6 text-[#fffced] group-hover:text-[#fffced] transition-colors" 
+              className="w-6 h-6 text-shelter-honey group-hover:text-shelter-charcoal transition-colors" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"

@@ -185,28 +185,28 @@ const VideoPlayerComponent = ({ videoUrls = null, onPlaylistEnd = null }) => {
   const currentThumbnail = currentVideo ? getThumbnailUrl(currentVideo) : null;
 
   return (
-    <div className="w-full max-w-[75rem] mx-auto bg-black rounded-lg shadow-lg p-4 flex flex-col items-center ">
+    <div className="w-full max-w-[75rem] mx-auto bg-shelter-charcoal rounded-[1.4vw] shadow-lg p-4 flex flex-col items-center ">
       {/* Video Counter */}
       {!loading && videos.length > 0 && (
         <div className="w-full flex justify-between items-center mb-4">
-          <div className="text-white text-sm">
+          <div className="text-shelter-white text-sm font-['Roboto']">
             Video {currentIndex + 1} of {videos.length}
           </div>
         </div>
       )}
 
       <div 
-        className="relative w-full aspect-video bg-gray-900 rounded-lg overflow-hidden touch-pan-y"
+        className="relative w-full aspect-video bg-shelter-slate rounded-[1vw] overflow-hidden touch-pan-y"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
         {loading ? (
-          <div className="flex items-center justify-center w-full h-full text-white text-xl font-bold">
+          <div className="flex items-center justify-center w-full h-full text-shelter-white text-xl font-bold font-['Roboto']">
             Loading videos...
           </div>
         ) : videos.length === 0 ? (
-          <div className="flex items-center justify-center w-full h-full text-white text-xl font-bold">
+          <div className="flex items-center justify-center w-full h-full text-shelter-white text-xl font-bold font-['Roboto']">
             No videos available
           </div>
         ) : playerError && currentThumbnail ? (
@@ -230,9 +230,9 @@ const VideoPlayerComponent = ({ videoUrls = null, onPlaylistEnd = null }) => {
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-red-600 bg-opacity-80 hover:bg-opacity-100 transition-all duration-300 rounded-full p-6 shadow-2xl">
+              <div className="bg-shelter-honey hover:bg-shelter-amber transition-all duration-300 rounded-full p-6 shadow-2xl">
                 <svg
-                  className="w-16 h-16 text-white"
+                  className="w-16 h-16 text-shelter-charcoal"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -274,7 +274,7 @@ const VideoPlayerComponent = ({ videoUrls = null, onPlaylistEnd = null }) => {
           <>
             <button
               onClick={handlePrevious}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-3 transition-all duration-300 z-10"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-shelter-charcoal bg-opacity-70 hover:bg-shelter-honey hover:bg-opacity-90 text-shelter-white hover:text-shelter-charcoal rounded-full p-3 transition-all duration-300 z-10"
               aria-label="Previous video"
             >
               <svg
@@ -293,7 +293,7 @@ const VideoPlayerComponent = ({ videoUrls = null, onPlaylistEnd = null }) => {
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-3 transition-all duration-300 z-10"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-shelter-charcoal bg-opacity-70 hover:bg-shelter-honey hover:bg-opacity-90 text-shelter-white hover:text-shelter-charcoal rounded-full p-3 transition-all duration-300 z-10"
               aria-label="Next video"
             >
               <svg
@@ -331,8 +331,8 @@ const VideoPlayerComponent = ({ videoUrls = null, onPlaylistEnd = null }) => {
               }}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? "bg-red-600 w-8"
-                  : "bg-gray-500 hover:bg-gray-400"
+                  ? "bg-shelter-honey w-8"
+                  : "bg-shelter-slate hover:bg-shelter-honey/50"
               }`}
               aria-label={`Go to video ${index + 1}`}
             />
@@ -342,8 +342,8 @@ const VideoPlayerComponent = ({ videoUrls = null, onPlaylistEnd = null }) => {
 
       {/* Auto-advance indicator */}
       {!loading && videos.length > 0 && !userInteracted && !isPlaying && (
-        <div className="mt-2 text-xs text-gray-400 flex items-center gap-2">
-          <span className="animate-pulse">●</span>
+        <div className="mt-2 text-xs text-shelter-white/60 flex items-center gap-2 font-['Roboto']">
+          <span className="animate-pulse text-shelter-honey">●</span>
           Auto-advancing through videos
         </div>
       )}

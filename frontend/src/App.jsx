@@ -136,9 +136,7 @@ function AppContent() {
         >
           <ScrollToTop />
           <Toaster />
-          {/* <ProjectWalkthroughVideo />
-          <WelcomeToast />
-          <ProjectStructureViewer /> */}
+          
           {/* <NavBar /> */}
           <div className="flex w-full ">
           <ResponsiveNavbar />

@@ -71,13 +71,13 @@ function ArtistStoreNav({
   setActiveTab,
 }) {
   return (
-    <nav className="w-full bg-[#21212b] outline outline-[0.04rem] outline-offset-[-0.04rem] outline-[#6e5049]/20 flex flex-col pb-[0.04rem]">
+    <nav className="w-full bg-shelter-slate outline outline-[0.04rem] outline-offset-[-0.04rem] outline-shelter-gray/20 flex flex-col pb-[0.04rem]">
       <div className="flex justify-between items-center w-full py-[1rem] px-[6%]">
-        <span className="text-white text-[1.2rem] md:text[1.5rem] lg:text-[2rem] xl:text-[2rem] font-bold font-['Roboto'] ">
+        <span className="text-shelter-white text-[1.2rem] md:text[1.5rem] lg:text-[2rem] xl:text-[2rem] font-bold font-['Roboto'] ">
           {storeName}
         </span>
-        <div className="px-[0.7rem] py-[0.5rem] bg-[#1d1e26] rounded-xs outline outline-[0.04rem] outline-offset-[-0.04rem] outline-[#6e5049]/20 flex items-center">
-          <span className="text-[#fffced] text-[0.7rem] lg:text-[1rem] xl:text-[2rem] font-medium font-['Roboto']">
+        <div className="px-[0.7rem] py-[0.5rem] bg-shelter-charcoal rounded-xs outline outline-[0.04rem] outline-offset-[-0.04rem] outline-shelter-gray/20 flex items-center">
+          <span className="text-shelter-white text-[0.7rem] lg:text-[1rem] xl:text-[2rem] font-medium font-['Roboto']">
             Cart ({cartCount})
           </span>
         </div>
@@ -87,11 +87,11 @@ function ArtistStoreNav({
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-full font-bold text-base transition-all duration-200 shadow-sm border-2 border-[#aa2a46] focus:outline-none
+            className={`px-4 py-2 rounded-full font-bold text-base transition-all duration-200 shadow-sm border-2 border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey
               ${
                 activeTab === tab
-                  ? "bg-gradient-to-r from-[#aa2a46] to-[#ff6b81] text-white scale-105 shadow-lg"
-                  : "bg-[#1d1e26] text-[#fffced] hover:bg-[#aa2a46] hover:text-white"
+                  ? "bg-shelter-honey text-shelter-charcoal scale-105 shadow-lg"
+                  : "bg-shelter-charcoal text-shelter-white hover:bg-shelter-amber hover:text-shelter-charcoal"
               }
             `}
             style={{ minWidth: "120px" }}
@@ -111,11 +111,11 @@ function ArtistStoreHeader({
   description = "Support Luna Starlight directly by purchasing official music releases and exclusive merchandise. All proceeds help fund future creative projects.",
 }) {
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-4 px-[5%] pt-[0.5rem] pb-[0.2rem]">
-      <div className="w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-[#aa2a46] via-[#ff6b81] to-[#fffced] text-[1.7rem] lg:text-[2.2rem] xl:text-[2.7rem] font-extrabold font-['Roboto'] leading-[2.2rem] drop-shadow-lg">
+    <div className="w-full flex flex-col justify-center items-center gap-4 px-[5%] pt-[0.5rem] pb-[0.2rem] ">
+      <div className="w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-[1.7rem] lg:text-[2.2rem] xl:text-[2.7rem] font-extrabold font-['Roboto'] leading-[2.2rem] drop-shadow-lg">
         {title}
       </div>
-      <div className="w-full text-center text-[#fffced] text-opacity-80 text-[1.1rem] lg:text-[1.3rem] xl:text-[1.5rem] font-semibold font-['Roboto'] leading-[1.7] px-2 py-2 rounded-lg bg-[#21212b]/60 shadow-md">
+      <div className="w-full text-center text-shelter-white text-opacity-80 text-[1.1rem] lg:text-[1.3rem] xl:text-[1.5rem] font-semibold font-['Roboto'] leading-[1.7] px-2 py-2 rounded-lg bg-shelter-slate/60 shadow-md">
         {description}
       </div>
     </div>
@@ -148,10 +148,10 @@ function AlbumWithTracks({ album, tracks, dbSnapshot, isStripeEnabled, onAddToCa
   return (
     <div 
       ref={albumRef}
-      className={`flex flex-col lg:flex-row gap-6 w-full bg-[#21212b]/50 rounded-lg p-6 border transition-all duration-500 ${
+      className={`flex flex-col lg:flex-row gap-6 w-full bg-shelter-slate/50 rounded-lg p-6 border transition-all duration-500 ${
         isHighlighted 
-          ? 'border-[#aa2a46] border-2 shadow-lg shadow-[#aa2a46]/50' 
-          : 'border-[#6e5049]/20'
+          ? 'border-shelter-honey border-2 shadow-lg shadow-shelter-honey/50' 
+          : 'border-shelter-gray/20'
       }`}
     >
       <NotAvailableModal
@@ -161,7 +161,7 @@ function AlbumWithTracks({ album, tracks, dbSnapshot, isStripeEnabled, onAddToCa
       
       {/* Album Card */}
       <div
-        className="flex flex-col w-full max-w-[17rem] h-[23rem] bg-[#21212b] rounded-md outline outline-[0.04rem] outline-offset-[-0.04rem] outline-[#6e5049]/20 overflow-hidden flex-shrink-0 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#aa2a46]/50 hover:-translate-y-2"
+        className="flex flex-col w-full max-w-[17rem] h-[23rem] bg-shelter-slate rounded-md outline outline-[0.04rem] outline-offset-[-0.04rem] outline-shelter-gray/20 overflow-hidden flex-shrink-0 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-shelter-honey/50 hover:-translate-y-2"
         style={{ minWidth: "220px", minHeight: "320px" }}
       >
         <div
@@ -182,22 +182,22 @@ function AlbumWithTracks({ album, tracks, dbSnapshot, isStripeEnabled, onAddToCa
           )}
         </div>
         <div className="flex flex-col justify-center items-start gap-2 w-full h-[35%] px-[6%] pt-[5%] pb-[6%]">
-          <div className="text-[green] text-[1.5rem] font-medium font-['Roboto'] uppercase leading-3 tracking-tight">
+          <div className="text-shelter-honey text-[1.5rem] font-medium font-['Roboto'] uppercase leading-3 tracking-tight">
             {album.type}
           </div>
-          <div className="text-white text-[1rem] xl:text-[1.2rem] font-medium font-['Roboto'] leading-none">
+          <div className="text-shelter-white text-[1rem] xl:text-[1.2rem] font-medium font-['Roboto'] leading-none">
             {album.title}
           </div>
           <div className="flex justify-between items-center w-full">
-            <div className="text-white text-sm xl:text-[1.2rem]  font-bold font-['Roboto'] leading-tight">
+            <div className="text-shelter-white text-sm xl:text-[1.2rem]  font-bold font-['Roboto'] leading-tight">
               {album.price}
             </div>
             {isStripeEnabled ? (
               <button
-                className="px-[0.7rem] py-[0.35rem] bg-[#aa2a46] rounded-xs flex flex-col justify-center items-center hover:bg-[#d94a6a] transition-colors duration-200"
+                className="px-[0.7rem] py-[0.35rem] bg-shelter-honey rounded-xs flex flex-col justify-center items-center hover:bg-shelter-amber transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
                 onClick={handleButtonClick}
               >
-                <span className="text-center text-white text-[0.8rem] xl:text-[1.2rem] font-medium font-['Roboto'] leading-[0.9rem]">
+                <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
                   Add to Cart
                 </span>
               </button>
@@ -207,9 +207,9 @@ function AlbumWithTracks({ album, tracks, dbSnapshot, isStripeEnabled, onAddToCa
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleButtonClick}
-                className="px-[0.7rem] py-[0.35rem] bg-[#aa2a46] rounded-xs flex flex-col justify-center items-center hover:bg-[#d94a6a] transition-colors duration-200"
+                className="px-[0.7rem] py-[0.35rem] bg-shelter-honey rounded-xs flex flex-col justify-center items-center hover:bg-shelter-amber transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
               >
-                <span className="text-center text-white text-[0.8rem] xl:text-[1.2rem] font-medium font-['Roboto'] leading-[0.9rem]">
+                <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
                   Buy Now
                 </span>
               </a>
@@ -221,7 +221,7 @@ function AlbumWithTracks({ album, tracks, dbSnapshot, isStripeEnabled, onAddToCa
       {/* Tracks List */}
       {tracks.length > 0 && (
         <div className="flex-1">
-          <h3 className="text-[#fffced] text-xl font-bold mb-4 font-['Roboto']">
+          <h3 className="text-shelter-white text-xl font-bold mb-4 font-['Roboto']">
             Album Tracks ({tracks.length})
           </h3>
           <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2">
@@ -265,10 +265,10 @@ function TrackListItem({ track, albumCover, trackNumber }) {
   const hasAudio = track.promo_audio_url;
 
   return (
-    <div className="bg-[#1d1e26] rounded-lg p-3 flex items-center gap-4 hover:bg-[#252631] transition-all duration-200 group">
+    <div className="bg-shelter-charcoal rounded-lg p-3 flex items-center gap-4 hover:bg-shelter-slate transition-all duration-200 group">
       {/* Track Number */}
       <div className="flex-shrink-0 w-8 text-center">
-        <span className="text-[#fffced]/60 text-sm font-bold">{trackNumber}</span>
+        <span className="text-shelter-white/60 text-sm font-bold">{trackNumber}</span>
       </div>
       
       {/* Album Cover */}
@@ -282,10 +282,10 @@ function TrackListItem({ track, albumCover, trackNumber }) {
       
       {/* Track Info */}
       <div className="flex-1 min-w-0">
-        <div className="text-[#fffced] text-xl text-base font-semibold font-['Roboto'] truncate">
+        <div className="text-shelter-white text-xl text-base font-semibold font-['Roboto'] truncate">
           {track.title || "Untitled Track"}
         </div>
-        <div className="text-[#aa2a46] text-lg font-medium">
+        <div className="text-shelter-honey text-lg font-medium">
           {track.artist_name || "Unknown Artist"}
         </div>
       </div>
@@ -295,21 +295,21 @@ function TrackListItem({ track, albumCover, trackNumber }) {
         <button
           onClick={handlePlayPause}
           disabled={!hasAudio}
-          className={`w-10 h-10 rounded-full transition-all duration-300 flex items-center justify-center group-hover:scale-110 ${
+          className={`w-10 h-10 rounded-full transition-all duration-300 flex items-center justify-center group-hover:scale-110 focus:ring-2 focus:ring-shelter-honey ${
             hasAudio 
-              ? 'bg-[#aa2a46] hover:bg-[#d94a6a] cursor-pointer' 
-              : 'bg-gray-600 cursor-not-allowed opacity-50'
+              ? 'bg-shelter-honey hover:bg-shelter-amber cursor-pointer' 
+              : 'bg-shelter-gray cursor-not-allowed opacity-50'
           }`}
           aria-label={isPlaying ? "Pause" : "Play"}
           title={hasAudio ? (isPlaying ? "Pause" : "Play preview") : "No preview available"}
         >
           {isPlaying ? (
             <div className="flex gap-1">
-              <div className="w-1 h-4 bg-white rounded-sm"></div>
-              <div className="w-1 h-4 bg-white rounded-sm"></div>
+              <div className="w-1 h-4 bg-shelter-charcoal rounded-sm"></div>
+              <div className="w-1 h-4 bg-shelter-charcoal rounded-sm"></div>
             </div>
           ) : (
-            <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-1"></div>
+            <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-shelter-charcoal border-b-[6px] border-b-transparent ml-1"></div>
           )}
         </button>
         {hasAudio && (
@@ -381,7 +381,7 @@ function ArtistMerchCard({
 
   return (
     <div
-      className="flex flex-col w-full max-w-[17rem] h-[auto] bg-[#21212b] rounded-md outline outline-[0.04rem] outline-offset-[-0.04rem] outline-[#6e5049]/20 overflow-hidden flex-grow transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#aa2a46]/50 hover:-translate-y-2"
+      className="flex flex-col w-full max-w-[17rem] h-[auto] bg-shelter-slate rounded-md outline outline-[0.04rem] outline-offset-[-0.04rem] outline-shelter-gray/20 overflow-hidden flex-grow transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-shelter-honey/50 hover:-translate-y-2"
       style={{ minWidth: "220px", minHeight: "320px" }}
     >
       <NotAvailableModal
@@ -406,10 +406,10 @@ function ArtistMerchCard({
         )}
       </div>
       <div className="flex flex-col justify-center items-start gap-2 w-full h-[35%] px-[6%] pt-[20%] pb-[6%]">
-        <div className={`${type === 'Digital Album' ? 'text-[green]' : 'text-[#aa2a46]'} text-[1rem] font-medium font-['Roboto'] uppercase leading-3 tracking-tight`}>
+        <div className={`${type === 'Digital Album' ? 'text-shelter-honey' : 'text-shelter-honey'} text-[1rem] font-medium font-['Roboto'] uppercase leading-3 tracking-tight`}>
           {type}
         </div>
-        <div className="text-white text-[1rem] xl:text-[1.2rem] font-medium font-['Roboto'] leading-none">
+        <div className="text-shelter-white text-[1rem] xl:text-[1.2rem] font-medium font-['Roboto'] leading-none">
           {title}
         </div>
         {/* Preview Button for Tracks */}
@@ -417,22 +417,22 @@ function ArtistMerchCard({
           <div className="w-full mb-2">
             <button
               onClick={handlePlayPause}
-              className="w-full px-[0.7rem] py-[0.35rem] bg-[#1d1e26] border-2 border-[#aa2a46] rounded-xs flex items-center justify-center gap-2 hover:bg-[#aa2a46] transition-colors duration-200 group"
+              className="w-full px-[0.7rem] py-[0.35rem] bg-shelter-charcoal border-2 border-shelter-honey rounded-xs flex items-center justify-center gap-2 hover:bg-shelter-honey transition-colors duration-200 group focus:ring-2 focus:ring-shelter-honey"
             >
               {isPlaying ? (
                 <>
                   <div className="flex gap-1">
-                    <div className="w-1 h-3 bg-[#aa2a46] group-hover:bg-white rounded-sm"></div>
-                    <div className="w-1 h-3 bg-[#aa2a46] group-hover:bg-white rounded-sm"></div>
+                    <div className="w-1 h-3 bg-shelter-honey group-hover:bg-shelter-charcoal rounded-sm"></div>
+                    <div className="w-1 h-3 bg-shelter-honey group-hover:bg-shelter-charcoal rounded-sm"></div>
                   </div>
-                  <span className="text-center text-[#aa2a46] group-hover:text-white text-[0.8rem] xl:text-[1rem] font-medium font-['Roboto']">
+                  <span className="text-center text-shelter-honey group-hover:text-shelter-charcoal text-[0.8rem] xl:text-[1rem] font-semibold font-['Roboto']">
                     Pause Preview
                   </span>
                 </>
               ) : (
                 <>
-                  <div className="w-0 h-0 border-t-[5px] border-t-transparent border-l-[8px] border-l-[#aa2a46] group-hover:border-l-white border-b-[5px] border-b-transparent"></div>
-                  <span className="text-center text-[#aa2a46] group-hover:text-white text-[0.8rem] xl:text-[1rem] font-medium font-['Roboto']">
+                  <div className="w-0 h-0 border-t-[5px] border-t-transparent border-l-[8px] border-l-shelter-honey group-hover:border-l-shelter-charcoal border-b-[5px] border-b-transparent"></div>
+                  <span className="text-center text-shelter-honey group-hover:text-shelter-charcoal text-[0.8rem] xl:text-[1rem] font-semibold font-['Roboto']">
                     Play Preview
                   </span>
                 </>
@@ -447,15 +447,15 @@ function ArtistMerchCard({
         )}
         
         <div className="flex justify-between items-center w-full mb-[10%]">
-          <div className="text-white text-sm xl:text-[1.2rem]  font-bold font-['Roboto'] leading-tight">
+          <div className="text-shelter-white text-sm xl:text-[1.2rem]  font-bold font-['Roboto'] leading-tight">
             {price}
           </div>
           {isStripeEnabled ? (
             <button
-              className="px-[0.7rem] py-[0.35rem] bg-[#aa2a46] rounded-xs flex flex-col justify-center items-center hover:bg-[#d94a6a] transition-colors duration-200"
+              className="px-[0.7rem] py-[0.35rem] bg-shelter-honey rounded-xs flex flex-col justify-center items-center hover:bg-shelter-amber transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
               onClick={handleButtonClick}
             >
-              <span className="text-center text-white text-[0.8rem] xl:text-[1.2rem] font-medium font-['Roboto'] leading-[0.9rem]">
+              <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
                 {buttonLabel}
               </span>
             </button>
@@ -465,9 +465,9 @@ function ArtistMerchCard({
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleButtonClick}
-              className="px-[0.7rem] py-[0.35rem] bg-[#aa2a46] rounded-xs flex flex-col justify-center items-center hover:bg-[#d94a6a] transition-colors duration-200"
+              className="px-[0.7rem] py-[0.35rem] bg-shelter-honey rounded-xs flex flex-col justify-center items-center hover:bg-shelter-amber transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
             >
-              <span className="text-center text-white text-[0.8rem] xl:text-[1.2rem] font-medium font-['Roboto'] leading-[0.9rem]">
+              <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
                 Buy Now
               </span>
             </a>
@@ -783,7 +783,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
   return (
     <>
     <ZoomFit> 
-      <div className="w-full min-h-screen bg-[#1a1b22] flex flex-col items-center relative overflow-hidden">
+      <div className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal flex flex-col items-center relative overflow-hidden mt-[1%] minMobile:mt-[5%] sm:mt-[2%] lg:mt-[5%] ">
         {/* Artist Background Image - Only visible on individual artist pages */}
         {optimizedBackgroundUrl && (
           <div 
@@ -797,20 +797,20 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
             }}
           >
             {/* Multi-layer gradient overlays for modern effect */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#1a1b22]/80 via-[#1a1b22]/50 to-[#1a1b22]/80"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1a1b22]/70 via-transparent to-[#1a1b22]/70"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1b22]/70 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-shelter-charcoal/80 via-shelter-charcoal/50 to-shelter-charcoal/80"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-shelter-charcoal/70 via-transparent to-shelter-charcoal/70"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-shelter-charcoal/70 via-transparent to-transparent"></div>
           </div>
         )}
         
         {/* Overlay div to hide scrolling content */}
-        <div className="overlayBlock fixed sm:pt-[20rem] md:pt-[25rem] lg:pt-[27rem] xl:pt-[30rem] left-0 w-full h-[10rem] bg-[#1a1b22] z-[100] pointer-events-none "></div>
+        <div className="overlayBlock fixed sm:pt-[20rem] md:pt-[25rem] lg:pt-[27rem] xl:pt-[30rem] left-0 w-full h-[10rem] bg-shelter-charcoal z-[100] pointer-events-none "></div>
         
         {/* Content layer with relative positioning */}
         <div className="StoreHeader relative z-[100] w-full flex flex-col items-center  sm:fixed sm:scale-50 sm:origin-top sm:h-[50%] md:fixed lg:fixed xl:fixed">
             <div className="relative z-10 w-full ">
               <ArtistStoreNav
-                storeName={artistId ? `${artistName} Store` : "SoulFelt Music Store"}
+                storeName={artistId ? `${artistName} Store` : "Shelter House Music Store"}
                 cartCount={cart.length}
                 tabs={tabs}
                 activeTab={activeTab}
@@ -826,8 +826,8 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
             }
             description={
               artistId
-                ? `Support ${artistName} directly by purchasing official music releases and exclusive merchandise. All proceeds help fund future creative projects.`
-                : "Support SoulFelt Music directly by purchasing official music releases and exclusive merchandise. All proceeds help fund future creative projects."
+                ? `Support ${artistName} through music and merchandise. Your contribution helps fund future recordings, creative projects, and ministry work.`
+                : "Support the mission of Shelter House Music through music and merchandise. Your contribution helps fund worship recordings, outreach, and creative projects that serve local churches and communities"
             }
           />
 
@@ -839,33 +839,33 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
           {/* View Mode Toggle - Only show when Music tab is active */}
           {activeTab === "Music" && (
             <div className="flex justify-center mb-6">
-              <div className="inline-flex rounded-lg bg-[#1d1e26] p-1 border-2 border-[#aa2a46]">
+              <div className="inline-flex rounded-lg bg-shelter-charcoal p-1 border-2 border-shelter-honey">
                 <button
                   onClick={() => setViewMode("all")}
-                  className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 ${
+                  className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 focus:ring-2 focus:ring-shelter-honey ${
                     viewMode === "all"
-                      ? "bg-[#aa2a46] text-[#fffced] shadow-lg"
-                      : "text-[#aa2a46] hover:text-[#fffced]"
+                      ? "bg-shelter-honey text-shelter-charcoal shadow-lg"
+                      : "text-shelter-honey hover:text-shelter-white"
                   }`}
                 >
                   All Music
                 </button>
                 <button
                   onClick={() => setViewMode("albums")}
-                  className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 ${
+                  className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 focus:ring-2 focus:ring-shelter-honey ${
                     viewMode === "albums"
-                      ? "bg-[#aa2a46] text-[#fffced] shadow-lg"
-                      : "text-[#aa2a46] hover:text-[#fffced]"
+                      ? "bg-shelter-honey text-shelter-charcoal shadow-lg"
+                      : "text-shelter-honey hover:text-shelter-white"
                   }`}
                 >
                   Albums
                 </button>
                 <button
                   onClick={() => setViewMode("tracks")}
-                  className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 ${
+                  className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 focus:ring-2 focus:ring-shelter-honey ${
                     viewMode === "tracks"
-                      ? "bg-[#aa2a46] text-[#fffced] shadow-lg"
-                      : "text-[#aa2a46] hover:text-[#fffced]"
+                      ? "bg-shelter-honey text-shelter-charcoal shadow-lg"
+                      : "text-shelter-honey hover:text-shelter-white"
                   }`}
                 >
                   Tracks

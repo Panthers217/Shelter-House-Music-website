@@ -63,17 +63,17 @@ function AlbumCard({ album, purchaseLink }) {
   return (
     <div 
       onClick={handleAlbumClick}
-      className="group relative bg-gradient-to-br from-[#1d1e26] to-[#16171d] rounded-2xl shadow-2xl p-6 flex flex-col items-center w-full max-w-xs min-w-[240px] hover:scale-105 transition-all duration-300 border border-[#2a2b35] hover:border-[#aa2a46]/50 overflow-hidden cursor-pointer"
+      className="group relative bg-gradient-to-br from-shelter-slate to-shelter-charcoal rounded-2xl shadow-2xl p-6 flex flex-col items-center w-full max-w-xs min-w-[240px] hover:scale-105 transition-all duration-300 border border-shelter-gray/20 hover:border-shelter-honey/50 overflow-hidden cursor-pointer"
     >
       <NotAvailableModal isOpen={showModal} onClose={() => setShowModal(false)} />
       {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#aa2a46]/0 to-[#aa2a46]/0 group-hover:from-[#aa2a46]/5 group-hover:to-[#aa2a46]/10 transition-all duration-500 rounded-2xl"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-shelter-honey/0 to-shelter-honey/0 group-hover:from-shelter-honey/5 group-hover:to-shelter-honey/10 transition-all duration-500 rounded-2xl"></div>
       
       {/* Content */}
       <div className="relative z-10 w-full flex flex-col items-center">
         {/* Album Cover */}
         <div className="relative mb-4">
-          <div className="relative w-32 h-32 rounded-2xl overflow-hidden shadow-xl ring-4 ring-[#aa2a46]/20 group-hover:ring-[#aa2a46]/40 transition-all duration-300">
+          <div className="relative w-32 h-32 rounded-2xl overflow-hidden shadow-xl ring-4 ring-shelter-honey/20 group-hover:ring-shelter-honey/40 transition-all duration-300">
             <img 
               src={album.cover_url || 'https://placehold.co/300x300?text=No+Cover'} 
               alt={album.title} 
@@ -81,15 +81,15 @@ function AlbumCard({ album, purchaseLink }) {
             />
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="w-12 h-12 rounded-full bg-[#aa2a46] flex items-center justify-center shadow-lg">
-                <span className="i-lucide-shopping-cart text-white text-xl" />
+              <div className="w-12 h-12 rounded-full bg-shelter-honey flex items-center justify-center shadow-lg">
+                <span className="i-lucide-shopping-cart text-shelter-charcoal text-xl" />
               </div>
             </div>
           </div>
           
           {/* Album type badge */}
           {album.album_type && (
-            <div className="absolute -top-2 -right-2 bg-[#aa2a46] text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg uppercase">
+            <div className="absolute -top-2 -right-2 bg-shelter-honey text-shelter-charcoal text-xs font-bold px-2 py-1 rounded-full shadow-lg uppercase">
               {album.album_type}
             </div>
           )}
@@ -97,7 +97,7 @@ function AlbumCard({ album, purchaseLink }) {
 
         {/* Album Info */}
         <div className="w-full text-center space-y-2">
-          <h3 className="text-[#fffced] text-lg font-bold line-clamp-2 group-hover:text-[#aa2a46] transition-colors duration-300">
+          <h3 className="text-shelter-white text-lg font-bold line-clamp-2 group-hover:text-shelter-honey transition-colors duration-300">
             {album.title || 'Untitled Album'}
           </h3>
           
@@ -107,7 +107,7 @@ function AlbumCard({ album, purchaseLink }) {
               {album.genre.split(',').slice(0, 2).map((genre, idx) => (
                 <span 
                   key={idx}
-                  className="text-[#aa2a46] text-xs bg-[#aa2a46]/10 px-2 py-0.5 rounded-full border border-[#aa2a46]/30"
+                  className="text-shelter-honey text-xs bg-shelter-honey/10 px-2 py-0.5 rounded-full border border-shelter-honey/30"
                 >
                   {genre.trim()}
                 </span>
@@ -117,21 +117,21 @@ function AlbumCard({ album, purchaseLink }) {
 
           {/* Description (if available) */}
           {album.album_description && (
-            <p className="text-[#fffced]/60 text-xs line-clamp-2 mt-2">
+            <p className="text-shelter-gray text-xs line-clamp-2 mt-2">
               {album.album_description}
             </p>
           )}
 
           {/* Price and Buy Button */}
           {isMerchandiseEnabled && (
-          <div className="mt-4 pt-4 border-t border-[#2a2b35] flex flex-col gap-2">
-            <div className="text-[#aa2a46] text-2xl font-bold">
+          <div className="mt-4 pt-4 border-t border-shelter-gray/20 flex flex-col gap-2">
+            <div className="text-shelter-honey text-2xl font-bold">
               {formatPrice(album.album_pricing)}
             </div>
             {isStripeEnabled ? (
               <button 
                 onClick={handleButtonClick}
-                className="w-full bg-[#aa2a46] hover:bg-[#8a1f36] text-[#fffced] font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                className="w-full bg-shelter-honey hover:bg-shelter-amber text-shelter-charcoal font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 focus:ring-2 focus:ring-shelter-honey"
               >
                 <span className="i-lucide-shopping-cart text-sm" />
                 Add to Cart
@@ -142,7 +142,7 @@ function AlbumCard({ album, purchaseLink }) {
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={handleButtonClick}
-                className="w-full bg-[#aa2a46] hover:bg-[#8a1f36] text-[#fffced] font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                className="w-full bg-shelter-honey hover:bg-shelter-amber text-shelter-charcoal font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 focus:ring-2 focus:ring-shelter-honey"
               >
                 <span className="i-lucide-shopping-bag text-sm" />
                 Purchase Album
@@ -154,7 +154,7 @@ function AlbumCard({ album, purchaseLink }) {
       </div>
 
       {/* Glow effect on hover */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-[#aa2a46] to-[#ff6b81] rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 -z-10"></div>
+      <div className="absolute -inset-1 bg-gradient-to-r from-shelter-honey to-shelter-amber rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 -z-10"></div>
     </div>
   );
 }

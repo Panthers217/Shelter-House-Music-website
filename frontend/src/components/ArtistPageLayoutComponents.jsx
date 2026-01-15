@@ -336,9 +336,9 @@ const ArtistPageComponent = () => {
         src={image}
         alt={title}
       />
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-zinc-900 from-10% to-black/0" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-shelter-charcoal from-10% to-black/0" />
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full flex flex-col items-start px-8">
-        <div className="text-white font-bold font-['Roboto'] text-5xl md:text-7xl leading-tight">
+        <div className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white font-bold font-['Roboto'] text-5xl md:text-7xl leading-tight">
           {title}
         </div>
       </div>
@@ -363,11 +363,11 @@ const ArtistPageComponent = () => {
             key={country}
             type="button"
             style={{ left, top, position: "absolute" }}
-            className={`px-2 py-[5px] rounded-sm flex justify-center items-center shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] focus:outline-none transition-all duration-150
+            className={`px-2 py-[5px] rounded-sm flex justify-center items-center shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] focus:outline-none focus:ring-2 focus:ring-shelter-honey transition-all duration-150
             ${
               isActive
-                ? "bg-yellow-700 text-white font-bold scale-105"
-                : "bg-neutral-800 text-white/60 font-medium"
+                ? "bg-shelter-honey text-shelter-charcoal font-bold scale-105"
+                : "bg-shelter-slate text-shelter-white/60 font-medium hover:bg-shelter-honey/20"
             }`}
             onClick={() => onSelect(country)}
           >
@@ -402,7 +402,7 @@ const ArtistPageComponent = () => {
             style={{ ...positions[idx], position: "absolute" }}
             className={`w-44 h-60 p-4 transition-all duration-150 ${cardClass} ${
               hovered === art.name
-                ? "ring-4 ring-yellow-500 scale-105 z-10"
+                ? "ring-4 ring-shelter-honey scale-105 z-10"
                 : ""
             }`}
             onMouseEnter={() => setHovered(art.name)}
@@ -420,11 +420,11 @@ const ArtistPageComponent = () => {
                 />
               </div>
               <div className="py-4 flex flex-col items-center">
-                <div className="text-center text-white/60 text-base font-normal font-['Roboto']">
+                <div className="text-center text-shelter-white/60 text-base font-normal font-['Roboto']">
                   {art.name}
                 </div>
                 {hovered === art.name && (
-                  <div className="mt-2 text-yellow-300 text-xs">
+                  <div className="mt-2 text-shelter-honey text-xs">
                     Country: {artistCountryMap[art.name]}
                   </div>
                 )}
@@ -455,7 +455,7 @@ const ArtistPageComponent = () => {
 
     return (
       <div className="w-80 flex flex-col items-start">
-        <div className="relative w-80 h-52 rounded-[3px] mb-4 overflow-hidden bg-zinc-800">
+        <div className="relative w-80 h-52 rounded-[3px] mb-4 overflow-hidden bg-shelter-slate">
           {/* Rotating background images */}
           {trackImages.length > 0 ? (
             trackImages.map((img, idx) => (
@@ -477,22 +477,22 @@ const ArtistPageComponent = () => {
           )}
           <div className="absolute top-0 left-0 w-full h-full bg-black/25 rounded-[3px]" />
           <div className="absolute w-full h-full flex flex-col justify-center items-center p-12 z-10">
-            <div className="text-center text-white text-2xl font-bold font-['Roboto'] leading-10">
+            <div className="text-center text-shelter-white text-2xl font-bold font-['Roboto'] leading-10">
               Top Tracks
             </div>
-            <div className="text-center text-white/50 text-base font-normal font-['Roboto'] leading-normal">
+            <div className="text-center text-shelter-gray text-base font-normal font-['Roboto'] leading-normal">
               Discover what's trending now.
             </div>
           </div>
         </div>
-        <div className="mb-2 text-white/60 text-base font-medium font-['Roboto']">
+        <div className="mb-2 text-shelter-white/60 text-base font-medium font-['Roboto']">
           Top tracks
         </div>
         <div>
           {tracks.map((track) => (
             <button
               key={track.title}
-              className="w-full h-20 px-4 flex items-center mb-2 bg-transparent hover:bg-yellow-900/10 rounded transition-all duration-150 focus:outline-none"
+              className="w-full h-20 px-4 flex items-center mb-2 bg-transparent hover:bg-shelter-honey/10 rounded transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-shelter-honey"
               onClick={() => onTrackClick(track)}
             >
               <div className="w-16 h-16 rounded-[3px] overflow-hidden flex-shrink-0">
@@ -503,10 +503,10 @@ const ArtistPageComponent = () => {
                 />
               </div>
               <div className="flex-1 px-5 flex flex-col justify-center">
-                <div className="text-white text-base font-medium font-['Roboto']">
+                <div className="text-shelter-white text-base font-medium font-['Roboto']">
                   {track.title}
                 </div>
-                <div className="text-white/60 text-base font-normal font-['Roboto']">
+                <div className="text-shelter-gray text-base font-normal font-['Roboto']">
                   {track.artist}
                 </div>
               </div>
@@ -519,7 +519,7 @@ const ArtistPageComponent = () => {
 
   // --- DESKTOP COMPONENT ---
   const ArtistDesktopPage = () => (
-    <div className="w-full flex justify-center items-center bg-zinc-900 overflow-hidden">
+    <div className="w-full flex justify-center items-center bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal overflow-hidden">
       <div className="w-[1152px] flex flex-col items-start">
         <Banner image={bannerImage} title="Artists" className="h-72 mb-8" />
         <div className="flex flex-row w-full">
@@ -527,7 +527,7 @@ const ArtistPageComponent = () => {
             <div className="w-full pb-6 flex flex-row items-start">
               <div className="py-2 flex flex-col justify-center items-start">
                 <div className="h-16 flex flex-col justify-start items-start">
-                  <div className="text-white text-base font-normal font-['Roboto']">
+                  <div className="text-shelter-white text-base font-normal font-['Roboto']">
                     Countries
                   </div>
                 </div>
@@ -566,13 +566,13 @@ const ArtistPageComponent = () => {
 
   // --- TABLET COMPONENT ---
   const ArtistPageTablet = () => (
-    <div className="w-full bg-zinc-900 flex flex-col items-center">
+    <div className="w-full bg-shelter-charcoal flex flex-col items-center">
       <div className="w-[768px] flex flex-col items-start">
         <Banner image={bannerImage} title="Artists" className="h-96 mb-8" />
         <div className="w-full pb-6 flex flex-row items-start">
           <div className="py-2 flex flex-col justify-center items-start">
             <div className="h-16 flex flex-col justify-start items-start">
-              <div className="text-white text-base font-normal font-['Roboto']">
+              <div className="text-shelter-white text-base font-normal font-['Roboto']">
                 Countries
               </div>
             </div>
@@ -609,7 +609,7 @@ const ArtistPageComponent = () => {
 
   // --- MOBILE COMPONENT ---
   const ArtistMobilePage = () => (
-    <div className="w-full max-w-[767px] min-h-screen bg-zinc-900 flex flex-col items-center overflow-x-hidden">
+    <div className="w-full max-w-[767px] min-h-screen bg-shelter-charcoal flex flex-col items-center overflow-x-hidden">
       <div className="w-full flex-1 flex flex-col items-center">
         <div className="w-full p-4 flex flex-col items-center">
           <Banner
@@ -620,7 +620,7 @@ const ArtistPageComponent = () => {
           <div className="w-full pb-6 flex flex-row items-start">
             <div className="py-2 flex flex-col justify-center items-start">
               <div className="h-12 flex flex-col justify-start items-start">
-                <div className="text-white text-base font-normal font-['Roboto']">
+                <div className="text-shelter-white text-base font-normal font-['Roboto']">
                   Countries
                 </div>
               </div>
@@ -631,11 +631,11 @@ const ArtistPageComponent = () => {
                   <button
                     key={country}
                     type="button"
-                    className={`px-2 py-[5px] rounded-sm flex justify-center items-center shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] focus:outline-none transition-all duration-150
+                    className={`px-2 py-[5px] rounded-sm flex justify-center items-center shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] focus:outline-none focus:ring-2 focus:ring-shelter-honey transition-all duration-150
                     ${
                       selectedCountry === country
-                        ? "bg-yellow-700 text-white font-bold scale-105"
-                        : "bg-neutral-800 text-white/60 font-medium"
+                        ? "bg-shelter-honey text-shelter-charcoal font-bold scale-105"
+                        : "bg-shelter-slate text-shelter-white/60 font-medium hover:bg-shelter-honey/20"
                     }`}
                     onClick={() => setSelectedCountry(country)}
                   >
@@ -667,10 +667,10 @@ const ArtistPageComponent = () => {
                     />
                   </div>
                   <div className="py-2 flex flex-col items-center">
-                    <div className="text-center text-white/60 text-base font-normal font-['Roboto']">
+                    <div className="text-center text-shelter-white/60 text-base font-normal font-['Roboto']">
                       {art.name}
                     </div>
-                    <div className="mt-1 text-yellow-300 text-xs">
+                    <div className="mt-1 text-shelter-honey text-xs">
                       Country: {artistCountryMap[art.name]}
                     </div>
                   </div>
@@ -720,9 +720,9 @@ const ArtistPageComponent = () => {
     
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-        <div className="bg-zinc-900 rounded-lg shadow-lg p-8 max-w-md w-full relative">
+        <div className="bg-shelter-slate rounded-lg shadow-lg p-8 max-w-md w-full relative">
           <button
-            className="absolute top-2 right-2 text-white text-xl hover:text-yellow-400 transition-colors"
+            className="absolute top-2 right-2 text-shelter-white text-xl hover:text-shelter-honey transition-colors focus:ring-2 focus:ring-shelter-honey"
             onClick={onClose}
           >
             &times;
@@ -733,11 +733,11 @@ const ArtistPageComponent = () => {
               alt={track.title}
               className="w-32 h-32 rounded-full mb-4 object-cover"
             />
-            <div className="text-white text-2xl font-bold mb-2">
+            <div className="text-shelter-white text-2xl font-bold mb-2">
               {track.title}
             </div>
-            <div className="text-white/70 text-lg mb-2">{track.artist}</div>
-            <div className="text-yellow-400 text-base mb-4">
+            <div className="text-shelter-gray text-lg mb-2">{track.artist}</div>
+            <div className="text-shelter-honey text-base mb-4">
               Chart position:{" "}
               {topTracks.findIndex((t) => t.title === track.title) + 1}
             </div>
@@ -747,7 +747,7 @@ const ArtistPageComponent = () => {
               <>
                 <button
                   onClick={handlePlayPause}
-                  className="mt-4 px-8 py-3 bg-yellow-700 hover:bg-yellow-600 text-white font-bold rounded-full transition-all duration-150 flex items-center gap-2 shadow-lg hover:shadow-yellow-700/50"
+                  className="mt-4 px-8 py-3 bg-shelter-honey hover:bg-shelter-amber text-shelter-charcoal font-bold rounded-full transition-all duration-150 flex items-center gap-2 shadow-lg hover:shadow-shelter-honey/50 focus:ring-2 focus:ring-shelter-honey"
                 >
                   {isPlaying ? (
                     <>
@@ -774,7 +774,7 @@ const ArtistPageComponent = () => {
                 />
               </>
             ) : (
-              <div className="mt-4 text-white/60 text-sm">
+              <div className="mt-4 text-shelter-gray text-sm">
                 Audio preview not available
               </div>
             )}
@@ -792,7 +792,7 @@ const ArtistPageComponent = () => {
   // Wait for data to load
   if (!dbSnapshot) {
     return (
-      <div className="w-full h-screen flex items-center justify-center bg-zinc-900 text-white">
+      <div className="w-full h-screen flex items-center justify-center bg-shelter-charcoal text-shelter-white">
         <div>Loading...</div>
       </div>
     );
@@ -807,7 +807,7 @@ const ArtistPageComponent = () => {
         url="https://soulfeltmusic.com/artist"
       />
       
-      <div className="bg-zinc-900">
+      <div className="bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal ">
         {/* SearchBar at top level - prevents re-creation on view changes */}
         <div className="w-full max-w-7xl mx-auto px-4 pt-8 pb-4">
           <SearchBar onSearchResults={handleSearchResults} viewMode="artists" />

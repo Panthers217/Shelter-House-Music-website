@@ -31,7 +31,9 @@ const SocialMediaLinks = ({
   containerClassName = "flex flex-row gap-4 items-center flex-wrap",
   iconClassName = "w-6 h-6 flex items-center justify-center bg-white/10 rounded-full text-[#fffced] hover:bg-[#aa2a46] transition",
   showTitle = true,
-  onLinksLoaded = null // Callback when links are fetched
+  onLinksLoaded = null, // Callback when links are fetched
+  platformFilter = null, // Array of platform names to show (e.g., ['facebook', 'youtube'])
+  customLinks = null // Object with custom URLs for platforms (e.g., { facebook: 'https://...', youtube: 'https://...' })
 }) => {
   const [socialMediaLinks, setSocialMediaLinks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -74,7 +76,7 @@ const SocialMediaLinks = ({
             ? JSON.parse(response.data.social_media_links)
             : response.data.social_media_links;
           
-          const enabledLinks = Object.entries(links)
+          let enabledLinks = Object.entries(links)
             .filter(([key, value]) => value.enabled && value.url)
             .map(([key, value]) => ({
               platform: key,
@@ -82,6 +84,21 @@ const SocialMediaLinks = ({
               name: value.name || key,
               icon: value.icon || key
             }));
+          
+          // Apply platform filter if provided
+          if (platformFilter && Array.isArray(platformFilter)) {
+            enabledLinks = enabledLinks.filter(link => platformFilter.includes(link.platform));
+          }
+          
+          // Override with custom links if provided
+          if (customLinks && typeof customLinks === 'object') {
+            enabledLinks = enabledLinks.map(link => {
+              if (customLinks[link.platform]) {
+                return { ...link, url: customLinks[link.platform] };
+              }
+              return link;
+            });
+          }
           
           setSocialMediaLinks(enabledLinks);
           

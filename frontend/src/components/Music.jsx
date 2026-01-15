@@ -195,40 +195,40 @@ const Music = () => {
         url="https://soulfeltmusic.com/music"
       />
      
-      <section className="w-full min-h-screen bg-[#1a1b22] flex flex-col items-center py-10 px-4 md:px-12">
+      <section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center py-10 px-4 md:px-12 opacity-80">
         
         {/* Overlay div to hide scrolling content - Only visible on lg/xl screens */}
-        <div className="overlayBlock hidden lg:block fixed xl:absolute lg:top-[27rem] xl:top-[30rem] left-0 w-full h-[10rem] bg-[#1a1b22] z-[200] pointer-events-none"></div>
+        {/* <div className="overlayBlock hidden lg:block fixed xl:absolute lg:top-[27rem] xl:top-[30rem] left-0 w-full h-[10rem] bg-shelter-charcoal z-[200] pointer-events-none"></div> */}
 
         {/* Header - Normal flow on mobile, fixed/scaled on lg/xl */}
-        <div className="MusicStore-header relative lg:fixed lg:scale-50 lg:origin-top lg:h-[none] xl:absolute xl:scale-[0.75] xl:origin-top xl:h-[none] z-[100] w-full max-w-7xl bg-[#21212b] rounded-lg shadow-lg p-6 md:p-10 flex flex-col gap-12">
-          <h1 className="text-[#fffced] text-5xl md:text-6xl font-extrabold font-['Roboto'] mb-4 text-center drop-shadow-lg xl:scale-[1] xl:origin-top xl:h-[50%]">
-            Stream & Discover Soul Felt Music
+        <div className="MusicStore-header relative lg:fixed lg:scale-50 lg:origin-top lg:h-[none] xl:absolute xl:scale-[0.75] xl:origin-top xl:h-[none] z-[100] w-full max-w-7xl bg-shelter-slate rounded-lg shadow-lg p-6 md:p-10 flex flex-col gap-12">
+          <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-5xl md:text-6xl font-extrabold font-['Roboto'] mb-4 text-center drop-shadow-lg xl:scale-[1] xl:origin-top xl:h-[50%]">
+            Stream & Discover Shelter House Music
           </h1>
-          <p className="text-[#fffced] text-lg md:text-xl font-semibold text-center mb-8 xl:scale-[1.5] xl:origin-top xl:h-[50%]">
+          <p className="text-shelter-white text-lg md:text-xl font-semibold text-center mb-8 xl:scale-[1.5] xl:origin-top xl:h-[50%]">
             Play samples, discover new artists, and purchase your favorite
             tracks and albums.
           </p>
 
           {/* View Toggle */}
           <div className="flex justify-center mb-6 xl:scale-[1.5] xl:origin-top xl:h-[50%]">
-            <div className="inline-flex rounded-lg bg-[#1d1e26] p-1 border-2 border-[#aa2a46]">
+            <div className="inline-flex rounded-lg bg-shelter-charcoal p-1 border-2 border-shelter-honey">
               <button
                 onClick={() => setViewMode("tracks")}
-                className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 ${
+                className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 focus:ring-2 focus:ring-shelter-honey ${
                   viewMode === "tracks"
-                    ? "bg-[#aa2a46] text-[#fffced] shadow-lg"
-                    : "text-[#aa2a46] hover:text-[#fffced]"
+                    ? "bg-shelter-honey text-shelter-charcoal shadow-lg"
+                    : "text-shelter-honey hover:text-shelter-white"
                 }`}
               >
                 Tracks
               </button>
               <button
                 onClick={() => setViewMode("albums")}
-                className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 ${
+                className={`px-6 py-2 rounded-md font-bold text-base transition-all duration-200 focus:ring-2 focus:ring-shelter-honey ${
                   viewMode === "albums"
-                    ? "bg-[#aa2a46] text-[#fffced] shadow-lg"
-                    : "text-[#aa2a46] hover:text-[#fffced]"
+                    ? "bg-shelter-honey text-shelter-charcoal shadow-lg"
+                    : "text-shelter-honey hover:text-shelter-white"
                 }`}
               >
                 Albums
@@ -245,10 +245,10 @@ const Music = () => {
               <button
                 key={tab.key}
                 onClick={() => handleTabClick(tab.key)}
-                className={`px-5 py-2 rounded-full font-bold text-lg transition-colors border-2 border-[#aa2a46] focus:outline-none ${
+                className={`px-5 py-2 rounded-full font-bold text-lg transition-colors border-2 border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey ${
                   activeTabs.includes(tab.key)
-                    ? "bg-[#aa2a46] text-[#fffced]"
-                    : "bg-[#1d1e26] text-[#aa2a46] hover:bg-[#aa2a46] hover:text-[#fffced]"
+                    ? "bg-shelter-honey text-shelter-charcoal"
+                    : "bg-shelter-charcoal text-shelter-white hover:bg-shelter-amber hover:text-shelter-charcoal"
                 }`}
               >
                 {tab.label}
@@ -258,7 +258,7 @@ const Music = () => {
         </div>
 
         {/* Content - Normal flow on mobile, with padding on lg/xl for scaled header */}
-        <div className="Music-Content sm:flex relative z-[50] w-full max-w-7xl bg-[#21212b] rounded-lg shadow-lg p-6 md:p-10 flex flex-col gap-12 lg:pt-[50%] xl:pt-[25%] ">
+        <div className="Music-Content sm:flex relative z-[50] w-full max-w-7xl bg-shelter-slate rounded-lg shadow-lg p-6 md:p-10 flex flex-col gap-12 lg:pt-[50%] xl:pt-[25%] ">
 
           {/* Cart display - only show when Stripe is enabled */}
           {isStripeEnabled && (
@@ -357,10 +357,10 @@ const Music = () => {
               );
             })}
           <div className="w-full flex flex-col items-center mt-8">
-            <h2 className="text-[#aa2a46] text-2xl font-bold mb-2 font-['Public_Sans'] text-center">
-              Why Buy Soul Felt Music?
+            <h2 className="text-shelter-honey text-2xl font-bold mb-2 font-['Public_Sans'] text-center">
+              Why Buy Shelter House Music?
             </h2>
-            <ul className="text-[#fffced] text-base md:text-lg font-medium text-center list-disc list-inside">
+            <ul className="text-shelter-white text-base md:text-lg font-medium text-center list-disc list-inside">
               <li>Support your favorite artists directly</li>
               <li>Get high-quality audio downloads</li>
               <li>Exclusive access to bonus tracks and content</li>

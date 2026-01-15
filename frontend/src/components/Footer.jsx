@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import SocialMediaLinks from "./SocialMediaLinks";
 import NewsletterSubscription from "./NewsletterSubscription";
 import { useFeatures } from "../context/FeaturesContext";
+import shelterLogo from "../assets/Shelter-house-logo.png";
 
 const socialLinks = [
   {
@@ -51,19 +52,27 @@ const Footer = () => {
     <footer className="bg-shelter-charcoal text-shelter-white pt-8 pb-4 px-2">
       <div className="max-w-7xl mx-auto border border-shelter-slate rounded-sm p-6 md:p-8 flex flex-col md:flex-col lg:flex-row xl:flex-row md:items-start gap-8 md:gap-0">
         {/* Left column */}
-        <div className="flex-1 mb-6 md:mb-0">
-          <span className="text-shelter-honey text-2xl font-bold">
-            Soul Felt Music
-          </span>
-          <p className="mt-6 mb-0">
-            Experience the soul of music with us.
-            <br />
-            Join our community of music lovers.
+        <div className="flex-1 mb-6 md:mb-0 max-w-md">
+          <div className="flex items-center gap-4 mb-6">
+            <img 
+              src={shelterLogo} 
+              alt="Shelter House Music Logo" 
+              className="h-16 w-auto object-contain flex-shrink-0"
+            />
+            <span className="text-shelter-honey text-2xl font-bold font-[bold'] leading-tight">
+              Shelter House Music
+            </span>
+          </div>
+          <p className="text-shelter-white text-base leading-relaxed">
+            Experience songs of joy, peace, and righteousness.
+          </p>
+          <p className="text-shelter-white text-base leading-relaxed mt-3">
+            Join our community of joining hearts through music.
           </p>
         </div>
         {/* Quick Links */}
         <div className="flex-1 flex flex-col md:ml-8 mb-6 md:mb-0">
-          <div className="font-bold text-[#aa2a46] mb-2">Quick Links</div>
+          <div className="font-bold text-shelter-honey mb-2">Quick Links</div>
           <ul className="space-y-1">
             {quickLinks.map((link) => (
               <li key={link.label}>
@@ -99,6 +108,11 @@ const Footer = () => {
               containerClassName="flex gap-2"
               iconClassName="text-gray-400 hover:text-white"
               showTitle={false}
+              platformFilter={['facebook', 'youtube']}
+              customLinks={{
+    facebook: 'https://www.facebook.com/shelterhousemusicministry',
+    youtube: 'https://www.youtube.com/@ShelterHouseMusic'
+  }}
             />
           </div>
         </div>
