@@ -10,7 +10,7 @@ const user = {
 };
 
 function AdminSqlViewer({ dbSnapshot }) {
-  const { refreshSqlViewerTableCount, triggerRefreshSqlViewerTable } = useApiData();
+  const { refreshSqlViewerTableCount, triggerRefreshSqlViewerTable, showDemos, setShowDemos } = useApiData();
   // Always declare hooks at the top level
   const tableKeys = dbSnapshot && Object.keys(dbSnapshot);
   // If only artists table is present, default to it
@@ -79,13 +79,25 @@ function AdminSqlViewer({ dbSnapshot }) {
 
   // Search function for albums and artists
   const getFilteredRecords = () => {
-    if (!searchType || (searchType !== "all" && !searchValue)) return records;
+    // First apply demo filter if enabled
+    let filteredByDemo = records;
+    if (showDemos) {
+      filteredByDemo = records.filter((r) => {
+        const demoValue = r.demos;
+        // Check if demos field is 1, '1', 'Yes', 'yes', or true
+        return demoValue === 1 || demoValue === '1' || 
+               (typeof demoValue === 'string' && demoValue.toLowerCase() === 'yes') ||
+               demoValue === true;
+      });
+    }
+    
+    if (!searchType || (searchType !== "all" && !searchValue)) return filteredByDemo;
     if (searchType === "all") {
-      return records;
+      return filteredByDemo;
     }
     // If searchType matches a field in the table, filter by that field
     if (fields.includes(searchType)) {
-      return records.filter((r) => {
+      return filteredByDemo.filter((r) => {
         const value = r[searchType];
         if (value == null) return false;
         // Numeric search: exact match
@@ -98,7 +110,7 @@ function AdminSqlViewer({ dbSnapshot }) {
           .includes(String(searchValue).toLowerCase());
       });
     }
-    return records;
+    return filteredByDemo;
   };
 
   const filteredRecords = getFilteredRecords();
@@ -252,8 +264,19 @@ function AdminSqlViewer({ dbSnapshot }) {
           />
         </div>
       </div>
-      {/* Refresh Table Button */}
-      <div className="w-full max-w-3xl flex justify-end mb-4">
+      {/* Refresh Table Button and Demo Filter */}
+      <div className="w-full max-w-3xl flex justify-end gap-3 mb-4">
+        <button
+          className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
+            showDemos
+              ? "bg-orange-600 text-white hover:bg-orange-700"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          }`}
+          onClick={() => setShowDemos(!showDemos)}
+          title={showDemos ? "Showing only demo records" : "Showing all records"}
+        >
+          {showDemos ? "✓ Demos Only" : "Show Demos"}
+        </button>
         <button
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
           onClick={triggerRefreshSqlViewerTable}

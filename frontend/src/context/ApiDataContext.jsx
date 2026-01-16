@@ -27,6 +27,9 @@ export const ApiDataProvider = ({ children }) => {
   // website mode state
   const [websiteMode, setWebsiteMode] = useState();
 
+  // Demo filter state - when true, show only demo records
+  const [showDemos, setShowDemos] = useState(false);
+
   // Persist mode changes to localStorage
   useEffect(() => {
     localStorage.setItem("soulFeltMode", mode);
@@ -158,6 +161,8 @@ export const ApiDataProvider = ({ children }) => {
         websiteUser,
         setWebsiteUser,
         websiteSettings,
+        showDemos,
+        setShowDemos,
       }}
     >
       {children}
