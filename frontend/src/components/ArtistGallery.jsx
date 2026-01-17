@@ -34,7 +34,7 @@ export const ArtistGallery = () => {
         className="Frame19 w-full bg-shelter-charcoal px-5 flex flex-col items-center"
       >
         <h2 className="text-shelter-white text-3xl md:text-5xl font-extrabold font-['Roboto'] mb-8 drop-shadow-lg tracking-wide animate-fadeIn">
-          Recording Artists
+          Recording Artists & Church Partners
         </h2>
         <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-6">
           {artists.map((artist, idx) => {

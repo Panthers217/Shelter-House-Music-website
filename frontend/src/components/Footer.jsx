@@ -131,7 +131,7 @@ const Footer = () => {
         )}
       </div>
       <div className="max-w-7xl mx-auto mt-4 text-xs text-shelter-white">
-        © 2026 Soul Felt Music. All rights reserved.
+        © 2026 Shelter House Music. All rights reserved.
       </div>
     </footer>
   );

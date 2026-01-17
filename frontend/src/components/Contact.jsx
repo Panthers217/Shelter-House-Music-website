@@ -15,9 +15,9 @@ const inquiryTabs = [
 const Contact = () => {
     
   const [contactInfo, setContactInfo] = useState({
-    contact_email: 'hello@soulfeltmusic.com',
-    contact_phone: '+1 (555) 123-4567',
-    contact_address: '123 Music Row, Nashville, TN 37203, United States',
+    contact_email: 'info@shelterhousemusic.com',
+    contact_phone: ' (252) 354-8303',
+    contact_address: 'Jacksonville, NC 28540',
     office_hours_weekday: '9:00 AM - 6:00 PM',
     office_hours_saturday: '10:00 AM - 4:00 PM',
     office_hours_sunday: 'Closed',

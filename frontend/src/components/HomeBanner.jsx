@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import heroPic1 from "../assets/hero_section_pics/heroPic1.png";
+import heroPic1 from "../assets/Shelter-House-coming soon.png";
 import welcomeLogo from "../assets/Shelter-house-logo.png";
 import FadeCarousel, { FadeCarouselImages } from "./FadeCarousel";
 import { useApiData } from "../context/ApiDataContext.jsx";
-
     // { id: 1, src: 'https://via.placeholder.com/300', alt: 'Image 1', title: 'Image 1' }
 
 
@@ -24,7 +23,7 @@ const DemoBannerMobile = ({ albumImages, fadeOut }) => {
       <div data-layer="Frame 30" className="Frame30 w-full aspect-{423.68/423.68} left-0 top-[166.82px] absolute">
         {/* <img data-layer="envato-labs-ai-3b01044f-1de4-4452-9c34-535e87650b3f 2" className="EnvatoLabsAi3b01044f1de444529c34535e87650b3f2  left-0 top-0 absolute" src={heroPic1} /> */}
        <div className="flex flex-1 z-0 w-full h-full left-0 top-0 absolute">
-        <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [heroPic1, welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={true} indicatorVisibility={false} />
+        <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [ welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={true} indicatorVisibility={false} />
         </div>
         <div data-layer="ButtonGroup" className="Buttongroup w-full left-0 top-0 absolute flex flex-col items-center pt-[11%] z-50 pointer-events-none">
           <div data-layer="Title" className={`Title mainTitle mt-8 mb-6 text-center text-shelter-white text-[6vw] sm:text-[5vw] font-bold font-['Roboto'] leading-tight `}>{textHeadline}</div>
@@ -68,7 +67,7 @@ const DemoBannerTablet = ({ albumImages, fadeOut }) => {
       {/* Hero Image */}
       <div className="absolute left-[0%] top-[45%] pl-[0%] w-[100%]  h-[63.5%] max-h-[442px] z-10">
        
-         <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [heroPic1, welcomeLogo]} interval={3500} ImageDivName={`w-full h-full object-cover rounded-[1vw] shadow-lg border border-black absolute`} imageVisibility={true} indicatorVisibility={false} />
+         <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [ welcomeLogo]} interval={3500} ImageDivName={`w-full h-full object-cover rounded-[1vw] shadow-lg border border-black absolute`} imageVisibility={true} indicatorVisibility={false} />
       </div>
       {/* Main Content */}
       <div className="relative w-full h-full flex flex-col justify-center items-center z-50 pt-[50%] pb-[3%] px-[12%] pointer-events-none">
@@ -87,7 +86,7 @@ const DemoBannerTablet = ({ albumImages, fadeOut }) => {
          {/* page indicator */}
         <div className="absolute bottom-[13%] w-full flex flex-row justify-center items-center gap-[1vw]">
           
-                <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [heroPic1, welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={false} indicatorVisibility={true} />
+                {/* <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [heroPic1, welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={false} indicatorVisibility={true} /> */}
 
         </div>
       </div>
@@ -109,7 +108,7 @@ const DemoBannerLaptop = ({albumImages, fadeOut}) => {
       {/* Hero Image */}
       <div className="absolute left-[36%] top-[10%] w-[36.8%] max-w-[530px] h-[63.5%] max-h-[442px] z-20 ">
         
-         <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [heroPic1, welcomeLogo]} interval={3500} ImageDivName={`w-full h-full object-cover rounded-[1vw] shadow-lg border border-black absolute`} imageVisibility={true} indicatorVisibility={false} />
+         <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [ welcomeLogo]} interval={3500} ImageDivName={`w-full h-full object-cover rounded-[1vw] shadow-lg border border-black absolute`} imageVisibility={true} indicatorVisibility={false} />
       </div>
       {/* Main Content */}
       <div className="relative w-full h-full flex flex-col top-[-10%] justify-center items-center z-50 pt-[10%] pb-[3%] px-[12%] pointer-events-none">
@@ -128,7 +127,7 @@ const DemoBannerLaptop = ({albumImages, fadeOut}) => {
          {/* page indicator */}
         <div className="absolute bottom-[13%] w-full flex flex-row justify-center items-center gap-[1vw]">
          
-                <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [heroPic1, welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={false} indicatorVisibility={true} />
+                {/* <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [ welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={false} indicatorVisibility={true} /> */}
 
         </div>
       </div>
@@ -153,7 +152,7 @@ const DemoBannerDesktop = ({albumImages, fadeOut}) => {
           </div>
       {/* Hero Image */}
       <div className="absolute left-[35%] top-[15%] w-[36.8%] max-w-[706px] h-[63.5%] max-h-[589px] z-20">
-          <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [heroPic1, welcomeLogo]} interval={3500} ImageDivName={`w-full h-full object-cover rounded-[1vw]  absolute`} imageVisibility={true} indicatorVisibility={false} />
+          <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [ welcomeLogo]} interval={3500} ImageDivName={`w-full h-full object-cover rounded-[1vw]  absolute`} imageVisibility={true} indicatorVisibility={false} />
       </div>
       {/* Main Content */}
       <div className="relative w-full text-nowrap h-full flex flex-col justify-center items-center top-[-10%] z-50 pt-[8%] pb-[3%] px-[12%] pointer-events-none">
@@ -174,7 +173,7 @@ const DemoBannerDesktop = ({albumImages, fadeOut}) => {
           {/* <div className="w-[1.5vw] h-[1.5vw] min-w-[24px] min-h-[24px] bg-[#fffced]/30 rounded-full" />
           <div className="w-[1.5vw] h-[1.5vw] min-w-[24px] min-h-[24px] bg-[#fffced]/30 rounded-full" />
           <div className="w-[1.5vw] h-[1.5vw] min-w-[24px] min-h-[24px] bg-[#aa2a46] rounded-full" /> */}
-                <FadeCarousel images={[heroPic1, welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={false} indicatorVisibility={true} />
+                {/* <FadeCarousel images={[heroPic1, welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={false} indicatorVisibility={true} /> */}
 
         </div>
       </div>

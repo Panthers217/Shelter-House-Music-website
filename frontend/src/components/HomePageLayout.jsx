@@ -21,7 +21,7 @@ const HomePageLayout = () => {
         <ArtistGallery />
         {isVideosEnabled && <VideoPlayerComponent />}
         {/* <ImageCarousel />  */}
-        <PopularAlbums />
+        {/* <PopularAlbums /> */}
       </div>
       </ZoomFit>
     </>

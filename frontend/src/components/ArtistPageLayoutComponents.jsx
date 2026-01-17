@@ -10,7 +10,7 @@ import {
   topTrackcardImage,
   trackHeaderPic,
 } from "../assets/artist_mockup_pics /artistImages.js";
-import bannerImage from "../assets/artist_mockup_pics /artist_banner_pic/Image+Overlay.png";
+import bannerImage from "../assets/Shelter-house-banner3.png"; 
 
 // --- DUMMY DATA (will be replaced by database) ---
 // topTracks will be loaded from database in component
@@ -524,7 +524,7 @@ const ArtistPageComponent = () => {
         <Banner image={bannerImage} title="Artists" className="h-72 mb-8" />
         <div className="flex flex-row w-full">
           <div className="flex-1 flex flex-col items-center">
-            <div className="w-full pb-6 flex flex-row items-start">
+           {/*} <div className="w-full pb-6 flex flex-row items-start">
               <div className="py-2 flex flex-col justify-center items-start">
                 <div className="h-16 flex flex-col justify-start items-start">
                   <div className="text-shelter-white text-base font-normal font-['Roboto']">
@@ -545,7 +545,7 @@ const ArtistPageComponent = () => {
                   onSelect={setSelectedCountry}
                 />
               </div>
-            </div>
+            </div>*/}
             <ArtistGrid
               artists={filteredArtists}
               positions={artistDesktopPositions}
@@ -569,7 +569,7 @@ const ArtistPageComponent = () => {
     <div className="w-full bg-shelter-charcoal flex flex-col items-center">
       <div className="w-[768px] flex flex-col items-start">
         <Banner image={bannerImage} title="Artists" className="h-96 mb-8" />
-        <div className="w-full pb-6 flex flex-row items-start">
+       {/*} <div className="w-full pb-6 flex flex-row items-start">
           <div className="py-2 flex flex-col justify-center items-start">
             <div className="h-16 flex flex-col justify-start items-start">
               <div className="text-shelter-white text-base font-normal font-['Roboto']">
@@ -590,7 +590,7 @@ const ArtistPageComponent = () => {
               onSelect={setSelectedCountry}
             />
           </div>
-        </div>
+        </div> */}
         <ArtistGrid
           artists={filteredArtists}
           positions={artistTabletPositions}
@@ -617,7 +617,7 @@ const ArtistPageComponent = () => {
             title="Artists"
             className="max-w-[390px] aspect-square mb-8"
           />
-          <div className="w-full pb-6 flex flex-row items-start">
+          {/*<div className="w-full pb-6 flex flex-row items-start">
             <div className="py-2 flex flex-col justify-center items-start">
               <div className="h-12 flex flex-col justify-start items-start">
                 <div className="text-shelter-white text-base font-normal font-['Roboto']">
@@ -646,7 +646,7 @@ const ArtistPageComponent = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </div>*/}
           <div className="w-full grid grid-cols-3 gap-y-2 gap-x-[1.5rem]">
             {filteredArtists.map((art) => (
               <Link

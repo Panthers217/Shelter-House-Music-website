@@ -25,6 +25,7 @@ import topTrackImage5 from './artist_top_track_card_pic/Link-4.png'
 import topTrackImage6 from './artist_top_track_card_pic/Link-5.png'
 
 import trackHeaderImage from './artist_top_track_header_pic/Link.png'; 
+import comingSoonCardImage from '../Shelter-House-coming soon.png';
 
 const trackcardImage = [
   artist1, artist2, artist3, artist4, artist5, artist6, artist7, artist8, artist9,
@@ -35,5 +36,5 @@ const trackcardImage = [
   topTrackImage1,topTrackImage2, topTrackImage3, topTrackImage4, topTrackImage5, topTrackImage6 
 ];
 
-const trackHeaderPic = trackHeaderImage;
+const trackHeaderPic = comingSoonCardImage;
 export  {trackcardImage, topTrackcardImage, trackHeaderPic};

@@ -47,7 +47,7 @@ const Community = () => {
 
   return (
     <ZoomFit>
-    <section className="w-full min-h-screen bg-shelter-charcoal flex flex-col items-center py-10 px-4 md:px-12">
+    <section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center py-10 px-4 md:px-12">
       <div className="w-full max-w-3xl bg-shelter-slate rounded-lg shadow-lg p-6 md:p-10 flex flex-col gap-8 ring-1 ring-shelter-honey/20">
         <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-4xl md:text-5xl font-extrabold font-['Roboto'] mb-2 drop-shadow-lg">Community News & Events</h2>
         <p className="text-shelter-white text-lg md:text-xl lg:text-2xl xl:text-xl font-semibold font-['Roboto'] mb-6 drop-shadow">Stay up to date with the latest news and events Shelter House Music is involved in. Join us and be part of our vibrant community!</p>

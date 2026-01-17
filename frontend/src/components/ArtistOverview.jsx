@@ -13,6 +13,7 @@ import { useFeatures } from "../context/FeaturesContext";
 import { useCart } from "../context/CartContext";
 import CartSummary from "./CartSummary";
 import ZoomFit from './ZoomFit.jsx';
+import comingSoonPlacedholder from '../assets/Shelter-House-coming soon.png';
 
 /**
  * ArtistOverview.jsx
@@ -195,7 +196,7 @@ function FeaturedTracks({ tracks, artistId }) {
                 <img
                   src={
                     track.img ||
-                    "https://via.placeholder.com/300x300?text=No+Image"
+                    comingSoonPlacedholder
                   }
                   alt={track.title}
                   className="w-full h-full object-cover"
