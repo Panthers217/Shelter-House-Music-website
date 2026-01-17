@@ -28,10 +28,10 @@ CREATE TABLE IF NOT EXISTS website_settings (
   
   -- Cloudinary Configuration
   cloudinary_cloud_name VARCHAR(255),
-  cloudinary_audio_folder VARCHAR(255) DEFAULT 'SoulFeltMusic/SoulFeltMusicAudio',
-  cloudinary_image_folder VARCHAR(255) DEFAULT 'SoulFeltMusic/SoulFeltMusicImages',
-  cloudinary_video_folder VARCHAR(255) DEFAULT 'SoulFeltMusic/SoulFeltMusicVideos',
-  cloudinary_merch_folder VARCHAR(255) DEFAULT 'SoulFeltMusic/SoulFeltMusicMerch',
+  cloudinary_audio_folder VARCHAR(255) DEFAULT 'ShelterHouseMusic/ShelterHouseMusicAudio',
+  cloudinary_image_folder VARCHAR(255) DEFAULT 'ShelterHouseMusic/ShelterHouseMusicImages',
+  cloudinary_video_folder VARCHAR(255) DEFAULT 'ShelterHouseMusic/ShelterHouseMusicVideos',
+  cloudinary_merch_folder VARCHAR(255) DEFAULT 'ShelterHouseMusic/ShelterHouseMusicMerch',
   
   -- Feature Toggles
   enable_merchandise BOOLEAN DEFAULT true,

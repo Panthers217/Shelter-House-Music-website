@@ -35,7 +35,7 @@ async function uploadImages({
   getSafeName,
   getPublicId,
   getImgPath,
-  cloudinaryFolder = 'SoulFeltMusicImages/DemoImages/TopTrackCardImage'
+  cloudinaryFolder = 'ShelterHouseMusicImages/DemoImages/TopTrackCardImage'
 } = {}) {
   const uploadPromises = array.map(async (item, idx, arr) => {
     // Dynamic value resolution
@@ -74,4 +74,4 @@ const singleArtist = [{
   img: "/src/assets/artist_mockup_pics%20/artist_top_track_header_pic/Link.png"
 }];
 
-uploadImages({ array: imagePaths, cloudinaryFolder: 'SoulFeltMusicImages/DemoImages/TopTracks' });
+uploadImages({ array: imagePaths, cloudinaryFolder: 'ShelterHouseMusicImages/DemoImages/TopTracks' });

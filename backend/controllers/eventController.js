@@ -12,6 +12,32 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+// Fetch cloudinary folder settings from database
+async function getCloudinaryFolders() {
+  try {
+    const [settings] = await pool.query(
+      'SELECT cloudinary_image_folder FROM website_settings ORDER BY id DESC LIMIT 1'
+    );
+    
+    if (settings.length === 0) {
+      // Return defaults if no settings exist
+      return {
+        imageFolder: 'ShelterHouseMusic'
+      };
+    }
+    
+    return {
+      imageFolder: settings[0].cloudinary_image_folder || 'ShelterHouseMusic'
+    };
+  } catch (error) {
+    console.error('Error fetching cloudinary folders from database:', error);
+    // Return defaults on error
+    return {
+      imageFolder: 'ShelterHouseMusic'
+    };
+  }
+}
+
 // Get all active events (public endpoint)
 export async function getAllEvents(req, res) {
   try {
@@ -79,10 +105,13 @@ export async function createEvent(req, res) {
       if (file) {
         const mode = req.headers['x-mode'] || req.headers['xmode'] || 'demo';
         
+        // Get cloudinary folder paths from database
+        const folders = await getCloudinaryFolders();
+        
         // Determine folder path based on mode
         const folderPath = mode === 'live' 
-          ? 'SoulFeltMusic/CommunityEvents/Images' 
-          : 'SoulFeltMusic/CommunityEvents/DemoImages';
+          ? `${folders.imageFolder || 'ShelterHouseMusic'}/CommunityEvents/Images` 
+          : `${folders.imageFolder || 'ShelterHouseMusic'}/Demos/CommunityEvents/Images`;
         
         try {
           let result;
@@ -179,10 +208,13 @@ export async function updateEvent(req, res) {
           }
         }
         
+        // Get cloudinary folder paths from database
+        const folders = await getCloudinaryFolders();
+        
         // Upload new image
         const folderPath = mode === 'live' 
-          ? 'SoulFeltMusic/CommunityEvents/Images' 
-          : 'SoulFeltMusic/CommunityEvents/DemoImages';
+          ? `${folders.imageFolder || 'ShelterHouseMusic'}/CommunityEvents/Images` 
+          : `${folders.imageFolder || 'ShelterHouseMusic'}/CommunityEvents/DemoImages`;
         
         try {
           let result;

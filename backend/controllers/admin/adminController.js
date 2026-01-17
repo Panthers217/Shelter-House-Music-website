@@ -9,6 +9,42 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY || "your_api_key",
   api_secret: process.env.CLOUDINARY_API_SECRET || "your_api_secret"
 });
+
+// Fetch cloudinary folder settings from database
+async function getCloudinaryFolders() {
+  try {
+    const [settings] = await pool.query(
+      'SELECT cloudinary_image_folder, cloudinary_audio_folder, cloudinary_video_folder, cloudinary_merch_folder FROM website_settings ORDER BY id DESC LIMIT 1'
+    );
+    
+    if (settings.length === 0) {
+      // Return defaults if no settings exist
+      return {
+        imageFolder: 'ShelterHouseMusic',
+        audioFolder: 'ShelterHouseMusic',
+        videoFolder: 'ShelterHouseMusic',
+        merchFolder: 'ShelterHouseMusic'
+      };
+    }
+    
+    return {
+      imageFolder: settings[0].cloudinary_image_folder || 'ShelterHouseMusic',
+      audioFolder: settings[0].cloudinary_audio_folder || 'ShelterHouseMusic',
+      videoFolder: settings[0].cloudinary_video_folder || 'ShelterHouseMusic',
+      merchFolder: settings[0].cloudinary_merch_folder || 'ShelterHouseMusic'
+    };
+  } catch (error) {
+    console.error('Error fetching cloudinary folders from database:', error);
+    // Return defaults on error
+    return {
+      imageFolder: 'ShelterHouseMusic',
+      audioFolder: 'ShelterHouseMusic',
+      videoFolder: 'ShelterHouseMusic',
+      merchFolder: 'ShelterHouseMusic'
+    };
+  }
+}
+
 // import { uploadAlbumImage, uploadArtistImage, uploadTrackAudio } from '../cloudinaryAsyncUploadController.js';
 // Delete a record by id
 
@@ -100,6 +136,9 @@ export async function insertRecord(req, res) {
 
   // Unified logic for live and demo modes
   if (req.files && Array.isArray(req.files) && (mode === "live" || mode === "demo") && columns.length > 0) {
+    // Get cloudinary folder paths from database
+    const folders = await getCloudinaryFolders();
+    
     // Prepare an object to hold field values for SQL insert
     for (const file of req.files) {
       let folderPath = "";
@@ -107,23 +146,23 @@ export async function insertRecord(req, res) {
       // Set folderPath based on mode and fieldname
       if (mode === "live") {
         switch (true) {
-          case fieldKey.includes("cover_url"): folderPath = "SoulFeltMusic/SoulFeltMusicImages/AlbumCovers"; break;
-          case fieldKey.includes("image_url"): folderPath = "SoulFeltMusic/SoulFeltMusicImages/ArtistImages"; break;
-          case fieldKey.includes("audio_url"): folderPath = "SoulFeltMusic/SoulFeltMusicAudio/Tracks"; break;
-          case fieldKey.includes("promo_audio_url"): folderPath = "SoulFeltMusic/SoulFeltMusicAudio/PromoTracks"; break;
-          case fieldKey.includes("video_url"): folderPath = "SoulFeltMusic/SoulFeltMusicVideos/Videos"; break;
-          case fieldKey.includes("promo_video_url"): folderPath = "SoulFeltMusic/SoulFeltMusicVideos/PromoVideos"; break;
-          default: folderPath = "SoulFeltMusic/SoulFeltMusicMisc";
+          case fieldKey.includes("cover_url"): folderPath = `${folders.imageFolder}/AlbumCovers`; break;
+          case fieldKey.includes("image_url"): folderPath = `${folders.imageFolder}/ArtistImages`; break;
+          case fieldKey.includes("audio_url"): folderPath = `${folders.audioFolder}/Tracks`; break;
+          case fieldKey.includes("promo_audio_url"): folderPath = `${folders.audioFolder}/PromoTracks`; break;
+          case fieldKey.includes("video_url"): folderPath = `${folders.videoFolder}/Videos`; break;
+          case fieldKey.includes("promo_video_url"): folderPath = `${folders.videoFolder}/PromoVideos`; break;
+          default: folderPath = `${folders.merchFolder}/Misc`;
         }
       } else {
         switch (true) {
-          case fieldKey.includes("cover_url"): folderPath = "SoulFeltMusic/SoulFeltMusicImages/DemoImages/AlbumCoversDemos"; break;
-          case fieldKey.includes("image_url"): folderPath = "SoulFeltMusic/SoulFeltMusicImages/DemoImages/ArtistImagesDemo"; break;
-          case fieldKey.includes("audio_url"): folderPath = "SoulFeltMusic/SoulFeltMusicAudio/DemoTracksWebdev/DemoTrack"; break;
-          case fieldKey.includes("promo_audio_url"): folderPath = "SoulFeltMusic/SoulFeltMusicAudio/DemoTracksWebdev/DemoPromoTrack"; break;
-          case fieldKey.includes("video_url"): folderPath = "SoulFeltMusic/SoulFeltMusicVideos/DemoVideosWebDev/DemoVideos"; break;
-          case fieldKey.includes("promo_video_url"): folderPath = "SoulFeltMusic/SoulFeltMusicVideos/DemoVideosWebDev/DemoPromoVideos"; break;
-          default: folderPath = "SoulFeltMusic/SoulFeltMusicMisc";
+          case fieldKey.includes("cover_url"): folderPath = `${folders.imageFolder}/Demos`; break;
+          case fieldKey.includes("image_url"): folderPath = `${folders.imageFolder}/Demos`; break;
+          case fieldKey.includes("audio_url"): folderPath = `${folders.audioFolder}/Demos`; break;
+          case fieldKey.includes("promo_audio_url"): folderPath = `${folders.audioFolder}/Demos`; break;
+          case fieldKey.includes("video_url"): folderPath = `${folders.videoFolder}/Demos`; break;
+          case fieldKey.includes("promo_video_url"): folderPath = `${folders.videoFolder}/Demos`; break;
+          default: folderPath = `${folders.merchFolder}/DemoMisc`;
         }
       }
       // Upload to Cloudinary
@@ -275,7 +314,18 @@ export async function getRecords(req, res) {
 
 export async function updateRecord(req, res) {
   const { table, id } = req.params;
-  const mode = req.headers['x-mode'] || req.headers['xmode'] || req.body.mode;
+  const mode = req.headers['x-mode'] || req.headers['xmode'] || req.body.mode || 'live';
+  
+  // Debug logging
+  console.log('Update Record - Mode Detection:', {
+    headerXMode: req.headers['x-mode'],
+    headerXmode: req.headers['xmode'],
+    bodyMode: req.body.mode,
+    finalMode: mode,
+    table: table,
+    id: id
+  });
+  
   try {
     let updates = {};
     if (req.is('multipart/form-data')) {
@@ -287,6 +337,9 @@ export async function updateRecord(req, res) {
     }
     // Handle file upload if file(s) present
     if (req.files && Array.isArray(req.files) && req.files.length > 0) {
+      // Get cloudinary folder paths from database
+      const folders = await getCloudinaryFolders();
+      
       // Map of table to file field
       const fileFieldMap = {
         albums: 'cover_url',
@@ -299,54 +352,63 @@ export async function updateRecord(req, res) {
       for (const file of req.files) {
         let folderPath = "";
         let fieldKey = file.fieldname;
+        
+        console.log('Processing file upload:', {
+          fieldKey,
+          mode,
+          fileName: file.originalname
+        });
+        
         // Set folderPath based on mode and fieldname
         if (mode === "live") {
           switch (true) {
             case fieldKey.includes("cover_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicImages/AlbumCovers";
+              folderPath = `${folders.imageFolder}/AlbumCovers`;
               break;
             case fieldKey.includes("image_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicImages/ArtistImages";
+              folderPath = `${folders.imageFolder}/ArtistImages`;
               break;
             case fieldKey.includes("audio_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicAudio/Tracks";
+              folderPath = `${folders.audioFolder}/Tracks`;
               break;
             case fieldKey.includes("promo_audio_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicAudio/PromoTracks";
+              folderPath = `${folders.audioFolder}/PromoTracks`;
               break;
             case fieldKey.includes("video_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicVideos/Videos";
+              folderPath = `${folders.videoFolder}/Videos`;
               break;
             case fieldKey.includes("promo_video_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicVideos/PromoVideos";
+              folderPath = `${folders.videoFolder}/PromoVideos`;
               break;
             default:
-              folderPath = "SoulFeltMusic/SoulFeltMusicMisc";
+              folderPath = `${folders.merchFolder}/Merch`;
           }
         } else {
           switch (true) {
             case fieldKey.includes("cover_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicImages/DemoImages/AlbumCoversDemos";
+              folderPath = `${folders.imageFolder}/Demos/AlbumCoversDemos`;
               break;
             case fieldKey.includes("image_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicImages/DemoImages/ArtistImagesDemo";
+              folderPath = `${folders.imageFolder}/Demos/ArtistImagesDemo`;
               break;
             case fieldKey.includes("audio_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicAudio/DemoTracksWebdev/DemoTrack";
+              folderPath = `${folders.audioFolder}/Demos/Track`;
               break;
             case fieldKey.includes("promo_audio_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicAudio/DemoTracksWebdev/DemoPromoTrack";
+              folderPath = `${folders.audioFolder}/Demos/PromoTrack`;
               break;
             case fieldKey.includes("video_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicVideos/DemoVideosWebDev/DemoVideos";
+              folderPath = `${folders.videoFolder}/Demos/DemoVideos`;
               break;
             case fieldKey.includes("promo_video_url"):
-              folderPath = "SoulFeltMusic/SoulFeltMusicVideos/DemoVideosWebDev/DemoPromoVideos";
+              folderPath = `${folders.videoFolder}/Demos/DemoPromoVideos`;
               break;
             default:
-              folderPath = "SoulFeltMusic/SoulFeltMusicMisc";
+              folderPath = `${folders.merchFolder}/Demos/DemoMerch`;
           }
         }
+        
+        console.log('Selected folder path:', folderPath);
         // If this field is a managed Cloudinary field, delete the old file first
         // Get the old public_id from the DB if the column exists
         const publicIdField = `${fieldKey}_public_identifier`;

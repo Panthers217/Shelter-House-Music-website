@@ -2,6 +2,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import multer from 'multer';
 import dotenv from 'dotenv';
+import pool from '../config/db.js';
 dotenv.config();
 
 cloudinary.config({
@@ -25,15 +26,58 @@ function getStorage(folder, allowed_formats, publicIdField) {
   });
 }
 
-const uploadArtistImage = multer({ storage: getStorage('SoulFeltMusicImages/ArtistImages', ['jpg', 'jpeg', 'png'], 'artistName') }).single('image');
-const uploadAlbumImage = multer({ storage: getStorage('SoulFeltMusicImages/AlbumCovers', ['jpg', 'jpeg', 'png'], 'albumTitle') }).single('cover');
-const uploadTrackAudio = multer({ storage: getStorage('SoulFeltMusicAudio/Tracks', ['mp3', 'wav', 'flac', 'aac', 'ogg'], 'trackTitle') }).single('audio');
-const uploadPromoAudio = multer({ storage: getStorage('SoulFeltMusicAudio/PromoTracks', ['mp3', 'wav', 'flac', 'aac', 'ogg'], 'promoTitle') }).single('promo');
-
+// Fetch cloudinary folder settings from database
+async function getCloudinaryFolders() {
+  try {
+    const [settings] = await pool.query(
+      'SELECT cloudinary_image_folder, cloudinary_audio_folder FROM website_settings ORDER BY id DESC LIMIT 1'
+    );
+    
+    if (settings.length === 0) {
+      // Return defaults if no settings exist
+      return {
+        imageFolder: 'ShelterHouseMusic',
+        audioFolder: 'ShelterHouseMusic'
+      };
+    }
+    
+    return {
+      imageFolder: settings[0].cloudinary_image_folder || 'ShelterHouseMusic',
+      audioFolder: settings[0].cloudinary_audio_folder || 'ShelterHouseMusic'
+    };
+  } catch (error) {
+    console.error('Error fetching cloudinary folders from database:', error);
+    // Return defaults on error
+    return {
+      imageFolder: 'ShelterHouseMusic',
+      audioFolder: 'ShelterHouseMusic'
+    };
+  }
+}
 
 export async function uploadAllMediaAsync(req, res) {
   try {
     const results = {};
+    
+    // Get cloudinary folder paths from database
+    const folders = await getCloudinaryFolders();
+
+    // Create dynamic uploaders with database settings
+    const uploadArtistImage = multer({ 
+      storage: getStorage(`${folders.imageFolder}/ArtistImages`, ['jpg', 'jpeg', 'png'], 'artistName') 
+    }).single('image');
+    
+    const uploadAlbumImage = multer({ 
+      storage: getStorage(`${folders.imageFolder}/AlbumCovers`, ['jpg', 'jpeg', 'png'], 'albumTitle') 
+    }).single('cover');
+    
+    const uploadTrackAudio = multer({ 
+      storage: getStorage(`${folders.audioFolder}/Tracks`, ['mp3', 'wav', 'flac', 'aac', 'ogg'], 'trackTitle') 
+    }).single('audio');
+    
+    const uploadPromoAudio = multer({ 
+      storage: getStorage(`${folders.audioFolder}/PromoTracks`, ['mp3', 'wav', 'flac', 'aac', 'ogg'], 'promoTitle') 
+    }).single('promo');
 
     // Helper to promisify multer single upload
     function multerSinglePromise(uploader) {
