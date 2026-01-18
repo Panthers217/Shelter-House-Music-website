@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SocialMediaLinks from './SocialMediaLinks';
 import ZoomFit from './ZoomFit.jsx';
+import SEO from './SEO';
 
 // Inquiry tab options
 const inquiryTabs = [
@@ -766,8 +767,15 @@ const Contact = () => {
   };
 
   return (
-    <ZoomFit>
-    <section>
+    <>
+      <SEO 
+        title="Contact Us | Shelter House Music"
+        description="Get in touch with Shelter House Music. Contact us for inquiries about our ministry, artist submissions, press & media, or general questions. We're here to serve you."
+        keywords="contact shelter house music, christian music ministry contact, artist submissions, worship music inquiries, ministry contact information, church music support"
+        url="https://shelterhousemusic.com/contact"
+      />
+      <ZoomFit>
+      <section>
         <div className='Mobile block md:hidden lg:hidden xl:hidden pt-[3%]'>
             {renderContactMobile()}
         </div>
@@ -784,6 +792,7 @@ const Contact = () => {
         
     </section>
     </ZoomFit>
+    </>
   );
 };
 

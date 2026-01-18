@@ -113,6 +113,7 @@ const ArtistPageComponent = () => {
   
   // --- INTERACTIVE STATE (MUST BE AT TOP) ---
   const [selectedCountry, setSelectedCountry] = useState("All countries");
+  const [selectedPartnerType, setSelectedPartnerType] = useState("All");
   const [hoveredArtist, setHoveredArtist] = useState(null);
   const [trackModal, setTrackModal] = useState({ open: false, track: null });
   const [searchResults, setSearchResults] = useState(null);
@@ -239,6 +240,7 @@ const ArtistPageComponent = () => {
       rating: artist.rating,
       monthly_listeners: artist.monthly_listeners,
       albums_released: artist.albums_released,
+      church_partner: artist.church_partner === 1 || artist.church_partner === true,
       // Social media URLs
       spotify_url: artist.spotify_url,
       instagram_url: artist.instagram_url,
@@ -321,12 +323,21 @@ const ArtistPageComponent = () => {
     const filtered = sourceArtists.filter((a) => {
       // Filter by country
       const countryMatch = selectedCountry === "All countries" || a.country === selectedCountry;
-      return countryMatch;
+      
+      // Filter by partner type
+      let partnerMatch = true;
+      if (selectedPartnerType === "Artist") {
+        partnerMatch = !a.church_partner;
+      } else if (selectedPartnerType === "Church Partners") {
+        partnerMatch = a.church_partner;
+      }
+      
+      return countryMatch && partnerMatch;
     });
     
     // console.log("🌍 Country filter:", selectedCountry, "→", filtered.length, "artists");
     return filtered;
-  }, [sourceArtists, selectedCountry]);
+  }, [sourceArtists, selectedCountry, selectedPartnerType]);
 
   // --- REUSABLE COMPONENTS ---
   const Banner = ({ image, title, className = "" }) => (
@@ -379,6 +390,34 @@ const ArtistPageComponent = () => {
       })}
     </div>
   );
+
+  const PartnerTypeFilter = ({ selected, onSelect }) => {
+    const options = ["All", "Artist", "Church Partners"];
+    return (
+      <div className="flex gap-2 flex-wrap">
+        {options.map((option) => {
+          const isActive = selected === option;
+          return (
+            <button
+              key={option}
+              type="button"
+              className={`px-4 py-2 rounded-sm flex justify-center items-center shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] focus:outline-none focus:ring-2 focus:ring-shelter-honey transition-all duration-150
+              ${
+                isActive
+                  ? "bg-shelter-honey text-shelter-charcoal font-bold scale-105"
+                  : "bg-shelter-slate text-shelter-white/60 font-medium hover:bg-shelter-honey/20"
+              }`}
+              onClick={() => onSelect(option)}
+            >
+              <span className="text-sm font-['Roboto'] leading-tight">
+                {option}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  };
 
   const ArtistGrid = ({
     artists,
@@ -524,7 +563,22 @@ const ArtistPageComponent = () => {
         <Banner image={bannerImage} title="Artists" className="h-72 mb-8" />
         <div className="flex flex-row w-full">
           <div className="flex-1 flex flex-col items-center">
-           {/*} <div className="w-full pb-6 flex flex-row items-start">
+            <div className="w-full pb-4 flex flex-row items-start">
+              <div className="py-2 flex flex-col justify-center items-start">
+                <div className="h-16 flex flex-col justify-start items-start">
+                  <div className="text-shelter-white text-base font-normal font-['Roboto']">
+                    Type
+                  </div>
+                </div>
+              </div>
+              <div className="px-4 flex flex-col justify-center items-start w-full">
+                <PartnerTypeFilter
+                  selected={selectedPartnerType}
+                  onSelect={setSelectedPartnerType}
+                />
+              </div>
+            </div>
+            {/*/<div className="w-full pb-6 flex flex-row items-start">
               <div className="py-2 flex flex-col justify-center items-start">
                 <div className="h-16 flex flex-col justify-start items-start">
                   <div className="text-shelter-white text-base font-normal font-['Roboto']">
@@ -569,6 +623,21 @@ const ArtistPageComponent = () => {
     <div className="w-full bg-shelter-charcoal flex flex-col items-center">
       <div className="w-[768px] flex flex-col items-start">
         <Banner image={bannerImage} title="Artists" className="h-96 mb-8" />
+        <div className="w-full pb-4 flex flex-row items-start">
+          <div className="py-2 flex flex-col justify-center items-start">
+            <div className="h-16 flex flex-col justify-start items-start">
+              <div className="text-shelter-white text-base font-normal font-['Roboto']">
+                Type
+              </div>
+            </div>
+          </div>
+          <div className="px-4 flex flex-col justify-center items-start w-full">
+            <PartnerTypeFilter
+              selected={selectedPartnerType}
+              onSelect={setSelectedPartnerType}
+            />
+          </div>
+        </div>
        {/*} <div className="w-full pb-6 flex flex-row items-start">
           <div className="py-2 flex flex-col justify-center items-start">
             <div className="h-16 flex flex-col justify-start items-start">
@@ -617,6 +686,15 @@ const ArtistPageComponent = () => {
             title="Artists"
             className="max-w-[390px] aspect-square mb-8"
           />
+          <div className="w-full pb-4">
+            <div className="text-shelter-white text-base font-normal font-['Roboto'] mb-2">
+              Type
+            </div>
+            <PartnerTypeFilter
+              selected={selectedPartnerType}
+              onSelect={setSelectedPartnerType}
+            />
+          </div>
           {/*<div className="w-full pb-6 flex flex-row items-start">
             <div className="py-2 flex flex-col justify-center items-start">
               <div className="h-12 flex flex-col justify-start items-start">
@@ -785,9 +863,9 @@ const ArtistPageComponent = () => {
   };
 
   // Memoize the rendered components to prevent re-creation on state changes
-  const desktopView = React.useMemo(() => <ArtistDesktopPage artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry]);
-  const tabletView = React.useMemo(() => <ArtistPageTablet artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry]);
-  const mobileView = React.useMemo(() => <ArtistMobilePage artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry]);
+  const desktopView = React.useMemo(() => <ArtistDesktopPage artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType]);
+  const tabletView = React.useMemo(() => <ArtistPageTablet artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType]);
+  const mobileView = React.useMemo(() => <ArtistMobilePage artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType]);
 
   // Wait for data to load
   if (!dbSnapshot) {
@@ -801,10 +879,10 @@ const ArtistPageComponent = () => {
   return (
     <>
       <SEO 
-        title="Artists - Soul Felt Music"
-        description="Explore talented artists and their music collections. Discover new sounds, albums, and tracks from your favorite soul music artists."
-        keywords="soul artists, music artists, artist profiles, soul music, discover artists"
-        url="https://soulfeltmusic.com/artist"
+        title="Artist & Church Partners | Shelter House Music"
+        description="Meet our church partners including worship leaders, gospel artists, and church musicians. Discover faith-centered music and support Christian artists serving the community."
+        keywords="christian artists, church, churches, ministry partners, worship leaders, gospel artists, church musicians, faith-based artists, christian music ministry, worship music artists"
+        url="https://shelterhousemusic.com/artists"
       />
       
       <div className="bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal ">

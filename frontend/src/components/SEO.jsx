@@ -14,8 +14,8 @@ const SEO = ({
   schemaData
 }) => {
   // Get site URL from environment variable or default
-  const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://soulfeltmusic.com';
-  const SITE_NAME = import.meta.env.VITE_SITE_NAME || 'Soul Felt Music';
+  const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://shelterhousemusic.com';
+  const SITE_NAME = import.meta.env.VITE_SITE_NAME || 'Shelter House Music';
   
   // Use environment-based URLs
   const defaultImage = `${SITE_URL}/og-image.jpg`;

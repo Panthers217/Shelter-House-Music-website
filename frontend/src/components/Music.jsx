@@ -187,12 +187,12 @@ const Music = () => {
   return (
     <>
       <SEO
-        title="Music - Stream & Discover Soul Felt Music"
-        description="Stream music samples and discover soul tracks and albums. Browse featured releases, new arrivals, and popular music from talented artists."
-        keywords={`soul music, music streaming, ${genres
+        title="Worship Music & Gospel Tracks | Shelter House Music"
+        description="Explore worship music, gospel tracks, and Christian albums. Stream samples from ministry partners and discover faith-centered music for churches and worship leaders."
+        keywords={`christian music ministry, worship music, gospel music, ${genres
           .map((g) => g.name)
-          .join(", ")}, tracks, albums, featured music, new releases`}
-        url="https://soulfeltmusic.com/music"
+          .join(", ")}, worship tracks, church music, faith-based albums, christian artists`}
+        url="https://shelterhousemusic.com/music"
       />
      
       <section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center py-10 px-4 md:px-12 opacity-80">

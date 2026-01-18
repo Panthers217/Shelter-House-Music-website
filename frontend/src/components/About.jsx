@@ -6,6 +6,7 @@ import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import DemoBanner from './DemoBanner';
 import ZoomFit from './ZoomFit.jsx';
+import SEO from './SEO';
 
 const About = () => {
   const { websiteSettings } = useApiData();
@@ -71,8 +72,15 @@ const About = () => {
   ];
 
   return (
-    <ZoomFit>
-    <div className="min-h-screen py-16 px-4 bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal">
+    <>
+      <SEO 
+        title="About Our Ministry | Shelter House Music"
+        description="Learn about Shelter House Music, a Christian music ministry serving Eastern North Carolina. Discover our mission, values, and commitment to supporting worship leaders and gospel artists."
+        keywords="christian music ministry, about shelter house, worship ministry, gospel music mission, faith-based music organization, church music support, ministry values, Eastern North Carolina"
+        url="https://shelterhousemusic.com/about"
+      />
+      <ZoomFit>
+      <div className="min-h-screen py-16 px-4 bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal">
       <div className="max-w-7xl mx-auto">
         
         {/* Demo Banner - Detailed variant for About page */}
@@ -102,8 +110,18 @@ const About = () => {
             {websiteSettings?.about_page_title || 'About Us'}
           </h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-shelter-white">
-            {websiteSettings?.about_hero_tagline || 'Where passion meets melody, and artists connect with souls who truly feel the music.'}
+            {websiteSettings?.about_hero_tagline || 'Connecting Faith and Music to Inspire Worship and Community.'}
           </p>
+          <div className="mt-8">
+            <a
+              href="https://shelterhousemusic.com/ministry/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-shelter-honey hover:bg-shelter-amber text-shelter-charcoal px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              Learn More About Our Ministry
+            </a>
+          </div>
         </div>
 
         {/* Our Story Section */}
@@ -265,6 +283,7 @@ const About = () => {
       </div>
     </div>
     </ZoomFit>
+    </>
   );
 };
 

@@ -40,6 +40,7 @@ export function useArtistFormValidation(
       "is_active",
       "promote_track",
       "promo",
+      "church_partner",
     ],
     []
   );

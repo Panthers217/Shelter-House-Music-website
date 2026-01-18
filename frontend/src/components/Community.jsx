@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ZoomFit from './ZoomFit.jsx';
+import SEO from './SEO';
 
 const Community = () => {
   const [newsEvents, setNewsEvents] = useState([]);
@@ -46,8 +47,15 @@ const Community = () => {
   const closeModal = () => setModalEvent(null);
 
   return (
-    <ZoomFit>
-    <section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center py-10 px-4 md:px-12">
+    <>
+      <SEO 
+        title="Community News & Events | Shelter House Music"
+        description="Stay connected with Shelter House Music's community events, worship gatherings, and ministry updates. Join us in serving churches and spreading faith-centered music."
+        keywords="christian community events, worship gatherings, church events, ministry updates, gospel music events, christian music ministry, community news, faith-based events"
+        url="https://shelterhousemusic.com/community"
+      />
+      <ZoomFit>
+      <section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center py-10 px-4 md:px-12">
       <div className="w-full max-w-3xl bg-shelter-slate rounded-lg shadow-lg p-6 md:p-10 flex flex-col gap-8 ring-1 ring-shelter-honey/20">
         <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-shelter-honey via-shelter-amber to-shelter-white text-4xl md:text-5xl font-extrabold font-['Roboto'] mb-2 drop-shadow-lg">Community News & Events</h2>
         <p className="text-shelter-white text-lg md:text-xl lg:text-2xl xl:text-xl font-semibold font-['Roboto'] mb-6 drop-shadow">Stay up to date with the latest news and events Shelter House Music is involved in. Join us and be part of our vibrant community!</p>
@@ -134,6 +142,7 @@ const Community = () => {
       )}
     </section>
     </ZoomFit>
+    </>
   );
 };
 

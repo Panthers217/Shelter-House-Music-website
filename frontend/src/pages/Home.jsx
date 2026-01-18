@@ -29,10 +29,10 @@ const Home = () => {
   return (
     <>
       <SEO
-        title="Soul Felt Music - Experience the Soul of Music"
-        description="Discover and stream soulful music from talented artists. Explore albums, tracks, exclusive content, and shop for merchandise at Soul Felt Music."
-        keywords="soul music, music streaming, albums, tracks, artists, music store, soul felt music, new releases"
-        url="https://soulfeltmusic.com/"
+        title="Shelter House Music| Christian Music Ministry Serving Eastern North Carolina "
+        description="A Christian music ministry serving churches, worship leaders, and gospel artists through faith-centered music. Discover worship resources and support the ministry."
+        keywords="christian music ministry, worship music, gospel music, church worship, worship leaders, faith-based music, christian artists, church music resources, Shelter House Music, Eastern North Carolina"
+        url="https://shelterhousemusic.com/"
       />
       <div className="min-h-screen bg-transparent">
          <Hero />
