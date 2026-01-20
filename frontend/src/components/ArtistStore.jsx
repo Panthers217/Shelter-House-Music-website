@@ -197,7 +197,7 @@ function AlbumWithTracks({ album, tracks, dbSnapshot, isStripeEnabled, onAddToCa
                 className="px-[0.7rem] py-[0.35rem] bg-shelter-honey rounded-xs flex flex-col justify-center items-center hover:bg-shelter-amber transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
                 onClick={handleButtonClick}
               >
-                <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
+                <span className="text-center text-shelter-charcoal text-[0.75rem] lg:text-[0.85rem] xl:text-[0.9rem] font-semibold font-['Roboto'] leading-tight">
                   Support the Ministry
                 </span>
               </button>
@@ -209,7 +209,7 @@ function AlbumWithTracks({ album, tracks, dbSnapshot, isStripeEnabled, onAddToCa
                 onClick={handleButtonClick}
                 className="px-[0.7rem] py-[0.35rem] bg-shelter-honey rounded-xs flex flex-col justify-center items-center hover:bg-shelter-amber transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
               >
-                <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
+                <span className="text-center text-shelter-charcoal text-[0.75rem] lg:text-[0.85rem] xl:text-[0.9rem] font-semibold font-['Roboto'] leading-tight">
                   Buy Now
                 </span>
               </a>
@@ -455,7 +455,7 @@ function ArtistMerchCard({
               className="px-[0.7rem] py-[0.35rem] bg-shelter-honey rounded-xs flex flex-col justify-center items-center hover:bg-shelter-amber transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
               onClick={handleButtonClick}
             >
-              <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
+              <span className="text-center text-shelter-charcoal text-[0.75rem] lg:text-[0.85rem] xl:text-[0.9rem] font-semibold font-['Roboto'] leading-tight">
                 {buttonLabel}
               </span>
             </button>
@@ -467,7 +467,7 @@ function ArtistMerchCard({
               onClick={handleButtonClick}
               className="px-[0.7rem] py-[0.35rem] bg-shelter-honey rounded-xs flex flex-col justify-center items-center hover:bg-shelter-amber transition-colors duration-200 focus:ring-2 focus:ring-shelter-honey"
             >
-              <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
+              <span className="text-center text-shelter-charcoal text-[0.75rem] lg:text-[0.85rem] xl:text-[0.9rem] font-semibold font-['Roboto'] leading-tight">
                 Buy Now
               </span>
             </a>
@@ -664,7 +664,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
 
       return {
         id: merch.id,
-        type: "Merchandise",
+        type: merch.merch_type === "Merchandise" ? "Ministry Resources" : (merch.merch_type || "Ministry Resources"),
         category: merch.merch_type || "General",
         title: merch.title || "Untitled Item",
         price: parsedPrice > 0 ? `$${parsedPrice.toFixed(2)}` : "$0.00",
@@ -689,7 +689,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
     // First filter by tab
     let tabMatch = false;
 
-    if (activeTab === "All Products") {
+    if (activeTab === "All Resources") {
       tabMatch = true;
     } else if (activeTab === "Music") {
       // For tracks
