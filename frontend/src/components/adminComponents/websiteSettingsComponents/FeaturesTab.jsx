@@ -12,8 +12,8 @@ export default function FeaturesTab({ settings, handleInputChange }) {
         {[
           {
             key: "enable_merchandise",
-            label: "Merchandise Store",
-            desc: "Show merchandise section",
+            label: "Ministry Resources",
+            desc: "Show ministry resources section",
           },
           {
             key: "enable_videos",

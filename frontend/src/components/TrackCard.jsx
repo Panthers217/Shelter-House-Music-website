@@ -48,7 +48,7 @@ function TrackCard({ track, albumCoverUrl, purchaseLink, artistName }) {
 
   const handleBuyClick = (e) => {
     if (isStripeEnabled) {
-      // Add to cart when Stripe is enabled
+      // Support the Ministry when Stripe is enabled
       e.preventDefault();
       const cartItem = {
         id: track.id,
@@ -154,7 +154,7 @@ function TrackCard({ track, albumCoverUrl, purchaseLink, artistName }) {
               className="w-full px-6 py-2.5 bg-shelter-honey text-shelter-charcoal rounded-xl font-bold hover:bg-shelter-amber transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-shelter-honey/20 border-2 border-transparent text-center flex items-center justify-center gap-2 focus:ring-2 focus:ring-shelter-honey"
             >
               <span className="i-lucide-shopping-cart text-sm" />
-              Add to Cart
+              Support the Ministry
             </button>
           ) : (
             <a 

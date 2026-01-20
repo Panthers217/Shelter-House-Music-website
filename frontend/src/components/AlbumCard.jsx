@@ -34,7 +34,7 @@ function AlbumCard({ album, purchaseLink }) {
   const handleButtonClick = (e) => {
     e.stopPropagation();
     if (isStripeEnabled) {
-      // Add to cart when Stripe is enabled
+      // Support the Ministry when Stripe is enabled
       const cartItem = {
         id: album.id,
         trackId: null,
@@ -134,7 +134,7 @@ function AlbumCard({ album, purchaseLink }) {
                 className="w-full bg-shelter-honey hover:bg-shelter-amber text-shelter-charcoal font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 focus:ring-2 focus:ring-shelter-honey"
               >
                 <span className="i-lucide-shopping-cart text-sm" />
-                Add to Cart
+                Support the Ministry
               </button>
             ) : (
               <a 

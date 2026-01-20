@@ -110,7 +110,7 @@ const NotFound = () => {
           </p>
           <div className="flex flex-wrap gap-4 justify-center text-sm">
             {[
-              { to: '/store', label: 'Store' },
+              { to: '/store', label: 'Ministry Support' },
               { to: '/artists', label: 'Artists' },
               { to: '/videos', label: 'Videos' },
               { to: '/community', label: 'Community' },

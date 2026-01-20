@@ -338,7 +338,7 @@ const PurchaseStats = () => {
                 <option value="">All Types</option>
                 <option value="Digital Album">Albums</option>
                 <option value="Track">Tracks</option>
-                <option value="Merchandise">Merchandise</option>
+                <option value="Merchandise">Ministry Resources</option>
               </select>
             </div>
           )}

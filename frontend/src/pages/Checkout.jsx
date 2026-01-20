@@ -54,7 +54,7 @@ function CheckoutForm() {
   // Check if cart has physical items that need shipping
   const needsShipping = cart.some(
     (item) =>
-      item.type === "Merchandise" ||
+      item.type === "Merchandise" || // Backend still uses Merchandise internally
       item.type === "Vinyl Record" ||
       item.type === "CD" ||
       item.type === "Cassette" ||
@@ -671,7 +671,7 @@ function Checkout() {
             onClick={() => navigate("/store")}
             className="px-6 py-3 bg-primary hover:bg-secondary text-accent rounded-lg font-semibold transition-all duration-300"
           >
-            Continue Shopping
+            Explore Resources
           </button>
         </div>
       </div>
@@ -683,8 +683,8 @@ function Checkout() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-accent mb-2">Checkout</h1>
-          <p className="text-text-secondary">Complete your purchase</p>
+          <h1 className="text-4xl font-bold text-accent mb-2">Complete Your Donation</h1>
+          <p className="text-text-secondary">Support the ministry</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -13,54 +13,54 @@ import ZoomFit from "./ZoomFit.jsx";
 import DemoBanner from "./DemoBanner.jsx";
 
 const demoMerchProducts = [
-  {
-    type: "Digital Album",
-    title: "Neon Dreams - Digital Album",
-    price: "$12.99",
-    img: "https://placehold.co/265x265",
-  },
-  {
-    type: "Vinyl Record",
-    title: "Synthwave Nights Vinyl",
-    price: "$29.99",
-    img: "https://placehold.co/265x265",
-  },
-  {
-    type: "Apparel",
-    title: "Luna Starlight T-Shirt",
-    price: "$24.99",
-    img: "https://placehold.co/265x265",
-  },
-  {
-    type: "Apparel",
-    title: "Retro Wave Hoodie",
-    price: "$49.99",
-    img: "https://placehold.co/265x265",
-  },
-  {
-    type: "Limited Edition",
-    title: "Cosmic Journey - Limited Edition",
-    price: "$19.99",
-    img: "https://placehold.co/265x265",
-  },
-  {
-    type: "Posters & Art",
-    title: "Synthwave Poster Set",
-    price: "$15.99",
-    img: "https://placehold.co/265x265",
-  },
-  {
-    type: "Digital Album",
-    title: "Midnight Frequencies EP",
-    price: "$8.99",
-    img: "https://placehold.co/265x265",
-  },
-  {
-    type: "Accessories",
-    title: "Neon Keychain",
-    price: "$9.99",
-    img: "https://placehold.co/265x265",
-  },
+  // {
+  //   type: "Digital Album",
+  //   title: "Neon Dreams - Digital Album",
+  //   price: "$12.99",
+  //   img: "https://placehold.co/265x265",
+  // },
+  // {
+  //   type: "Vinyl Record",
+  //   title: "Synthwave Nights Vinyl",
+  //   price: "$29.99",
+  //   img: "https://placehold.co/265x265",
+  // },
+  // {
+  //   type: "Apparel",
+  //   title: "Luna Starlight T-Shirt",
+  //   price: "$24.99",
+  //   img: "https://placehold.co/265x265",
+  // },
+  // {
+  //   type: "Apparel",
+  //   title: "Retro Wave Hoodie",
+  //   price: "$49.99",
+  //   img: "https://placehold.co/265x265",
+  // },
+  // {
+  //   type: "Limited Edition",
+  //   title: "Cosmic Journey - Limited Edition",
+  //   price: "$19.99",
+  //   img: "https://placehold.co/265x265",
+  // },
+  // {
+  //   type: "Posters & Art",
+  //   title: "Synthwave Poster Set",
+  //   price: "$15.99",
+  //   img: "https://placehold.co/265x265",
+  // },
+  // {
+  //   type: "Digital Album",
+  //   title: "Midnight Frequencies EP",
+  //   price: "$8.99",
+  //   img: "https://placehold.co/265x265",
+  // },
+  // {
+  //   type: "Accessories",
+  //   title: "Neon Keychain",
+  //   price: "$9.99",
+  //   img: "https://placehold.co/265x265",
+  // },
 ];
 
 function ArtistStoreNav({
@@ -107,8 +107,8 @@ function ArtistStoreNav({
 }
 
 function ArtistStoreHeader({
-  title = "Official Music & Merchandise",
-  description = "Support Luna Starlight directly by purchasing official music releases and exclusive merchandise. All proceeds help fund future creative projects.",
+  title = "Official Music & Ministry Resources",
+  description = "Support Luna Starlight directly through music releases and ministry resources. Your contribution helps fund future creative projects and ministry work.",
 }) {
   return (
     <div className="w-full flex flex-col justify-center items-center gap-4 px-[5%] pt-[0.5rem] pb-[0.2rem] ">
@@ -198,7 +198,7 @@ function AlbumWithTracks({ album, tracks, dbSnapshot, isStripeEnabled, onAddToCa
                 onClick={handleButtonClick}
               >
                 <span className="text-center text-shelter-charcoal text-[0.8rem] xl:text-[1.2rem] font-semibold font-['Roboto'] leading-[0.9rem]">
-                  Add to Cart
+                  Support the Ministry
                 </span>
               </button>
             ) : (
@@ -329,7 +329,7 @@ function ArtistMerchCard({
   title,
   price,
   img,
-  buttonLabel = "Add to Cart",
+  buttonLabel = "Support the Ministry",
   onAddToCart,
   artistId,
   purchaseLink,
@@ -367,7 +367,7 @@ function ArtistMerchCard({
   const handleButtonClick = (e) => {
     e.stopPropagation();
     if (isStripeEnabled) {
-      // Use Add to Cart when Stripe is enabled
+      // Use Support the Ministry when Stripe is enabled
       onAddToCart();
     } else {
       // Use purchaseLink when Stripe is disabled
@@ -487,7 +487,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
   const [searchParams] = useSearchParams();
   const highlightedAlbumId = searchParams.get('albumId');
   const albumRefs = useRef({});
-  const tabs = ["All Products", "Music", "Merchandise"];
+  const tabs = ["All Resources", "Music", "Ministry Resources"];
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [viewMode, setViewMode] = useState("all"); // "all", "albums", "tracks"
   const [searchResults, setSearchResults] = useState(null);
@@ -531,7 +531,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
     : dbSnapshot?.tracks?.records || [];
   const sourceMerchandise = searchResults
     ? searchResults.merchandise
-    : dbSnapshot?.merchandise?.records || []; // Merch not included in search yet
+    : dbSnapshot?.merchandise?.records || []; // Ministry resources not included in search yet
 
   // Get albums from database, optionally filtered by artist
   let albumProducts = [];
@@ -643,7 +643,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
     });
   }
 
-  // Get merchandise from database, optionally filtered by artist
+  // Get ministry resources from database, optionally filtered by artist
   let merchandiseProducts = [];
   if (dbSnapshot && dbSnapshot.merchandise && dbSnapshot.merchandise.records) {
     const filteredMerch = artistId
@@ -676,7 +676,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
     });
   }
 
-  // Combine all products: albums, tracks, merchandise from DB, and demo products (only if no artistId)
+  // Combine all resources: albums, tracks, ministry resources from DB, and demo items (only if no artistId)
   const allProducts = [
     ...albumProducts,
     ...trackProducts,
@@ -708,8 +708,8 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
           product.type === "Vinyl Record" ||
           product.type === "Limited Edition";
       }
-    } else if (activeTab === "Merchandise") {
-      // For merchandise from database, check merch_type exists
+    } else if (activeTab === "Ministry Resources") {
+      // For ministry resources from database, check merch_type exists
       if (product.merch_type) {
         tabMatch = true;
       }
@@ -810,7 +810,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
         <div className="StoreHeader relative z-[100] w-full flex flex-col items-center lg:fixed xl:fixed">
             <div className="relative z-10 w-full ">
               <ArtistStoreNav
-                storeName={artistId ? `${artistName} Store` : "Shelter House Music Store"}
+                storeName={artistId ? `${artistName} Ministry Support` : "Shelter House Ministry Support"}
                 cartCount={cart.length}
                 tabs={tabs}
                 activeTab={activeTab}
@@ -821,13 +821,13 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
               <ArtistStoreHeader
             title={
               artistId
-                ? `${artistName} Official Store`
-                : "Official Music & Merchandise"
+                ? `${artistName} Ministry Resources`
+                : "Official Music & Ministry Resources"
             }
             description={
               artistId
-                ? `Support ${artistName} through music and merchandise. Your contribution helps fund future recordings, creative projects, and ministry work.`
-                : "Support the mission of Shelter House Music through music and merchandise. Your contribution helps fund worship recordings, outreach, and creative projects that serve local churches and communities"
+                ? `Support ${artistName} through music and ministry resources. Your contribution helps fund future recordings, creative projects, and ministry work.`
+                : "Support the mission of Shelter House Music through music and ministry resources. Your contribution helps fund worship recordings, outreach, and creative projects that serve local churches and communities"
             }
           />
 

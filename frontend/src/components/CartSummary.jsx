@@ -84,7 +84,7 @@ function CartSummary() {
         className="w-full py-3 bg-shelter-honey text-shelter-charcoal rounded-lg font-bold hover:bg-shelter-amber transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 focus:ring-2 focus:ring-shelter-honey"
       >
         <span className="i-lucide-shopping-bag"></span>
-        Proceed to Checkout
+        Complete Your Donation
       </button>
     </div>
   );

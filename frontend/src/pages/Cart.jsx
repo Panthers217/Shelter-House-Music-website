@@ -35,13 +35,13 @@ function Cart() {
             Your Cart is Empty
           </h2>
           <p className="text-text-secondary mb-8 text-lg">
-            Looks like you haven't added anything to your cart yet. Discover amazing music and merchandise!
+            Looks like you haven't added anything to your cart yet. Discover amazing music and ministry resources!
           </p>
           <button
             onClick={() => navigate("/store")}
             className="px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-accent rounded-lg font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
-            Start Shopping
+            Explore Resources
           </button>
         </div>
       </div>
@@ -190,7 +190,7 @@ function Cart() {
                 className="w-full py-4 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-accent rounded-lg font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transform hover:scale-105 mb-4"
               >
                 <span className="i-lucide-credit-card"></span>
-                Proceed to Checkout
+                Complete Your Donation
               </button>
 
               <button
@@ -198,14 +198,14 @@ function Cart() {
                 className="w-full py-3 bg-background hover:bg-card-bg text-text-primary border border-primary rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <span className="i-lucide-arrow-left"></span>
-                Continue Shopping
+                Continue Supporting
               </button>
 
               {/* Trust Badges */}
               <div className="mt-6 pt-6 border-t border-background space-y-3">
                 <div className="flex items-center gap-3 text-text-secondary text-sm">
                   <span className="i-lucide-shield-check text-green-500 text-xl"></span>
-                  <span>Secure checkout</span>
+                  <span>Secure donation processing</span>
                 </div>
                 <div className="flex items-center gap-3 text-text-secondary text-sm">
                   <span className="i-lucide-truck text-primary text-xl"></span>

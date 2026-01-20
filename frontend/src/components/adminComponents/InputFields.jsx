@@ -33,6 +33,12 @@ const InputFields = ({
   // Helper to check if a field is a genre field
   const isGenreField = (field) => field.toLowerCase().includes('genre');
 
+  // Helper to check if a field is merch_type
+  const isMerchTypeField = (field) => field === 'merch_type';
+
+  // Ministry Resources type options (matching database ENUM)
+  const merchTypeOptions = ['Apparel', 'Accessories', 'Posters & Art', 'Merchandise'];
+
   // Helper to parse genre value (comma-separated string to array)
   const parseGenreValue = (value) => {
     if (!value) return [];
@@ -233,6 +239,23 @@ const InputFields = ({
                 </div>
               )}
             </div>
+          ) : isMerchTypeField(field) ? (
+            <select
+              className="w-full p-2 border rounded"
+              value={fieldValues[field] || ""}
+              onChange={(e) =>
+                setFieldValues({ ...fieldValues, [field]: e.target.value })
+              }
+              required={requiredFields.includes(field)}
+              disabled={isRestrictedField(field)}
+            >
+              <option value="">Select merchandise type</option>
+              {merchTypeOptions.map(option => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           ) : (
             <input
               type="text"

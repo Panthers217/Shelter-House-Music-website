@@ -6,8 +6,8 @@ const Store = () => {
   return (
     <section>
       <DemoBanner variant="compact" />
-      <h2>Store</h2>
-      <p>Explore albums, merchandise, and more.</p>
+      <h2>Ministry Support</h2>
+      <p>Explore music, ministry resources, and more.</p>
     </section>
   );
 };

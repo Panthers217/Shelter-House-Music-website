@@ -86,7 +86,7 @@ const ThemeDemo = () => {
 
             {isEnabled('enable_merchandise') && (
               <div className="mt-2 p-4 bg-secondary text-accent rounded">
-                🛍️ Merchandise feature is enabled!
+                🛍️ Ministry Resources feature is enabled!
               </div>
             )}
           </div>

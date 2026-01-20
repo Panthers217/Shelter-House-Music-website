@@ -89,7 +89,7 @@ function OrderConfirmation() {
               onClick={() => navigate('/store')}
               className="px-6 py-3 bg-card-bg hover:bg-background text-text-primary rounded-lg font-semibold transition-all duration-300 border border-primary"
             >
-              Continue Shopping
+              Continue Supporting
             </button>
           </div>
         </div>

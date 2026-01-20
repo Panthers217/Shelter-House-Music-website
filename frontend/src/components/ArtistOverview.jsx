@@ -147,7 +147,7 @@ function FeaturedTracks({ tracks, artistId }) {
 
   const handleBuyClick = (e, track) => {
     if (isStripeEnabled) {
-      // Add to cart when Stripe is enabled
+      // Support the Ministry when Stripe is enabled
       e.preventDefault();
       const cartItem = {
         id: track.id,
@@ -275,7 +275,7 @@ function FeaturedTracks({ tracks, artistId }) {
                     className="w-full py-2 px-2 bg-shelter-honey hover:bg-shelter-amber rounded-md text-shelter-charcoal text-[10px] sm:text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1 shadow-md hover:scale-105 focus:ring-2 focus:ring-shelter-honey"
                   >
                     <span className="i-lucide-shopping-cart text-[10px] sm:text-xs" />
-                    <span className="truncate">Add to Cart</span>
+                    <span className="truncate">Support the Ministry</span>
                   </button>
                 ) : (
                   <a 

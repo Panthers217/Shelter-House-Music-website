@@ -101,7 +101,7 @@ export default function ResponsiveNavbar() {
           <div className="bg-shelter-charcoal border-t border-shelter-slate w-full">
             <ul className="flex flex-col py-2 px-4 space-y-3 text-shelter-white text-base">
               <Link to="/" onClick={closeNavbar}>Home</Link>
-              {isMerchandiseEnabled && <Link to="/store" onClick={closeNavbar}>Store</Link>}
+              {isMerchandiseEnabled && <Link to="/store" onClick={closeNavbar}>Ministry Support</Link>}
               <Link to="/music" onClick={closeNavbar}>Music</Link>
               <Link to="/artists" onClick={closeNavbar}>Artists</Link>
               {/* <Link to="/news" onClick={closeNavbar}>News</Link> */}
@@ -211,7 +211,7 @@ export default function ResponsiveNavbar() {
         {/* Nav Links */}
         <ul className="flex-1 flex justify-center items-center gap-[1rem] md:gap-[1rem] xl:gap-16 lg:text-md xl:text-[1.5rem] text-[#e6cfa7] xl:text-lg text-[1rem] font-normal">
           <Link to="/">Home</Link>
-          {isMerchandiseEnabled && <Link to="/store">Store</Link>}
+          {isMerchandiseEnabled && <Link to="/store">Ministry Support</Link>}
           <Link to="/music">Music</Link>
           <Link to="/artists">Artists</Link>
           {/* <Link to="/news">News</Link> */}

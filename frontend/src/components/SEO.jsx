@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 const SEO = ({ 
   title = 'Soul Felt Music - Experience the Soul of Music',
   description = 'Discover and stream soulful music from talented artists. Explore albums, tracks, and exclusive content at Soul Felt Music.',
-  keywords = 'soul music, music streaming, albums, tracks, artists, music store',
+  keywords = 'soul music, music streaming, albums, tracks, artists, ministry resources, christian music',
   image,
   url,
   type = 'website',
