@@ -27,16 +27,23 @@ const ArtistPlaylist = () => {
 
   // Get artist image
   const getArtistImage = (artistId) => {
-    const artist = artists.find((a) => a.id === artistId);
-    if (artist?.primary_image_id) {
+    // First, try to get the artist_image_id from the video record
+    const artistVideo = videos.find(
+      (v) => v.artist_id === artistId && v.activate
+    );
+    
+    if (artistVideo?.artist_image_id) {
       const image = artistImages.find(
-        (img) => img.id === artist.primary_image_id
+        (img) => img.id === artistVideo.artist_image_id
       );
-      return image?.image_url;
+      if (image?.image_url) {
+        return image.image_url;
+      }
     }
-    // Fallback to first image for this artist
-    const firstImage = artistImages.find((img) => img.artist_id === artistId);
-    return firstImage?.image_url;
+    
+    // Fallback to the artist's direct image_url field
+    const artist = artists.find((a) => a.id === artistId);
+    return artist?.image_url;
   };
 
   // Get videos for current artist
