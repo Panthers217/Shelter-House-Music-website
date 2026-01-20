@@ -13,9 +13,14 @@ const ArtistPlaylist = () => {
   // Minimum swipe distance (in px) to trigger navigation
   const minSwipeDistance = 50;
 
-  const artists = dbSnapshot?.artists?.records || [];
+  const allArtists = dbSnapshot?.artists?.records || [];
   const videos = dbSnapshot?.videos?.records || [];
   const artistImages = dbSnapshot?.artist_images?.records || [];
+
+  // Filter to only show artists that have active videos
+  const artists = allArtists.filter((artist) => {
+    return videos.some((v) => v.artist_id === artist.id && v.activate);
+  });
 
   // Get current artist
   const currentArtist = artists[currentArtistIndex];
