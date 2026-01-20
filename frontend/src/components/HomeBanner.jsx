@@ -6,10 +6,7 @@ import FadeCarousel, { FadeCarouselImages } from "./FadeCarousel";
 import { useApiData } from "../context/ApiDataContext.jsx";
     // { id: 1, src: 'https://via.placeholder.com/300', alt: 'Image 1', title: 'Image 1' }
 
-
-const textHeadline = "Strengthing Hearts Through Music";
-
-const DemoBannerMobile = ({ albumImages, fadeOut }) => {
+const DemoBannerMobile = ({ albumImages, fadeOut, textHeadline, isDataLoaded }) => {
   return (
     <div data-layer="Frame 32" className="Frame32  w-[30rem]  h-auto aspect-[425/630] minMobile:aspect-[320/475]  relative ">
        {/* welcome logo */}
@@ -26,7 +23,7 @@ const DemoBannerMobile = ({ albumImages, fadeOut }) => {
         <FadeCarousel images={albumImages.length > 0 ? albumImages.map(img => img.src) : [ welcomeLogo]} interval={3500} ImageDivName={`left-0 top-0 absolute`} imageVisibility={true} indicatorVisibility={false} />
         </div>
         <div data-layer="ButtonGroup" className="Buttongroup w-full left-0 top-0 absolute flex flex-col items-center pt-[11%] z-50 pointer-events-none">
-          <div data-layer="Title" className={`Title mainTitle mt-8 mb-6 text-center text-shelter-white text-[6vw] sm:text-[5vw] font-bold font-['Roboto'] leading-tight `}>{textHeadline}</div>
+          {textHeadline && <div data-layer="Title" className={`Title mainTitle mt-8 mb-6 text-center text-shelter-white text-[6vw] sm:text-[5vw] font-bold font-['Roboto'] leading-tight transition-opacity duration-1000 ${!isDataLoaded || fadeOut ? 'opacity-0' : 'opacity-100'}`}>{textHeadline}</div>}
           <div data-layer="ButtonFrames" className="Buttonframes w-full flex justify-center items-center gap-4 mt-4 pointer-events-auto">
             <div data-layer="Frame 29" className="Frame29 w-full flex justify-center items-center gap-4 pt-[15%] text-nowrap">
               <Link to="/music" data-layer="Frame" className="Frame flex-grid min-w-[120px] max-w-[70vw] px-6 py-3 bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-md shadow-md flex justify-center items-center transition-all duration-200">
@@ -50,7 +47,7 @@ const DemoBannerMobile = ({ albumImages, fadeOut }) => {
 }
 
 
-const DemoBannerTablet = ({ albumImages, fadeOut }) => {
+const DemoBannerTablet = ({ albumImages, fadeOut, textHeadline, isDataLoaded }) => {
   // console.log("🖥️ DemoBannerTablet is rendering");
   return (
     <div className="relative w-full max-w-[1440px] mt-[-30%] aspect-[1/1] mx-auto  flex flex-col items-center justify-center  rounded-[1.4vw]">
@@ -71,9 +68,9 @@ const DemoBannerTablet = ({ albumImages, fadeOut }) => {
       </div>
       {/* Main Content */}
       <div className="relative w-full h-full flex flex-col justify-center items-center z-50 pt-[50%] pb-[3%] px-[12%] pointer-events-none">
-        <div className={`mainTitle text-center text-[#fffced] font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,6vw,5rem)] mb-[4vw] `}>
+        {textHeadline && <div className={`mainTitle text-center text-[#fffced] font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,6vw,5rem)] mb-[4vw] transition-opacity duration-1000 ${!isDataLoaded || fadeOut ? 'opacity-0' : 'opacity-100'}`}>
          {textHeadline}
-        </div>
+        </div>}
         <div className="w-full flex flex-row justify-center items-center gap-[2vw] mb-[15%] pointer-events-auto">
           <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
             Explore Music
@@ -93,7 +90,7 @@ const DemoBannerTablet = ({ albumImages, fadeOut }) => {
     </div>
   );
 };
-const DemoBannerLaptop = ({albumImages, fadeOut}) => {
+const DemoBannerLaptop = ({albumImages, fadeOut, textHeadline, isDataLoaded}) => {
   return (
     <div className="relative w-full max-w-[1440px] aspect-[1440/700] mx-auto bg-[#101516] flex flex-col items-center justify-center  rounded-[1.4vw]">
      
@@ -112,9 +109,9 @@ const DemoBannerLaptop = ({albumImages, fadeOut}) => {
       </div>
       {/* Main Content */}
       <div className="relative w-full h-full flex flex-col top-[-10%] justify-center items-center z-50 pt-[10%] pb-[3%] px-[12%] pointer-events-none">
-        <div className={`mainTitle text-center text-[#fffced] font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,6vw,5rem)] mb-[4vw]`}>
+        {textHeadline && <div className={`mainTitle text-center text-[#fffced] font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,6vw,5rem)] mb-[4vw] transition-opacity duration-1000 ${!isDataLoaded || fadeOut ? 'opacity-0' : 'opacity-100'}`}>
           {textHeadline}
-        </div>
+        </div>}
         <div className="w-full flex flex-row justify-center items-center gap-[2vw] mb-[15%] pointer-events-auto">
           <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
             Explore Music
@@ -135,7 +132,7 @@ const DemoBannerLaptop = ({albumImages, fadeOut}) => {
   );
 };
 
-const DemoBannerDesktop = ({albumImages, fadeOut}) => {
+const DemoBannerDesktop = ({albumImages, fadeOut, textHeadline, isDataLoaded}) => {
   return (
     <div
       data-layer="Hero section desktop"
@@ -156,9 +153,9 @@ const DemoBannerDesktop = ({albumImages, fadeOut}) => {
       </div>
       {/* Main Content */}
       <div className="relative w-full text-nowrap h-full flex flex-col justify-center items-center top-[-10%] z-50 pt-[8%] pb-[3%] px-[12%] pointer-events-none">
-        <div className={`mainTitle text-center text-shelter-white font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,7vw,6.6rem)] mb-[3vw]`}>
+        {textHeadline && <div className={`mainTitle text-center text-shelter-white font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,7vw,6.6rem)] mb-[3vw] transition-opacity duration-1000 ${!isDataLoaded || fadeOut ? 'opacity-0' : 'opacity-100'}`}>
           {textHeadline}
-        </div>
+        </div>}
         <div className="w-full flex flex-row justify-center items-center gap-[2vw] mb-[2vw]  pointer-events-auto">
           <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
             Explore Music
@@ -182,15 +179,28 @@ const DemoBannerDesktop = ({albumImages, fadeOut}) => {
 };
 
 const HomeBanner = () => {
-  const { dbSnapshot } = useApiData();
+  const { dbSnapshot, websiteSettings } = useApiData();
   const [fadeOut, setFadeOut] = useState(false);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  const textHeadline = websiteSettings ? (websiteSettings.hero_title || "Strengthening Hearts Through Music") : "";
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setFadeOut(true);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+    if (dbSnapshot) {
+      const fadeInTimer = setTimeout(() => {
+        setIsDataLoaded(true);
+      }, 2000);
+      
+      const fadeOutTimer = setTimeout(() => {
+        setFadeOut(true);
+      }, 7000); // 2s delay + 5s visible = 7s total
+      
+      return () => {
+        clearTimeout(fadeInTimer);
+        clearTimeout(fadeOutTimer);
+      };
+    }
+  }, [dbSnapshot]);
 
  let albumImages = []
   // Only log albums from dbSnapshot
@@ -213,18 +223,18 @@ const HomeBanner = () => {
     <>
     {/* Mobile only */}
   <div className="block sm:flex md:hidden lg:hidden xl:hidden bg-black ">
-    <DemoBannerMobile albumImages={albumImages} fadeOut={fadeOut} />
+    <DemoBannerMobile albumImages={albumImages} fadeOut={fadeOut} textHeadline={textHeadline} isDataLoaded={isDataLoaded} />
   </div>
   {/* Tablet only */}
   <div className="hidden sm:hidden md:flex lg:hidden xl:hidden bg-black w-full rounded-[1.4vw]">
-    <DemoBannerTablet albumImages={albumImages} fadeOut={fadeOut} />
+    <DemoBannerTablet albumImages={albumImages} fadeOut={fadeOut} textHeadline={textHeadline} isDataLoaded={isDataLoaded} />
   </div>
   {/* Desktop only */}
   <div className="hidden sm:hidden md:hidden lg:flex xl:hidden bg-black w-[70%] rounded-[1.4vw] ">
-    <DemoBannerLaptop albumImages={albumImages} fadeOut={fadeOut} />
+    <DemoBannerLaptop albumImages={albumImages} fadeOut={fadeOut} textHeadline={textHeadline} isDataLoaded={isDataLoaded} />
   </div>
   <div className="hidden  sm:hidden md:hidden lg:hidden xl:flex bg-black rounded-[1.4vw]">
-    <DemoBannerDesktop albumImages={albumImages} fadeOut={fadeOut} />
+    <DemoBannerDesktop albumImages={albumImages} fadeOut={fadeOut} textHeadline={textHeadline} isDataLoaded={isDataLoaded} />
   </div>
     </>
   );
