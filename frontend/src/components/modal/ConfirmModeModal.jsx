@@ -1,16 +1,25 @@
 import React from "react";
 import { useApiData } from "../../context/ApiDataContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function ConfirmModeModal({ show, onConfirm, onCancel,demosValue }) {
   const { mode, setMode } = useApiData();
   const [uploadJsx, setUploadJsx] = React.useState(null);
+  const [localMode, setLocalMode] = useState(mode);
 
-// Sync mode with demosValue when it changes
+  // Sync localMode with context mode when modal opens
   useEffect(() => {
-    if(demosValue){
-      setMode(demosValue === 1 ? 'demo' : 'live');
+    if (show) {
+      setLocalMode(mode);
+    }
+  }, [show, mode]);
+
+// Sync mode suggestion with demosValue when it changes
+  useEffect(() => {
+    if(show && demosValue !== null && demosValue !== undefined){
+      const suggestedMode = demosValue === 1 ? 'demo' : 'live';
+      setLocalMode(suggestedMode);
       demosValue === 1
         ? setUploadJsx(
             <p>
@@ -23,12 +32,20 @@ export default function ConfirmModeModal({ show, onConfirm, onCancel,demosValue 
             </p>
           );
     }
-  }, [demosValue, setMode]);
+  }, [demosValue, show]);
   
+  // Handle confirmation - update global mode and call parent confirm with selected mode
+  const handleConfirm = () => {
+    if (mode !== localMode) {
+      setMode(localMode);
+    }
+    // Pass the selected mode to parent
+    onConfirm(localMode);
+  };
 
   if (!show) return null;
-  const modeTextColor = mode === "live" ? "text-green-600" : "text-orange-500";
-  const modeDisplay = mode.charAt(0).toUpperCase() + mode.slice(1);
+  const modeTextColor = localMode === "live" ? "text-green-600" : "text-orange-500";
+  const modeDisplay = localMode.charAt(0).toUpperCase() + localMode.slice(1);
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full relative">
@@ -45,8 +62,8 @@ export default function ConfirmModeModal({ show, onConfirm, onCancel,demosValue 
         {uploadJsx}
         <label className="block mb-2 font-semibold text-center">Change Mode</label>
         <select
-          value={mode}
-          onChange={e => setMode(e.target.value)}
+          value={localMode}
+          onChange={e => setLocalMode(e.target.value)}
           className="w-full p-2 mb-4 border rounded"
         >
           <option value="live">Live</option>
@@ -63,7 +80,7 @@ export default function ConfirmModeModal({ show, onConfirm, onCancel,demosValue 
           <button
             type="button"
             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 font-bold"
-            onClick={onConfirm}
+            onClick={handleConfirm}
           >
             Confirm & Upload
           </button>

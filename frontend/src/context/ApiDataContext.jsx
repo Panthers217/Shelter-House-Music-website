@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useUserLogin } from "../hooks/useUserLogin.js";
 import { onAuthStateChanged } from "firebase/auth";
@@ -144,27 +144,43 @@ export const ApiDataProvider = ({ children }) => {
     fetchAdminData();
   }, [refreshSqlViewerTable, user]);
 
+  // Memoize the context value to prevent unnecessary re-renders
+  const contextValue = useMemo(
+    () => ({
+      artists,
+      albums,
+      tracks,
+      users,
+      error,
+      dbSnapshot,
+      setDbSnapshot,
+      mode,
+      setMode,
+      refreshSqlViewerTable,
+      triggerRefreshSqlViewerTable,
+      websiteUser,
+      setWebsiteUser,
+      websiteSettings,
+      showDemos,
+      setShowDemos,
+    }),
+    [
+      artists,
+      albums,
+      tracks,
+      users,
+      error,
+      dbSnapshot,
+      mode,
+      refreshSqlViewerTable,
+      websiteUser,
+      websiteSettings,
+      showDemos,
+    ]
+  );
+
   return (
-     <ApiDataContext.Provider
-      value={{
-        artists,
-        albums,
-        tracks,
-        users,
-        error,
-        dbSnapshot,
-        setDbSnapshot,
-        mode,
-        setMode,
-        refreshSqlViewerTable,
-        triggerRefreshSqlViewerTable,
-        websiteUser,
-        setWebsiteUser,
-        websiteSettings,
-        showDemos,
-        setShowDemos,
-      }}
-    >
+    <ApiDataContext.Provider value={contextValue}>
       {children}
     </ApiDataContext.Provider>
   );

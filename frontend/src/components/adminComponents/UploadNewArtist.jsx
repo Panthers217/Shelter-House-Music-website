@@ -294,11 +294,11 @@ function UploadNewArtist() {
       </form>
       <ConfirmModeModal
         show={showConfirmModal}
-        onConfirm={() => {
+        onConfirm={(selectedMode) => {
           setShowConfirmModal(false);
           if (pendingSubmitEvent) {
-            // Always use the latest mode from context
-            handleLocalSubmit(pendingSubmitEvent, "upload", undefined, undefined,mode );
+            // Use the mode selected in the modal
+            handleLocalSubmit(pendingSubmitEvent, "upload", undefined, undefined, selectedMode);
             setPendingSubmitEvent(null);
           }
         }}

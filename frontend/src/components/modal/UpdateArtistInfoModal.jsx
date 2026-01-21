@@ -47,10 +47,11 @@ export default function UpdateArtistInfoModal({
     setShowConfirmModal(true);
   };
 
-  const handleConfirmUpdate = () => {
+  const handleConfirmUpdate = (selectedMode) => {
     setShowConfirmModal(false);
     if (submitEvent) {
-      handleLocalSubmit(submitEvent, "update", visibleFields, filteredValues);
+      // Pass the selected mode from the modal to handleLocalSubmit
+      handleLocalSubmit(submitEvent, "update", visibleFields, filteredValues, selectedMode);
       setSubmitEvent(null);
     }
   };
