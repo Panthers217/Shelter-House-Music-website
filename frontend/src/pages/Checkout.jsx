@@ -242,13 +242,13 @@ function CheckoutForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Customer Information */}
-      <div className="bg-card-bg rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-accent mb-4">
+      <div className="bg-shelter-slate rounded-lg p-6">
+        <h2 className="text-2xl font-bold text-shelter-honey mb-4">
           Contact Information
         </h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-text-primary font-medium mb-2">
+            <label className="block text-shelter-white font-medium mb-2">
               Email *
             </label>
             <input
@@ -257,12 +257,12 @@ function CheckoutForm() {
               value={customerInfo.email}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 placeholder:text-shelter-gray rounded-lg"
               placeholder="your.email@example.com"
             />
           </div>
           <div>
-            <label className="block text-text-primary font-medium mb-2">
+            <label className="block text-shelter-white font-medium mb-2">
               Full Name *
             </label>
             <input
@@ -271,7 +271,7 @@ function CheckoutForm() {
               value={customerInfo.name}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 placeholder:text-shelter-gray rounded-lg"
               placeholder="John Doe"
             />
           </div>
@@ -280,17 +280,17 @@ function CheckoutForm() {
 
       {/* Shipping/Billing Address */}
       {needsShipping && (
-        <div className="bg-card-bg rounded-lg p-6">
-          <h2 className="text-2xl font-bold text-accent mb-4">
+        <div className="bg-shelter-slate rounded-lg p-6">
+          <h2 className="text-2xl font-bold text-shelter-honey mb-4">
             Shipping Address *
           </h2>
-          <p className="text-text-secondary text-sm mb-4">
+          <p className="text-shelter-gray text-sm mb-4">
             📦 Your order contains physical items that will be shipped to this
             address.
           </p>
           <div className="space-y-4">
             <div>
-              <label className="block text-text-primary font-medium mb-2">
+              <label className="block text-shelter-white font-medium mb-2">
                 Street Address *
               </label>
               <input
@@ -299,13 +299,13 @@ function CheckoutForm() {
                 value={shippingAddress.address}
                 onChange={handleShippingChange}
                 required
-                className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 placeholder:text-shelter-gray rounded-lg"
                 placeholder="123 Main St"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-text-primary font-medium mb-2">
+                <label className="block text-shelter-white font-medium mb-2">
                   City *
                 </label>
                 <input
@@ -314,12 +314,12 @@ function CheckoutForm() {
                   value={shippingAddress.city}
                   onChange={handleShippingChange}
                   required
-                  className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 placeholder:text-shelter-gray rounded-lg"
                   placeholder="New York"
                 />
               </div>
               <div>
-                <label className="block text-text-primary font-medium mb-2">
+                <label className="block text-shelter-white font-medium mb-2">
                   State *
                 </label>
                 <select
@@ -327,7 +327,7 @@ function CheckoutForm() {
                   value={shippingAddress.state}
                   onChange={handleShippingChange}
                   required
-                  className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 rounded-lg"
                 >
                   <option value="">Select State</option>
                   <option value="AL">Alabama</option>
@@ -386,7 +386,7 @@ function CheckoutForm() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-text-primary font-medium mb-2">
+                <label className="block text-shelter-white font-medium mb-2">
                   ZIP Code *
                 </label>
                 <input
@@ -395,12 +395,12 @@ function CheckoutForm() {
                   value={shippingAddress.zipCode}
                   onChange={handleShippingChange}
                   required
-                  className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 placeholder:text-shelter-gray rounded-lg"
                   placeholder="10001"
                 />
               </div>
               <div>
-                <label className="block text-text-primary font-medium mb-2">
+                <label className="block text-shelter-white font-medium mb-2">
                   Country *
                 </label>
                 <select
@@ -408,7 +408,7 @@ function CheckoutForm() {
                   value={shippingAddress.country}
                   onChange={handleShippingChange}
                   required
-                  className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 rounded-lg"
                 >
                   <option value="US">United States</option>
                   <option value="CA">Canada</option>
@@ -422,8 +422,8 @@ function CheckoutForm() {
       )}
 
       {/* Billing Address */}
-      <div className="bg-card-bg rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-accent mb-4">
+      <div className="bg-shelter-slate rounded-lg p-6">
+        <h2 className="text-2xl font-bold text-shelter-honey mb-4">
           Billing Address *
         </h2>
 
@@ -434,9 +434,9 @@ function CheckoutForm() {
                 type="checkbox"
                 checked={sameAsShipping}
                 onChange={handleSameAsShippingToggle}
-                className="w-5 h-5 text-accent bg-background border-primary rounded focus:ring-2 focus:ring-primary"
+                className="w-5 h-5 text-shelter-honey bg-shelter-charcoal border-shelter-slate rounded focus:ring-2 focus:ring-shelter-honey"
               />
-              <span className="text-text-primary font-medium">
+              <span className="text-shelter-white font-medium">
                 Same as shipping address
               </span>
             </label>
@@ -446,7 +446,7 @@ function CheckoutForm() {
         {(!needsShipping || !sameAsShipping) && (
           <div className="space-y-4">
             <div>
-              <label className="block text-text-primary font-medium mb-2">
+              <label className="block text-shelter-white font-medium mb-2">
                 Street Address *
               </label>
               <input
@@ -455,13 +455,13 @@ function CheckoutForm() {
                 value={billingAddress.address}
                 onChange={handleBillingChange}
                 required
-                className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 placeholder:text-shelter-gray rounded-lg"
                 placeholder="123 Main St"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-text-primary font-medium mb-2">
+                <label className="block text-shelter-white font-medium mb-2">
                   City *
                 </label>
                 <input
@@ -470,12 +470,12 @@ function CheckoutForm() {
                   value={billingAddress.city}
                   onChange={handleBillingChange}
                   required
-                  className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 placeholder:text-shelter-gray rounded-lg"
                   placeholder="New York"
                 />
               </div>
               <div>
-                <label className="block text-text-primary font-medium mb-2">
+                <label className="block text-shelter-white font-medium mb-2">
                   State *
                 </label>
                 <select
@@ -483,7 +483,7 @@ function CheckoutForm() {
                   value={billingAddress.state}
                   onChange={handleBillingChange}
                   required
-                  className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 rounded-lg"
                 >
                   <option value="">Select State</option>
                   <option value="AL">Alabama</option>
@@ -542,7 +542,7 @@ function CheckoutForm() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-text-primary font-medium mb-2">
+                <label className="block text-shelter-white font-medium mb-2">
                   ZIP Code *
                 </label>
                 <input
@@ -551,12 +551,12 @@ function CheckoutForm() {
                   value={billingAddress.zipCode}
                   onChange={handleBillingChange}
                   required
-                  className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 placeholder:text-shelter-gray rounded-lg"
                   placeholder="10001"
                 />
               </div>
               <div>
-                <label className="block text-text-primary font-medium mb-2">
+                <label className="block text-shelter-white font-medium mb-2">
                   Country *
                 </label>
                 <select
@@ -564,7 +564,7 @@ function CheckoutForm() {
                   value={billingAddress.country}
                   onChange={handleBillingChange}
                   required
-                  className="w-full px-4 py-3 bg-background text-text-primary border border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 bg-shelter-charcoal text-shelter-white border border-shelter-slate focus:border-shelter-honey focus:outline-none focus:ring-2 focus:ring-shelter-honey/20 rounded-lg"
                 >
                   <option value="US">United States</option>
                   <option value="CA">Canada</option>
@@ -577,8 +577,8 @@ function CheckoutForm() {
         )}
 
         {sameAsShipping && needsShipping && (
-          <div className="bg-background/50 border border-primary rounded-lg p-4">
-            <p className="text-text-secondary text-sm">
+          <div className="bg-shelter-charcoal/50 border border-shelter-honey/30 rounded-lg p-4">
+            <p className="text-shelter-gray text-sm">
               ✓ Billing address is same as shipping address
             </p>
           </div>
@@ -586,17 +586,17 @@ function CheckoutForm() {
       </div>
 
       {/* Payment Information */}
-      <div className="bg-card-bg rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-accent mb-4">Payment Details</h2>
-        <div className="bg-background p-4 rounded-lg border border-primary">
+      <div className="bg-shelter-slate rounded-lg p-6">
+        <h2 className="text-2xl font-bold text-shelter-honey mb-4">Payment Details</h2>
+        <div className="bg-shelter-charcoal p-4 rounded-lg border border-shelter-slate">
           <CardElement
             options={{
               style: {
                 base: {
                   fontSize: "16px",
-                  color: "#fffced",
+                  color: "#F5F5F2",
                   "::placeholder": {
-                    color: "#fffced80",
+                    color: "#8A8A85",
                   },
                 },
                 invalid: {
@@ -606,25 +606,25 @@ function CheckoutForm() {
             }}
           />
         </div>
-        <p className="text-text-secondary text-sm mt-3 flex items-center gap-2">
+        <p className="text-shelter-gray text-sm mt-3 flex items-center gap-2">
           <span className="i-lucide-shield-check"></span>
           Your payment information is secure and encrypted
         </p>
       </div>
 
       {/* Order Summary */}
-      <div className="bg-card-bg rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-accent mb-4">Order Summary</h2>
+      <div className="bg-shelter-slate rounded-lg p-6">
+        <h2 className="text-2xl font-bold text-shelter-honey mb-4">Order Summary</h2>
         <div className="space-y-3 mb-4">
-          <div className="flex justify-between text-text-primary">
+          <div className="flex justify-between text-shelter-white">
             <span>Subtotal</span>
             <span>${cartTotal.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-text-primary">
+          <div className="flex justify-between text-shelter-white">
             <span>Tax (8%)</span>
             <span>${tax.toFixed(2)}</span>
           </div>
-          <div className="border-t border-primary pt-3 flex justify-between text-accent font-bold text-xl">
+          <div className="border-t border-shelter-slate pt-3 flex justify-between text-shelter-honey font-bold text-xl">
             <span>Total</span>
             <span>${finalTotal.toFixed(2)}</span>
           </div>
@@ -633,7 +633,7 @@ function CheckoutForm() {
         <button
           type="submit"
           disabled={!stripe || processing}
-          className="w-full py-4 bg-primary hover:bg-secondary text-accent rounded-lg font-bold text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+          className="w-full py-4 bg-shelter-honey hover:bg-shelter-amber text-shelter-charcoal rounded-lg font-bold text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl focus:ring-2 focus:ring-shelter-honey focus:outline-none"
         >
           {processing ? (
             <span className="flex items-center justify-center gap-2">
@@ -656,20 +656,20 @@ function Checkout() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-shelter-charcoal flex items-center justify-center">
         <div className="text-center">
-          <div className="w-24 h-24 bg-card-bg rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="i-lucide-shopping-cart text-4xl text-primary"></span>
+          <div className="w-24 h-24 bg-shelter-slate rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="i-lucide-shopping-cart text-4xl text-shelter-honey"></span>
           </div>
-          <h2 className="text-3xl font-bold text-accent mb-2">
+          <h2 className="text-3xl font-bold text-shelter-white mb-2">
             Your cart is empty
           </h2>
-          <p className="text-text-secondary mb-6">
+          <p className="text-shelter-gray mb-6">
             Add some items to get started
           </p>
           <button
             onClick={() => navigate("/store")}
-            className="px-6 py-3 bg-primary hover:bg-secondary text-accent rounded-lg font-semibold transition-all duration-300"
+            className="px-6 py-3 bg-shelter-honey hover:bg-shelter-amber text-shelter-charcoal rounded-lg font-semibold transition-all duration-300 focus:ring-2 focus:ring-shelter-honey focus:outline-none"
           >
             Explore Resources
           </button>
@@ -679,26 +679,26 @@ function Checkout() {
   }
 
   return (
-    <div className="min-h-screen bg-background py-12 px-4">
+    <div className="min-h-screen bg-shelter-charcoal py-12 px-4 pt-[10%]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-accent mb-2">Complete Your Donation</h1>
-          <p className="text-text-secondary">Support the ministry</p>
+          <h1 className="text-4xl font-bold text-shelter-white mb-2">Complete Your Donation</h1>
+          <p className="text-shelter-gray">Support the ministry</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items - Left Side */}
           <div className="lg:col-span-1">
-            <div className="bg-card-bg rounded-lg p-6 sticky top-4">
-              <h2 className="text-2xl font-bold text-accent mb-4">
+            <div className="bg-shelter-slate rounded-lg p-6 sticky top-4">
+              <h2 className="text-2xl font-bold text-shelter-honey mb-4">
                 Your Cart ({cart.length})
               </h2>
               <div className="space-y-4 max-h-96 overflow-y-auto">
                 {cart.map((item) => (
                   <div
                     key={item.cartId}
-                    className="flex gap-4 pb-4 border-b border-background"
+                    className="flex gap-4 pb-4 border-b border-shelter-charcoal"
                   >
                     <img
                       src={item.img}
@@ -706,17 +706,17 @@ function Checkout() {
                       className="w-20 h-20 object-cover rounded-lg"
                     />
                     <div className="flex-1">
-                      <h3 className="text-text-primary font-semibold line-clamp-2">
+                      <h3 className="text-shelter-white font-semibold line-clamp-2">
                         {item.title}
                       </h3>
-                      <p className="text-text-secondary text-sm">{item.type}</p>
-                      <p className="text-primary font-bold mt-1">
+                      <p className="text-shelter-gray text-sm">{item.type}</p>
+                      <p className="text-shelter-honey font-bold mt-1">
                         {item.price}
                       </p>
                     </div>
                     <button
                       onClick={() => removeFromCart(item.cartId)}
-                      className="text-red-500 hover:text-red-400 transition-colors"
+                      className="text-red-500 hover:text-red-400 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 rounded"
                       title="Remove from cart"
                     >
                       <span className="i-lucide-trash-2 text-xl"></span>

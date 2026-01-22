@@ -283,7 +283,7 @@ export async function handleWebhook(req, res) {
                     FROM albums 
                     WHERE id = oi.item_id
                   )
-                  WHEN oi.item_type = 'Merchandise' THEN (
+                  WHEN oi.item_type IN ('Merchandise', 'Apparel', 'Accessories', 'Other') THEN (
                     SELECT image_url 
                     FROM merchandise 
                     WHERE id = oi.item_id
@@ -291,7 +291,7 @@ export async function handleWebhook(req, res) {
                   ELSE NULL
                 END as image_url,
                 CASE 
-                  WHEN oi.item_type = 'Merchandise' THEN (
+                  WHEN oi.item_type IN ('Merchandise', 'Apparel', 'Accessories', 'Other') THEN (
                     SELECT merch_type 
                     FROM merchandise 
                     WHERE id = oi.item_id
@@ -303,11 +303,11 @@ export async function handleWebhook(req, res) {
               [purchase.purchase_id]
             );
             
-            // console.log('📧 Order items with images:');
+            console.log('📧 Order items with images:');
             orderItems.forEach(item => {
-              // console.log(`  ${item.item_type}: ${item.item_title}`);
-              // console.log(`    item_id: ${item.item_id}`);
-              // console.log(`    image_url: ${item.image_url || 'MISSING'}`);
+              console.log(`  ${item.item_type}: ${item.item_title}`);
+              console.log(`    item_id: ${item.item_id}`);
+              console.log(`    image_url: ${item.image_url || 'MISSING'}`);
             });
             
             // Send confirmation email
@@ -321,21 +321,21 @@ export async function handleWebhook(req, res) {
               shipping_address: purchase.shipping_address
             };
             
-            // console.log('📧 Email data being sent:', {
-            //   ...emailData,
-            //   items: orderItems.length,
-            //   hasShipping: !!purchase.shipping_address,
-            //   shippingPreview: purchase.shipping_address ? JSON.stringify(purchase.shipping_address).substring(0, 100) : 'none'
-            // });
+            console.log('📧 Email data being sent:', {
+              ...emailData,
+              items: orderItems.length,
+              hasShipping: !!purchase.shipping_address,
+              shippingPreview: purchase.shipping_address ? JSON.stringify(purchase.shipping_address).substring(0, 100) : 'none'
+            });
             
             await sendPurchaseConfirmationEmail(emailData);
-            // console.log(`✅ Sent purchase confirmation email to ${purchase.customer_email}`);
+            console.log(`✅ Sent purchase confirmation email to ${purchase.customer_email}`);
           } else {
-            // console.warn(`⚠️  No purchase found for payment intent ${paymentIntentSuccess.id}`);
+            console.warn(`⚠️  No purchase found for payment intent ${paymentIntentSuccess.id}`);
           }
         } catch (emailError) {
           // Log error but don't fail the webhook - purchase still succeeded
-          // console.error('❌ Error sending confirmation email:', emailError);
+          console.error('❌ Error sending confirmation email:', emailError);
         }
       } catch (dbError) {
         // console.error('Error updating purchase record:', dbError);

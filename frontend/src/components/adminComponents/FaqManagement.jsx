@@ -18,7 +18,7 @@ const FaqManagement = () => {
   const categories = [
     'General',
     'Music & Artists',
-    'Store & Purchases',
+    'Ministry Support & Giving',
     'Events & Community',
     'Account & Newsletter',
     'Technical Support'

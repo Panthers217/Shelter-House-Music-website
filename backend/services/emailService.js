@@ -215,7 +215,7 @@ export async function getSenderEmail() {
   }
 
   return (
-    config.smtp_user || config.contact_email || "noreply@soulfeltmusic.com"
+    config.smtp_user || config.contact_email || "noreply@shelterhousemusic.com"
   );
 }
 
@@ -227,7 +227,7 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
   const config = await getEmailConfig();
 
   // Use configured from name and reply-to
-  const fromName = config.email_from_name || "Soul Felt Music";
+  const fromName = config.email_from_name || "Shelter House Music";
   const replyTo = config.email_reply_to || fromEmail;
 
   // Build HTML email content
@@ -248,11 +248,17 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
           padding: 20px;
         }
         .header {
-          background: linear-gradient(135deg, #aa2a46 0%, #8a1f36 100%);
-          color: white;
-          padding: 30px;
+          background: linear-gradient(135deg, #1E1E1E 0%, #D4A24C 100%);
+          color: #F5F5F2;
+          padding: 40px 30px;
           text-align: center;
           border-radius: 10px 10px 0 0;
+        }
+        .header img {
+          max-width: 180px;
+          height: auto;
+          margin: 0 auto 20px;
+          display: block;
         }
         .content {
           background: #fff;
@@ -262,7 +268,7 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
         .message {
           background: #f9f9f9;
           padding: 20px;
-          border-left: 4px solid #aa2a46;
+          border-left: 4px solid #D4A24C;
           margin: 20px 0;
         }
         .media-section {
@@ -278,11 +284,15 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
           display: block;
           padding: 10px 15px;
           margin: 10px 0;
-          background: #aa2a46;
-          color: white;
+          background: #D4A24C;
+          color: #1E1E1E;
           text-decoration: none;
           border-radius: 5px;
           text-align: center;
+          font-weight: 600;
+        }
+        .link-item:hover {
+          background: #B8872A;
         }
         .footer {
           background: #f9f9f9;
@@ -300,6 +310,7 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
     </head>
     <body>
       <div class="header">
+        <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1768743023/envato-labs-image-edit_7.png" alt="Shelter House Music Logo" />
         <h1>Shelter House Music</h1>
         <p>${campaign.subject}</p>
       </div>
@@ -372,16 +383,16 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
         <p>© ${new Date().getFullYear()} Shelter House Music. All rights reserved.</p>
         <div class="unsubscribe">
           <a href="${
-            process.env.FRONTEND_URL || "https://soulfeltmusic.com"
+            process.env.FRONTEND_URL || "https://shelterhousemusic.com"
           }" style="color: #666;">Visit our website</a>
           <br><br>
           You're receiving this because you subscribed to Shelter House Music newsletter.
           <br>
           <a href="${
-            process.env.FRONTEND_URL || "https://soulfeltmusic.com"
+            process.env.FRONTEND_URL || "https://shelterhousemusic.com"
           }?unsubscribe=${encodeURIComponent(
     recipientEmail
-  )}" style="color: #aa2a46;">Unsubscribe</a>
+  )}" style="color: #D4A24C;">Unsubscribe</a>
         </div>
       </div>
     </body>
@@ -409,10 +420,10 @@ ${
 }
 
 ---
-© ${new Date().getFullYear()} Soul Felt Music
-Visit: ${process.env.FRONTEND_URL || "https://soulfeltmusic.com"}
+© ${new Date().getFullYear()} Shelter House Music
+Visit: ${process.env.FRONTEND_URL || "https://shelterhousemusic.com"}
 Unsubscribe: ${
-    process.env.FRONTEND_URL || "https://soulfeltmusic.com"
+    process.env.FRONTEND_URL || "https://shelterhousemusic.com"
   }?unsubscribe=${encodeURIComponent(recipientEmail)}
   `;
 
@@ -468,21 +479,29 @@ function generatePurchaseEmailTemplate(data) {
       background-color: #ffffff;
     }
     .header {
-      background: linear-gradient(135deg, #aa2a46 0%, #8a1f36 100%);
+      background: linear-gradient(135deg, #1E1E1E 0%, #D4A24C 100%);
       padding: 40px 30px;
       text-align: center;
-      color: #ffffff;
+      color: #F5F5F2;
+    }
+    .header img {
+      max-width: 200px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
     }
     .header h1 {
       margin: 0;
       font-size: 28px;
       font-weight: 700;
       letter-spacing: 0.5px;
+      color: #F5F5F2;
     }
     .header p {
       margin: 10px 0 0;
       font-size: 16px;
       opacity: 0.95;
+      color: #D4A24C;
     }
     .content {
       padding: 40px 30px;
@@ -494,7 +513,7 @@ function generatePurchaseEmailTemplate(data) {
     }
     .order-info {
       background-color: #f9f9f9;
-      border-left: 4px solid #aa2a46;
+      border-left: 4px solid #D4A24C;
       padding: 20px;
       margin: 25px 0;
       border-radius: 4px;
@@ -502,7 +521,7 @@ function generatePurchaseEmailTemplate(data) {
     .order-info h2 {
       margin: 0 0 15px;
       font-size: 16px;
-      color: #aa2a46;
+      color: #D4A24C;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
@@ -580,8 +599,8 @@ function generatePurchaseEmailTemplate(data) {
     }
     .item-type {
       display: flex;
-      background: linear-gradient(135deg, #aa2a46 0%, #8a1f36 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, #D4A24C 0%, #B8872A 100%);
+      color: #1E1E1E;
       padding: 4px 12px;
       border-radius: 20px;
       font-size: 11px;
@@ -605,7 +624,7 @@ function generatePurchaseEmailTemplate(data) {
       padding-left: 10%;
       font-size: 22px;
       font-weight: 700;
-      color: #aa2a46;
+      color: #D4A24C;
       white-space: nowrap;
       flex-shrink: 0;
     }
@@ -618,18 +637,18 @@ function generatePurchaseEmailTemplate(data) {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, #aa2a46 0%, #8a1f36 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, #D4A24C 0%, #B8872A 100%);
+      color: #1E1E1E;
       text-decoration: none;
       padding: 12px 24px;
       border-radius: 8px;
       font-size: 14px;
       font-weight: 600;
-      box-shadow: 0 3px 10px rgba(170, 42, 70, 0.3);
+      box-shadow: 0 3px 10px rgba(212, 162, 76, 0.3);
       transition: all 0.3s ease;
     }
     .download-button:hover {
-      box-shadow: 0 5px 15px rgba(170, 42, 70, 0.4);
+      box-shadow: 0 5px 15px rgba(212, 162, 76, 0.4);
       transform: translateY(-1px);
     }
     .download-icon {
@@ -654,12 +673,12 @@ function generatePurchaseEmailTemplate(data) {
     }
     .total-section strong {
       font-size: 24px;
-      color: #aa2a46;
+      color: #D4A24C;
     }
     .cta-button {
       display: inline-block;
-      background: linear-gradient(135deg, #aa2a46 0%, #8a1f36 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, #D4A24C 0%, #B8872A 100%);
+      color: #1E1E1E;
       text-decoration: none;
       padding: 15px 40px;
       border-radius: 50px;
@@ -667,11 +686,11 @@ function generatePurchaseEmailTemplate(data) {
       font-weight: 600;
       text-align: center;
       margin: 20px 0;
-      box-shadow: 0 4px 15px rgba(170, 42, 70, 0.3);
+      box-shadow: 0 4px 15px rgba(212, 162, 76, 0.3);
       transition: all 0.3s ease;
     }
     .cta-button:hover {
-      box-shadow: 0 6px 20px rgba(170, 42, 70, 0.4);
+      box-shadow: 0 6px 20px rgba(212, 162, 76, 0.4);
     }
     .download-section {
       background-color: #fff9e6;
@@ -683,7 +702,7 @@ function generatePurchaseEmailTemplate(data) {
     }
     .download-section h3 {
       margin: 0 0 15px;
-      color: #aa2a46;
+      color: #D4A24C;
       font-size: 20px;
     }
     .download-section p {
@@ -727,7 +746,7 @@ function generatePurchaseEmailTemplate(data) {
       line-height: 1.8;
     }
     .footer a {
-      color: #aa2a46;
+      color: #D4A24C;
       text-decoration: none;
     }
     .footer a:hover {
@@ -735,7 +754,7 @@ function generatePurchaseEmailTemplate(data) {
     }
     .divider {
       height: 2px;
-      background: linear-gradient(to right, transparent, #aa2a46, transparent);
+      background: linear-gradient(to right, transparent, #D4A24C, transparent);
       margin: 30px 0;
     }
     @media only screen and (max-width: 600px) {
@@ -780,15 +799,16 @@ function generatePurchaseEmailTemplate(data) {
   <div class="email-wrapper">
     <!-- Header -->
     <div class="header">
+      <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1768743023/envato-labs-image-edit_7.png" alt="Shelter House Music Logo" />
       <h1>🎵 Order Confirmed!</h1>
-      <p>Thank you for your purchase</p>
+      <p>Thank you for your donation</p>
     </div>
     
     <!-- Content -->
     <div class="content">
       <p class="greeting">Hi ${customerName},</p>
       
-      <p>Thank you for your order! We're excited to share our music with you. Your order has been successfully processed.</p>
+      <p>Thank you for your donation! May it bring joy and inspiration. Your order has been successfully processed.</p>
       
       <!-- Order Information -->
       <div class="order-info">
@@ -878,7 +898,7 @@ function generatePurchaseEmailTemplate(data) {
                   <div class="item-title">${item.item_title}</div>
                   <span class="item-type">${item.item_type}</span>
                   <div class="item-artist">♫ ${
-                    item.item_type === 'Merchandise' 
+                    ['Merchandise', 'Apparel', 'Accessories', 'Other'].includes(item.item_type)
                       ? (item.merch_type || 'General Merchandise')
                       : `by ${item.artist_name || "Unknown Artist"}`
                   }</div>
@@ -962,7 +982,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
     const config = await getEmailConfig();
     const transporter = await createTransporter();
     const fromEmail = await getSenderEmail();
-    const fromName = config.email_from_name || "Soul Felt Music";
+    const fromName = config.email_from_name || "Shelter House Music";
 
     const {
       customer_email,
@@ -981,7 +1001,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
 
     const hasMerchandise = items.some(
       (item) =>
-        item.item_type === "Merchandise" || item.item_type === "Physical Album"
+        ['Merchandise', 'Apparel', 'Accessories', 'Other', 'Physical Album'].includes(item.item_type)
     );
 
     // Parse shipping address if it's a string
@@ -1076,7 +1096,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
       orderDate: orderDate,
       items: itemsWithDownloadLinks,
       totalAmount: parseFloat(amount).toFixed(2),
-      businessName: config.email_from_name || "Soul Felt Music",
+      businessName: config.email_from_name || "Shelter House Music",
       businessEmail: config.contact_email || config.smtp_user,
       hasDigitalItems,
       hasMerchandise,
@@ -1122,7 +1142,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
     textContent += `ORDER SUMMARY\n`;
     itemsWithDownloadLinks.forEach((item) => {
       textContent += `- ${item.item_title} (${item.item_type}) ${
-        item.item_type === 'Merchandise' 
+        ['Merchandise', 'Apparel', 'Accessories', 'Other'].includes(item.item_type)
           ? (item.merch_type || 'General Merchandise')
           : `by ${item.artist_name || 'Unknown Artist'}`
       }\n`;
@@ -1137,7 +1157,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
     });
     textContent += `\nTotal: $${parseFloat(amount).toFixed(2)}\n\n`;
     textContent += `Best regards,\n${
-      config.email_from_name || "Soul Felt Music"
+      config.email_from_name || "Shelter House Music"
     }`;
 
     // Send email
@@ -1173,17 +1193,17 @@ export async function testEmailConfig(testRecipient) {
   const config = await getEmailConfig();
   const transporter = await createTransporter();
   const fromEmail = await getSenderEmail();
-  const fromName = config.email_from_name || "Soul Felt Music";
+  const fromName = config.email_from_name || "Shelter House Music";
 
   const mailOptions = {
     from: `"${fromName}" <${fromEmail}>`,
     to: testRecipient,
     replyTo: config.email_reply_to || fromEmail,
     subject: "Test Email - Shelter House Music",
-    text: `This is a test email from Soul Felt Music newsletter system.\n\nProvider: ${
+    text: `This is a test email from Shelter House Music newsletter system.\n\nProvider: ${
       config.email_provider || "smtp"
     }`,
-    html: `<p>This is a test email from Soul Felt Music newsletter system.</p><p><strong>Provider:</strong> ${
+    html: `<p>This is a test email from Shelter House Music newsletter system.</p><p><strong>Provider:</strong> ${
       config.email_provider || "smtp"
     }</p>`,
   };
