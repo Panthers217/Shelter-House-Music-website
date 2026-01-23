@@ -34,6 +34,8 @@ import NewsletterCampaigns from './components/adminComponents/NewsletterCampaign
 import FaqManagement from './components/adminComponents/FaqManagement';
 import Faq from './pages/Faq';
 import Terms from './pages/Terms';
+import SupportMinistry from './pages/SupportMinistry';
+import DonationConfirmation from './pages/DonationConfirmation';
 import ThemeDemo from './components/ThemeDemo';
 import ScrollToTop from './components/ScrollToTop';
 import NotFound from './pages/NotFound';
@@ -161,6 +163,8 @@ function AppContent() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/support-ministry" element={<SupportMinistry />} />
+            <Route path="/donation-confirmation" element={<DonationConfirmation />} />
             <Route path="/about" element={<About />} />
             <Route path="/community" element={<Community />} />
             <Route path="/artist/:id" element={<ArtistOverview />} />

@@ -24,7 +24,7 @@ const DemoBannerMobile = ({ albumImages, fadeOut, textHeadline, isDataLoaded }) 
         </div>
         <div data-layer="ButtonGroup" className="Buttongroup w-full left-0 top-0 absolute flex flex-col items-center pt-[11%] z-50 pointer-events-none">
           {textHeadline && <div data-layer="Title" className={`Title mainTitle mt-8 mb-6 text-center text-shelter-white text-[6vw] sm:text-[5vw] font-bold font-['Roboto'] leading-tight transition-opacity duration-1000 ${!isDataLoaded || fadeOut ? 'opacity-0' : 'opacity-100'}`}>{textHeadline}</div>}
-          <div data-layer="ButtonFrames" className="Buttonframes w-full flex justify-center items-center gap-4 mt-4 pointer-events-auto">
+          <div data-layer="ButtonFrames" className="Buttonframes w-full flex flex-col justify-center items-center gap-3 mt-4 pointer-events-auto">
             <div data-layer="Frame 29" className="Frame29 w-full flex justify-center items-center gap-4 pt-[15%] text-nowrap">
               <Link to="/music" data-layer="Frame" className="Frame flex-grid min-w-[120px] max-w-[70vw] px-6 py-3 bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-md shadow-md flex justify-center items-center transition-all duration-200">
                 <span data-layer="Button Text" className="ButtonText text-center text-shelter-charcoal text-lg sm:text-xl font-medium font-['Roboto'] leading-7">Explore Music</span>
@@ -33,6 +33,9 @@ const DemoBannerMobile = ({ albumImages, fadeOut, textHeadline, isDataLoaded }) 
                 <span data-layer="Button Text" className="ButtonText  text-center text-shelter-white text-lg sm:text-xl font-medium font-['Roboto'] leading-7 ">Join Now</span>
               </Link>
             </div>
+            <Link to="/support-ministry" className="px-6 py-2 bg-shelter-slate/40 border border-shelter-honey/40 text-shelter-honey hover:bg-shelter-honey/10 hover:border-shelter-honey hover:text-shelter-amber font-semibold text-base sm:text-lg transition-all duration-200 rounded-md">
+              Support the Ministry
+            </Link>
           </div>
         </div>
     </div>
@@ -71,12 +74,17 @@ const DemoBannerTablet = ({ albumImages, fadeOut, textHeadline, isDataLoaded }) 
         {textHeadline && <div className={`mainTitle text-center text-[#fffced] font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,6vw,5rem)] mb-[4vw] transition-opacity duration-1000 ${!isDataLoaded || fadeOut ? 'opacity-0' : 'opacity-100'}`}>
          {textHeadline}
         </div>}
-        <div className="w-full flex flex-row justify-center items-center gap-[2vw] mb-[15%] pointer-events-auto">
-          <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
-            Explore Music
-          </Link>
-          <Link to="/sign-up" className="flex-0 px-[2vw] py-[1vw] bg-green-600 text-shelter-white border border-shelter-honey hover:bg-purple-600/100 hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
-            Join Now
+        <div className="w-full flex flex-col justify-center items-center gap-[1.5vw] mb-[15%] pointer-events-auto">
+          <div className="flex flex-row justify-center items-center gap-[2vw]">
+            <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
+              Explore Music
+            </Link>
+            <Link to="/sign-up" className="flex-0 px-[2vw] py-[1vw] bg-green-600 text-shelter-white border border-shelter-honey hover:bg-purple-600/100 hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
+              Join Now
+            </Link>
+          </div>
+          <Link to="/support-ministry" className="px-[3vw] py-[0.8vw] bg-shelter-slate/40 border border-shelter-honey/40 text-shelter-honey hover:bg-shelter-honey/10 hover:border-shelter-honey hover:text-shelter-amber font-semibold text-[clamp(1rem,1.8vw,1.5rem)] transition-all duration-200 rounded-[0.5vw]">
+            Support the Ministry
           </Link>
         </div>
 
@@ -112,12 +120,17 @@ const DemoBannerLaptop = ({albumImages, fadeOut, textHeadline, isDataLoaded}) =>
         {textHeadline && <div className={`mainTitle text-center text-[#fffced] font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,6vw,5rem)] mb-[4vw] transition-opacity duration-1000 ${!isDataLoaded || fadeOut ? 'opacity-0' : 'opacity-100'}`}>
           {textHeadline}
         </div>}
-        <div className="w-full flex flex-row justify-center items-center gap-[2vw] mb-[15%] pointer-events-auto">
-          <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
-            Explore Music
-          </Link>
-          <Link to="/sign-up" className="flex-0 px-[2vw] py-[1vw] bg-green-600 text-shelter-white border border-shelter-honey hover:bg-purple-600/100 hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
-            Join Now
+        <div className="w-full flex flex-col justify-center items-center gap-[1.5vw] mb-[15%] pointer-events-auto">
+          <div className="flex flex-row justify-center items-center gap-[2vw]">
+            <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
+              Explore Music
+            </Link>
+            <Link to="/sign-up" className="flex-0 px-[2vw] py-[1vw] bg-green-600 text-shelter-white border border-shelter-honey hover:bg-purple-600/100 hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
+              Join Now
+            </Link>
+          </div>
+          <Link to="/support-ministry" className="px-[3vw] py-[0.8vw] bg-shelter-slate/40 border border-shelter-honey/40 text-shelter-honey hover:bg-shelter-honey/10 hover:border-shelter-honey hover:text-shelter-amber font-semibold text-[clamp(1rem,1.8vw,1.5rem)] transition-all duration-200 rounded-[0.5vw]">
+            Support the Ministry
           </Link>
         </div>
 
@@ -156,12 +169,17 @@ const DemoBannerDesktop = ({albumImages, fadeOut, textHeadline, isDataLoaded}) =
         {textHeadline && <div className={`mainTitle text-center text-shelter-white font-bold font-['Roboto'] leading-[1.1] text-[clamp(2.5rem,7vw,6.6rem)] mb-[3vw] transition-opacity duration-1000 ${!isDataLoaded || fadeOut ? 'opacity-0' : 'opacity-100'}`}>
           {textHeadline}
         </div>}
-        <div className="w-full flex flex-row justify-center items-center gap-[2vw] mb-[2vw]  pointer-events-auto">
-          <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
-            Explore Music
-          </Link>
-          <Link to="/sign-up" className="flex-0 px-[2vw] py-[1vw] bg-green-600 text-shelter-white border border-shelter-honey hover:bg-purple-600/100 hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
-            Join Now
+        <div className="w-full flex flex-col justify-center items-center gap-[1.5vw] mb-[2vw] pointer-events-auto">
+          <div className="flex flex-row justify-center items-center gap-[2vw]">
+            <Link to="/music" className="flex-0 px-[2vw] py-[1vw] bg-shelter-honey text-shelter-charcoal hover:bg-shelter-amber hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
+              Explore Music
+            </Link>
+            <Link to="/sign-up" className="flex-0 px-[2vw] py-[1vw] bg-green-600 text-shelter-white border border-shelter-honey hover:bg-purple-600/100 hover:scale-105 hover:shadow-lg active:scale-100 rounded-[0.7vw] shadow-md text-[clamp(1.2rem,2vw,2.2rem)] font-medium font-['Roboto'] transition-all duration-200">
+              Join Now
+            </Link>
+          </div>
+          <Link to="/support-ministry" className="px-[3vw] py-[0.8vw] bg-shelter-slate/40 border border-shelter-honey/40 text-shelter-honey hover:bg-shelter-honey/10 hover:border-shelter-honey hover:text-shelter-amber font-semibold text-[clamp(1rem,1.8vw,1.5rem)] transition-all duration-200 rounded-[0.5vw]">
+            Support the Ministry
           </Link>
         </div>
 

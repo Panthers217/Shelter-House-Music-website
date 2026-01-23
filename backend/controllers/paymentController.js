@@ -13,6 +13,67 @@ const stripe = stripeKey && stripeKey !== 'your_stripe_secret_key_here'
   : null;
 
 /**
+ * Create a donation Stripe Checkout session
+ * @route POST /api/payments/create-donation-session
+ */
+export async function createDonationSession(req, res) {
+  try {
+    // Check if Stripe is configured
+    if (!stripe) {
+      return res.status(503).json({ 
+        error: 'Payment processing is not configured. Please contact support.' 
+      });
+    }
+
+    const { amount, isRecurring, successUrl, cancelUrl } = req.body;
+
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ error: 'Invalid amount' });
+    }
+
+    // Generate a unique order ID for tracking
+    const orderId = `DONATION-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+
+    const sessionConfig = {
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: isRecurring ? 'Monthly Ministry Support' : 'One-Time Ministry Support',
+              description: 'Support Shelter House Music ministry operations and outreach',
+            },
+            unit_amount: amount,
+            ...(isRecurring && { recurring: { interval: 'month' } }),
+          },
+          quantity: 1,
+        },
+      ],
+      mode: isRecurring ? 'subscription' : 'payment',
+      success_url: successUrl || `${process.env.FRONTEND_URL}/donation-confirmation?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${process.env.FRONTEND_URL}/support-ministry`,
+      metadata: {
+        orderId: orderId,
+        isDonation: 'true',
+        isRecurring: isRecurring ? 'true' : 'false',
+      },
+    };
+
+    const session = await stripe.checkout.sessions.create(sessionConfig);
+
+    res.json({
+      sessionId: session.id,
+      url: session.url,
+      orderId: orderId,
+    });
+  } catch (error) {
+    console.error('Error creating donation session:', error);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+/**
  * Create a payment intent
  * @route POST /api/payments/create-payment-intent
  */
@@ -49,6 +110,9 @@ export async function createPaymentIntent(req, res) {
     // Generate a unique order ID
     const orderId = `ORDER-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
 
+    // Check if this is a donation
+    const isDonation = cart.some(item => item.type === 'Donation');
+
     // Create simplified items summary for Stripe metadata (max 500 chars)
     const itemsSummary = cart.length === 1 
       ? `${cart[0].type}: ${cart[0].title}` 
@@ -64,9 +128,12 @@ export async function createPaymentIntent(req, res) {
         customerEmail: customerInfo.email,
         customerName: customerInfo.name,
         itemCount: cart.length.toString(),
-        itemsSummary: itemsSummary.substring(0, 500) // Ensure it fits in 500 chars
+        itemsSummary: itemsSummary.substring(0, 500), // Ensure it fits in 500 chars
+        isDonation: isDonation ? 'true' : 'false'
       },
-      description: `Order ${orderId} - ${itemsSummary.substring(0, 200)}`,
+      description: isDonation 
+        ? `Ministry Donation ${orderId} - ${itemsSummary.substring(0, 200)}`
+        : `Order ${orderId} - ${itemsSummary.substring(0, 200)}`,
     });
 
     // Create a pending purchase record in database
