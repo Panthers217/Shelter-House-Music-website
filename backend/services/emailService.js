@@ -284,7 +284,7 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
           border-radius: 10px 10px 0 0;
         }
         .header img {
-          max-width: 180px;
+          max-width: 540px;
           height: auto;
           margin: 0 auto 20px;
           display: block;
@@ -537,7 +537,7 @@ function generatePurchaseEmailTemplate(data) {
       color: #F5F5F2;
     }
     .header img {
-      max-width: 200px;
+      max-width: 600px;
       height: auto;
       margin: 0 auto 20px;
       display: block;
@@ -1010,7 +1010,7 @@ function generatePurchaseEmailTemplate(data) {
     <!-- Footer -->
     <div class="footer">
       <p><strong>${businessName}</strong></p>
-      <p>This email was sent to confirm your purchase.</p>
+      <p>This email was sent to confirm your donation.</p>
       <p>Need help? Contact us at <a href="mailto:${
         data.businessEmail || "support@example.com"
       }">${data.businessEmail || "support@example.com"}</a></p>
