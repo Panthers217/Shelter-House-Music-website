@@ -226,9 +226,38 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
   const transporter = await createTransporter();
   const config = await getEmailConfig();
 
+  // Debug: Log the entire campaign object
+  console.log('📧 ========== NEWSLETTER EMAIL DEBUG ==========');
+  console.log('📧 Campaign ID:', campaign.id);
+  console.log('📧 Campaign Title:', campaign.title);
+  console.log('📧 Campaign artist_ids:', campaign.artist_ids);
+  console.log('📧 Type of artist_ids:', typeof campaign.artist_ids);
+  console.log('📧 Is Array:', Array.isArray(campaign.artist_ids));
+  console.log('📧 ==========================================');
+
   // Use configured from name and reply-to
   const fromName = config.email_from_name || "Shelter House Music";
   const replyTo = config.email_reply_to || fromEmail;
+  
+  // Fetch artist details if artist_ids exist
+  let featuredArtists = [];
+  if (campaign.artist_ids && campaign.artist_ids.length > 0) {
+    try {
+      console.log('📧 Campaign artist_ids:', campaign.artist_ids);
+      const placeholders = campaign.artist_ids.map(() => '?').join(',');
+      const query = `SELECT id, name, image_url, bio FROM artists WHERE id IN (${placeholders})`;
+      console.log('📧 SQL Query:', query);
+      console.log('📧 Query params:', campaign.artist_ids);
+      
+      const [artists] = await pool.query(query, campaign.artist_ids);
+      featuredArtists = artists;
+      console.log('📧 Found artists:', featuredArtists);
+    } catch (error) {
+      console.error('❌ Error fetching artists for newsletter:', error);
+    }
+  } else {
+    console.log('⚠️ No artist_ids in campaign:', campaign);
+  }
 
   // Build HTML email content
   const htmlContent = `
@@ -249,7 +278,7 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
         }
         .header {
           background: linear-gradient(135deg, #1E1E1E 0%, #D4A24C 100%);
-          color: #F5F5F2;
+          color: #8d750c;
           padding: 40px 30px;
           text-align: center;
           border-radius: 10px 10px 0 0;
@@ -310,13 +339,34 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
     </head>
     <body>
       <div class="header">
-        <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1768743023/envato-labs-image-edit_7.png" alt="Shelter House Music Logo" />
+        <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1769193742/Shelter-house-transparent-text-logo.png" alt="Shelter House Music Logo" />
         <h1>Shelter House Music</h1>
         <p>${campaign.subject}</p>
       </div>
       
       <div class="content">
         <div style="white-space: pre-wrap;">${campaign.content}</div>
+        
+        ${
+          featuredArtists.length > 0
+            ? `
+          <div style="margin: 30px 0; padding: 25px; background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%); border-radius: 10px; border: 2px solid #D4A24C;">
+            <h2 style="color: #D4A24C; margin: 0 0 20px; font-size: 24px; text-align: center;">✨ Featured Artist${featuredArtists.length > 1 ? 's' : ''}</h2>
+            ${featuredArtists.map(artist => `
+              <div style="display: flex; align-items: center; gap: 20px; margin: 20px 0; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                ${artist.image_url ? `
+                  <img src="${artist.image_url}" alt="${artist.name}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #D4A24C;">
+                ` : ''}
+                <div style="flex: 1;">
+                  <h3 style="margin: 0 0 10px; color: #1E1E1E; font-size: 20px;">${artist.name}</h3>
+                  ${artist.bio ? `<p style="margin: 0; color: #666; font-size: 14px; line-height: 1.5;">${artist.bio.substring(0, 150)}${artist.bio.length > 150 ? '...' : ''}</p>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `
+            : ""
+        }
         
         ${
           campaign.message
@@ -404,6 +454,8 @@ export async function sendNewsletterEmail(recipientEmail, campaign, fromEmail) {
 ${campaign.subject}
 
 ${campaign.content}
+
+${featuredArtists.length > 0 ? `\n✨ Featured Artist${featuredArtists.length > 1 ? 's' : ''}:\n${featuredArtists.map(artist => `\n${artist.name}${artist.bio ? `\n${artist.bio.substring(0, 150)}${artist.bio.length > 150 ? '...' : ''}` : ''}`).join('\n')}\n` : ''}
 
 ${campaign.message ? `\nAdditional Notes:\n${campaign.message}\n` : ""}
 
@@ -799,7 +851,7 @@ function generatePurchaseEmailTemplate(data) {
   <div class="email-wrapper">
     <!-- Header -->
     <div class="header">
-      <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1768743023/envato-labs-image-edit_7.png" alt="Shelter House Music Logo" />
+      <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1769193742/Shelter-house-transparent-text-logo.png" alt="Shelter House Music Logo" />
       <h1>🎵 Order Confirmed!</h1>
       <p>Thank you for your donation</p>
     </div>
