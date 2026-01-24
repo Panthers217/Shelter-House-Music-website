@@ -510,6 +510,10 @@ function generatePurchaseEmailTemplate(data) {
     downloadUrl,
   } = data;
 
+  // Detect if this is a ministry donation (not product purchase)
+  const isMinistryDonation = items.some(item => item.item_type === 'Donation');
+  const hasProducts = items.some(item => item.item_type !== 'Donation');
+
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -852,21 +856,41 @@ function generatePurchaseEmailTemplate(data) {
     <!-- Header -->
     <div class="header">
       <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1769193742/Shelter-house-transparent-text-logo.png" alt="Shelter House Music Logo" />
-      <h1>🎵 Order Confirmed!</h1>
-      <p>Thank you for your donation</p>
+      <h1>${isMinistryDonation ? '💝 Thank You for Your Generous Gift!' : '🎵 Order Confirmed!'}</h1>
+      <p>${isMinistryDonation ? 'Your donation supports our ministry' : 'Thank you for your donation'}</p>
     </div>
     
     <!-- Content -->
     <div class="content">
       <p class="greeting">Hi ${customerName},</p>
       
+      ${isMinistryDonation ? `
+      <p>Thank you for your generous gift to Shelter House Music! Your support is deeply appreciated and will directly help sustain and grow our Christian music ministry.</p>
+      
+      <div class="note" style="background-color: #fff9e6; border-left: 4px solid #D4A24C; padding: 20px; margin: 25px 0; border-radius: 8px;">
+        <h3 style="margin: 0 0 15px; color: #D4A24C; font-size: 18px;">🙏 Where Your Donation Goes</h3>
+        <p style="margin: 0 0 12px; color: #333;">Your gift helps Shelter House Music continue serving the Church through:</p>
+        <ul style="margin: 12px 0; padding-left: 20px; color: #555;">
+          <li style="margin: 8px 0;"><strong>Ministry Supplies:</strong> Day-to-day operational needs and creative resources for music production and outreach</li>
+          <li style="margin: 8px 0;"><strong>Musical Equipment:</strong> Maintaining and upgrading instruments, audio tools, and recording equipment for quality worship music</li>
+          <li style="margin: 8px 0;"><strong>Recording & Production:</strong> Studio time, mixing, mastering, and production services to create gospel-centered music</li>
+          <li style="margin: 8px 0;"><strong>Digital Distribution:</strong> Hosting, platforms, and distribution to reach churches, artists, and believers beyond our local community</li>
+        </ul>
+        <p style="margin: 15px 0 0; color: #D4A24C; font-weight: 600; font-style: italic;">
+          "Let each one give as he purposes in his heart, not grudgingly or of necessity; for God loves a cheerful giver." — 2 Corinthians 9:7
+        </p>
+      </div>
+      
+      <p>May God bless you abundantly for your partnership in this ministry!</p>
+      ` : `
       <p>Thank you for your donation! May it bring joy and inspiration. Your order has been successfully processed.</p>
+      `}
       
       <!-- Order Information -->
       <div class="order-info">
-        <h2>Order Details</h2>
-        <p><strong>Order Number:</strong> ${orderId}</p>
-        <p><strong>Order Date:</strong> ${orderDate}</p>
+        <h2>${isMinistryDonation ? 'Donation Details' : 'Order Details'}</h2>
+        <p><strong>${isMinistryDonation ? 'Donation' : 'Order'} Number:</strong> ${orderId}</p>
+        <p><strong>${isMinistryDonation ? 'Donation' : 'Order'} Date:</strong> ${orderDate}</p>
         <p><strong>Total Amount:</strong> $${totalAmount}</p>
       </div>
       
@@ -932,7 +956,7 @@ function generatePurchaseEmailTemplate(data) {
       
       <!-- Items List -->
       <div class="items-section">
-        <h2>🛒 Order Summary</h2>
+        <h2>${isMinistryDonation ? '💝 Donation Summary' : '🛒 Order Summary'}</h2>
         ${items
           .map(
             (item) => `
@@ -999,7 +1023,13 @@ function generatePurchaseEmailTemplate(data) {
       
       <div class="divider"></div>
       
+      ${isMinistryDonation ? `
+      <p style="text-align: center; color: #666; font-size: 14px; margin: 30px 0;">
+        Shelter House Music is a faith-based Christian music ministry. Your donation helps us serve the Church through gospel-centered music, worship resources, and community outreach. Thank you for being part of this mission!
+      </p>
+      ` : `
       <p>If you have any questions about your order, please don't hesitate to contact us.</p>
+      `}
       
       <p style="margin-top: 30px;">
         Best regards,<br>
@@ -1157,12 +1187,28 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
     });
 
     // Generate plain text version
-    let textContent = `Order Confirmation - ${order_id}\n\n`;
+    const isMinistryDonation = items.some(item => item.item_type === 'Donation');
+    
+    let textContent = `${isMinistryDonation ? 'Ministry Donation' : 'Order'} Confirmation - ${order_id}\n\n`;
     textContent += `Hi ${customer_name},\n\n`;
-    textContent += `Thank you for your order! Your order has been successfully processed.\n\n`;
-    textContent += `ORDER DETAILS\n`;
-    textContent += `Order Number: ${order_id}\n`;
-    textContent += `Order Date: ${orderDate}\n`;
+    
+    if (isMinistryDonation) {
+      textContent += `Thank you for your generous gift to Shelter House Music! Your support is deeply appreciated and will directly help sustain and grow our Christian music ministry.\n\n`;
+      textContent += `WHERE YOUR DONATION GOES\n`;
+      textContent += `Your gift helps Shelter House Music continue serving the Church through:\n`;
+      textContent += `• Ministry Supplies: Day-to-day operational needs and creative resources\n`;
+      textContent += `• Musical Equipment: Instruments, audio tools, and recording equipment\n`;
+      textContent += `• Recording & Production: Studio time and production services for gospel music\n`;
+      textContent += `• Digital Distribution: Reaching churches, artists, and believers worldwide\n\n`;
+      textContent += `"Let each one give as he purposes in his heart, not grudgingly or of necessity; for God loves a cheerful giver." — 2 Corinthians 9:7\n\n`;
+      textContent += `May God bless you abundantly for your partnership in this ministry!\n\n`;
+    } else {
+      textContent += `Thank you for your order! Your order has been successfully processed.\n\n`;
+    }
+    
+    textContent += `${isMinistryDonation ? 'DONATION' : 'ORDER'} DETAILS\n`;
+    textContent += `${isMinistryDonation ? 'Donation' : 'Order'} Number: ${order_id}\n`;
+    textContent += `${isMinistryDonation ? 'Donation' : 'Order'} Date: ${orderDate}\n`;
     textContent += `Total Amount: $${parseFloat(amount).toFixed(2)}\n\n`;
 
     if (hasDigitalItems) {
@@ -1191,12 +1237,12 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
       textContent += `Estimated Delivery: 5-7 business days\n\n`;
     }
 
-    textContent += `ORDER SUMMARY\n`;
+    textContent += `${isMinistryDonation ? 'DONATION' : 'ORDER'} SUMMARY\n`;
     itemsWithDownloadLinks.forEach((item) => {
       textContent += `- ${item.item_title} (${item.item_type}) ${
         ['Merchandise', 'Apparel', 'Accessories', 'Other'].includes(item.item_type)
           ? (item.merch_type || 'General Merchandise')
-          : `by ${item.artist_name || 'Unknown Artist'}`
+          : item.item_type === 'Donation' ? 'Ministry Support' : `by ${item.artist_name || 'Unknown Artist'}`
       }\n`;
       textContent += `  $${parseFloat(item.price).toFixed(2)}`;
       if (item.quantity > 1) textContent += ` x ${item.quantity}`;
@@ -1208,6 +1254,11 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
       }
     });
     textContent += `\nTotal: $${parseFloat(amount).toFixed(2)}\n\n`;
+    
+    if (isMinistryDonation) {
+      textContent += `Shelter House Music is a faith-based Christian music ministry. Your donation helps us serve the Church through gospel-centered music, worship resources, and community outreach. Thank you for being part of this mission!\n\n`;
+    }
+    
     textContent += `Best regards,\n${
       config.email_from_name || "Shelter House Music"
     }`;
@@ -1411,14 +1462,28 @@ export async function sendSubscriptionConfirmationEmail(subscriptionData) {
   <div class="email-wrapper">
     <div class="header">
       <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1769193742/Shelter-house-transparent-text-logo.png" alt="Shelter House Music Logo" />
-      <h1>🎵 Monthly Subscription Confirmed!</h1>
-      <p>Thank you for your ongoing support</p>
+      <h1>💝 Monthly Ministry Support Confirmed!</h1>
+      <p>Thank you for your faithful partnership</p>
     </div>
     
     <div class="content">
       <p class="greeting">Hi ${name},</p>
       
-      <p>Thank you for setting up your monthly gift to Shelter House Music! Your recurring donation will help sustain our ministry and support the artists who create music that glorifies God.</p>
+      <p>Thank you for setting up your monthly gift to Shelter House Music! Your faithful giving will provide consistent support for our Christian music ministry, helping us serve the Church and glorify God through gospel-centered music.</p>
+      
+      <div class="note" style="background-color: #fff9e6; border-left: 4px solid #D4A24C; padding: 20px; margin: 25px 0; border-radius: 8px;">
+        <h3 style="margin: 0 0 15px; color: #D4A24C; font-size: 18px;">🙏 Your Monthly Impact</h3>
+        <p style="margin: 0 0 12px; color: #333;">Your recurring gift sustains our ministry by supporting:</p>
+        <ul style="margin: 12px 0; padding-left: 20px; color: #555;">
+          <li style="margin: 8px 0;"><strong>Ministry Supplies:</strong> Ongoing operational needs and creative resources</li>
+          <li style="margin: 8px 0;"><strong>Musical Equipment:</strong> Instruments, audio tools, and recording equipment maintenance</li>
+          <li style="margin: 8px 0;"><strong>Recording & Production:</strong> Studio time and production services for quality worship music</li>
+          <li style="margin: 8px 0;"><strong>Digital Distribution:</strong> Reaching churches, artists, and believers worldwide</li>
+        </ul>
+        <p style="margin: 15px 0 0; color: #D4A24C; font-weight: 600; font-style: italic;">
+          Your faithful monthly support allows us to plan and grow this ministry with confidence!
+        </p>
+      </div>
       
       <div class="amount-highlight">
         $${parseFloat(amount).toFixed(2)}/month
@@ -1444,23 +1509,27 @@ export async function sendSubscriptionConfirmationEmail(subscriptionData) {
         </div>
       </div>
       
-      <div class="note">
+      <div class="note" style="background-color: #f0f7ff; border-left-color: #2196F3;">
         <strong>💳 Automatic Recurring Billing</strong><br>
-        Your card will be automatically charged $${parseFloat(amount).toFixed(2)} on the ${billingDate.split(' ')[1]} of each month. You'll receive a receipt for each payment via email.
+        Your card will be automatically charged $${parseFloat(amount).toFixed(2)} on the ${billingDate.split(' ')[1]} of each month. You'll receive a receipt for each monthly gift via email.
       </div>
       
       <p style="text-align: center; margin: 30px 0;">
         <a href="${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}/manage-subscriptions" class="cta-button">
-          Manage Your Subscription
+          Manage Your Monthly Support
         </a>
       </p>
       
       <div class="note" style="background-color: #fff9e6; border-left-color: #D4A24C;">
-        <strong>✏️ You're in Control</strong><br>
-        You can update your monthly amount, pause, or cancel your subscription anytime from your account dashboard. No questions asked, no hassle.
+        <strong>✏️ You're in Complete Control</strong><br>
+        You can update your monthly amount, pause, or cancel your recurring support anytime from your account dashboard. No questions asked, no hassle.
       </div>
       
-      <p style="margin-top: 30px;">Your generosity makes a real difference. Thank you for partnering with us in ministry!</p>
+      <p style="margin-top: 30px;">Thank you for being a faithful ministry partner. Your generosity makes a lasting difference in serving the Church through music!</p>
+      
+      <p style="margin-top: 20px; text-align: center; color: #666; font-size: 14px;">
+        "Let each one give as he purposes in his heart, not grudgingly or of necessity; for God loves a cheerful giver." — 2 Corinthians 9:7
+      </p>
       
       <p style="margin-top: 30px;">
         Blessings,<br>
@@ -1472,7 +1541,7 @@ export async function sendSubscriptionConfirmationEmail(subscriptionData) {
       <p><strong>Shelter House Music</strong></p>
       <p>Questions? Contact us at <a href="mailto:${config.contact_email || config.smtp_user}">${config.contact_email || config.smtp_user}</a></p>
       <p style="margin-top: 15px;">
-        <a href="${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}/manage-subscriptions">Manage Subscription</a> | 
+        <a href="${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}/manage-subscriptions">Manage Monthly Support</a> | 
         <a href="${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}">Visit Website</a>
       </p>
       <p style="margin-top: 20px; opacity: 0.8; font-size: 12px;">
@@ -1486,11 +1555,20 @@ export async function sendSubscriptionConfirmationEmail(subscriptionData) {
 
     // Plain text version
     const textContent = `
-Monthly Subscription Confirmed!
+Monthly Ministry Support Confirmed!
 
 Hi ${name},
 
-Thank you for setting up your monthly gift to Shelter House Music! Your recurring donation will help sustain our ministry and support the artists who create music that glorifies God.
+Thank you for setting up your monthly gift to Shelter House Music! Your faithful giving provides consistent support for our Christian music ministry, helping us serve the Church and glorify God through gospel-centered music.
+
+YOUR MONTHLY IMPACT
+Your recurring gift sustains our ministry by supporting:
+• Ministry Supplies: Ongoing operational needs and creative resources
+• Musical Equipment: Instruments, audio tools, and recording equipment maintenance
+• Recording & Production: Studio time and production services for quality worship music
+• Digital Distribution: Reaching churches, artists, and believers worldwide
+
+Your faithful monthly support allows us to plan and grow this ministry with confidence!
 
 SUBSCRIPTION DETAILS
 Monthly Amount: $${parseFloat(amount).toFixed(2)}
@@ -1499,13 +1577,15 @@ Status: ${status}
 Subscription ID: ${subscriptionId}
 
 AUTOMATIC RECURRING BILLING
-Your card will be automatically charged $${parseFloat(amount).toFixed(2)} on the ${billingDate.split(' ')[1]} of each month. You'll receive a receipt for each payment via email.
+Your card will be automatically charged $${parseFloat(amount).toFixed(2)} on the ${billingDate.split(' ')[1]} of each month. You'll receive a receipt for each monthly gift via email.
 
-MANAGE YOUR SUBSCRIPTION
+MANAGE YOUR MONTHLY SUPPORT
 Update, pause, or cancel anytime at:
 ${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}/manage-subscriptions
 
-Your generosity makes a real difference. Thank you for partnering with us in ministry!
+Thank you for being a faithful ministry partner. Your generosity makes a lasting difference in serving the Church through music!
+
+"Let each one give as he purposes in his heart, not grudgingly or of necessity; for God loves a cheerful giver." — 2 Corinthians 9:7
 
 Blessings,
 The Shelter House Music Team
@@ -1519,7 +1599,7 @@ Questions? Contact us at ${config.contact_email || config.smtp_user}
       from: `"${fromName}" <${fromEmail}>`,
       to: email,
       replyTo: config.email_reply_to || fromEmail,
-      subject: "Monthly Subscription Confirmed - Shelter House Music",
+      subject: "Monthly Ministry Support Confirmed - Shelter House Music",
       text: textContent.trim(),
       html: htmlContent,
     };

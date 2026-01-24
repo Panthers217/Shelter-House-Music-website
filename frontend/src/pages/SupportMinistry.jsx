@@ -190,6 +190,7 @@ function DonationForm() {
                 email: donorInfo.email,
                 name: donorInfo.name,
               },
+              userEmail: user?.email || donorInfo.email, // Add userEmail to associate with account
             }),
           }
         );
