@@ -26,6 +26,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import PurchaseHistory from "./components/PurchaseHistory";
+import UserSettings from "./pages/UserSettings";
 import SecureDownload from "./pages/SecureDownload";
 import SignUp from "./components/SignUp"; // Assuming you have a SignUp component
 import Login from "./components/Login"; // Assuming you have a Login component
@@ -36,6 +37,7 @@ import Faq from './pages/Faq';
 import Terms from './pages/Terms';
 import SupportMinistry from './pages/SupportMinistry';
 import DonationConfirmation from './pages/DonationConfirmation';
+import ManageSubscriptions from './pages/ManageSubscriptions';
 import ThemeDemo from './components/ThemeDemo';
 import ScrollToTop from './components/ScrollToTop';
 import NotFound from './pages/NotFound';
@@ -155,6 +157,7 @@ function AppContent() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
             <Route path="/purchase-history" element={<PurchaseHistory />} />
+            <Route path="/user-settings" element={<UserSettings />} />
             <Route path="/download" element={<SecureDownload />} />
             <Route path="/music" element={<Music />} />
             <Route path="/artists" element={<ArtistPage />} />
@@ -165,6 +168,7 @@ function AppContent() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/support-ministry" element={<SupportMinistry />} />
             <Route path="/donation-confirmation" element={<DonationConfirmation />} />
+            <Route path="/manage-subscriptions" element={<ManageSubscriptions />} />
             <Route path="/about" element={<About />} />
             <Route path="/community" element={<Community />} />
             <Route path="/artist/:id" element={<ArtistOverview />} />

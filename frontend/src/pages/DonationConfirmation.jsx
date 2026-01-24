@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
-import { FiCheckCircle, FiHeart } from "react-icons/fi";
+import { useSearchParams, Link, useLocation } from "react-router-dom";
+import { FiCheckCircle, FiHeart, FiCalendar } from "react-icons/fi";
 
 const DonationConfirmation = () => {
   const [searchParams] = useSearchParams();
+  const location = useLocation();
   const sessionId = searchParams.get("session_id");
   const [loading, setLoading] = useState(true);
+  
+  // Get state passed from navigation (for direct payment flow)
+  const { isRecurring, donationAmount, subscriptionId, nextBillingDate } = location.state || {};
 
   useEffect(() => {
-    if (sessionId) {
+    if (sessionId || subscriptionId) {
       // Optionally fetch donation details from backend
       // For now, we'll just show a success message
       setLoading(false);
     } else {
       setLoading(false);
     }
-  }, [sessionId]);
+  }, [sessionId, subscriptionId]);
 
   if (loading) {
     return (
@@ -38,23 +42,45 @@ const DonationConfirmation = () => {
 
           {/* Thank You Message */}
           <h1 className="text-3xl md:text-4xl font-bold text-shelter-white mb-4">
-            Thank You for Your Support!
+            {isRecurring ? "Monthly Support Activated!" : "Thank You for Your Support!"}
           </h1>
           
           <p className="text-lg text-shelter-gray mb-8">
-            Your generous gift helps Shelter House Music continue serving churches, 
-            artists, and the local community through gospel-centered music and ministry.
+            {isRecurring 
+              ? `Your monthly gift of $${donationAmount?.toFixed(2)} helps Shelter House Music continue serving churches, artists, and the local community.`
+              : "Your generous gift helps Shelter House Music continue serving churches, artists, and the local community through gospel-centered music and ministry."
+            }
           </p>
 
           {/* Confirmation Details */}
-          {sessionId && (
+          {(sessionId || subscriptionId) && (
             <div className="bg-shelter-charcoal rounded-lg p-6 mb-8">
               <p className="text-shelter-gray text-sm mb-2">
                 Confirmation Number
               </p>
               <p className="text-shelter-white font-mono text-sm break-all">
-                {sessionId}
+                {sessionId || subscriptionId}
               </p>
+            </div>
+          )}
+
+          {/* Next Billing Date for Recurring */}
+          {isRecurring && nextBillingDate && (
+            <div className="bg-shelter-charcoal rounded-lg p-6 mb-8">
+              <div className="flex items-center justify-center gap-3">
+                <FiCalendar className="text-shelter-honey text-xl" />
+                <div className="text-left">
+                  <p className="text-shelter-gray text-sm">Next Billing Date</p>
+                  <p className="text-shelter-white font-semibold">
+                    {new Date(nextBillingDate).toLocaleDateString('en-US', { 
+                      weekday: 'long', 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
@@ -69,10 +95,22 @@ const DonationConfirmation = () => {
                 <span className="text-shelter-honey mt-1">•</span>
                 <span>You will receive an email receipt for your donation shortly</span>
               </li>
+              {isRecurring && (
+                <li className="flex items-start gap-2">
+                  <span className="text-shelter-honey mt-1">•</span>
+                  <span>Your card will be charged automatically each month on your billing date</span>
+                </li>
+              )}
               <li className="flex items-start gap-2">
                 <span className="text-shelter-honey mt-1">•</span>
                 <span>Your support will be used to fund ministry operations, equipment, and outreach</span>
               </li>
+              {isRecurring && (
+                <li className="flex items-start gap-2">
+                  <span className="text-shelter-honey mt-1">•</span>
+                  <span>You can manage or cancel your subscription anytime from your account</span>
+                </li>
+              )}
               <li className="flex items-start gap-2">
                 <span className="text-shelter-honey mt-1">•</span>
                 <span>We are grateful for your partnership in this important work</span>
@@ -99,6 +137,14 @@ const DonationConfirmation = () => {
             >
               Return Home
             </Link>
+            {isRecurring && (
+              <Link
+                to="/manage-subscriptions"
+                className="bg-transparent text-shelter-white border border-shelter-honey hover:bg-shelter-honey/20 px-8 py-3 rounded-lg font-semibold transition-all duration-200"
+              >
+                Manage Subscription
+              </Link>
+            )}
             <Link
               to="/music"
               className="bg-transparent text-shelter-white border border-shelter-honey hover:bg-shelter-honey/20 px-8 py-3 rounded-lg font-semibold transition-all duration-200"

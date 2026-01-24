@@ -12,6 +12,7 @@ import statsScheduleRouter, { readScheduleConfig } from './routes/statsSchedule.
 import genreRouter from './routes/genre.js';
 import settingsRouter from './routes/settings.js';
 import paymentsRouter from './routes/payments.js';
+import subscriptionsRouter from './routes/subscriptions.js';
 import purchaseHistoryRouter from './routes/purchase-history.js';
 import downloadsRouter from './routes/downloads.js';
 import eventsRouter from './routes/events.js';
@@ -25,6 +26,7 @@ import { getTables } from './controllers/admin/adminController.js';
 import cron from 'node-cron';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { setupDeletionCronJob } from './services/accountDeletionService.js';
 dotenv.config();
 
 const execAsync = promisify(exec);
@@ -66,7 +68,9 @@ const allowedOrigins = [
   'http://localhost:5173',       // Local Vite dev
   'http://localhost:4173',       // Local Vite preview
   'http://localhost:3001',       // Alternative local
-  process.env.FRONTEND_URL,      // From env variable  'https://curly-umbrella-j9xjjg545v9f5jwx-5173.app.github.dev',  // GitHub Codespaces frontend  'https://soulfeltmusicdemo.netlify.app',  // Production Netlify URL
+  process.env.FRONTEND_URL,      // From env variable
+  'https://curly-umbrella-j9xjjg545v9f5jwx-5173.app.github.dev',  // GitHub Codespaces frontend
+  'https://soulfeltmusicdemo.netlify.app',  // Production Netlify URL
   // Add your production URLs here when deploying:
   // 'https://your-site.netlify.app',
   // 'https://soulfeltmusic.com',
@@ -76,6 +80,11 @@ const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps, curl, Postman)
     if (!origin) return callback(null, true);
+    
+    // Allow all GitHub Codespaces origins
+    if (origin && origin.includes('.app.github.dev')) {
+      return callback(null, true);
+    }
     
     // In development, allow all origins
     if (process.env.NODE_ENV !== 'production') {
@@ -138,6 +147,7 @@ app.use('/api/admin', statsScheduleRouter);
 app.use('/api', genreRouter);
 app.use('/api/settings', settingsRouter);
 app.use('/api/payments', paymentsRouter);
+app.use('/api/subscriptions', subscriptionsRouter);
 app.use('/api/purchase-history', purchaseHistoryRouter);
 app.use('/api/downloads', downloadsRouter);
 app.use('/api/events', eventsRouter);
@@ -308,6 +318,9 @@ app.listen(PORT, async () => {
   
   // Initialize schedule on startup
   await initializeSchedule();
+  
+  // Initialize account deletion cron job
+  setupDeletionCronJob();
   
   // Check for schedule updates every 10 seconds
   setInterval(async () => {

@@ -340,7 +340,7 @@ export async function handleWebhook(req, res) {
                     JOIN albums a ON t.album_id = a.id 
                     WHERE t.id = oi.item_id
                   )
-                  WHEN oi.item_type = 'Digital Album' THEN (
+                  WHEN oi.item_type IN ('Digital Album','Limited Edition') THEN (
                     SELECT cover_url 
                     FROM albums 
                     WHERE id = oi.item_id

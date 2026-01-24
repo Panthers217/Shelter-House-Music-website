@@ -102,18 +102,11 @@ export const ApiDataProvider = ({ children }) => {
         console.error("Error fetching tracks:", err);
       });
     axios
-      .get(`${API_URL}/api/users`)
-      .then((res) => setUsers(res.data))
-      .catch((err) => {
-        setError(err);
-        console.error("Error fetching users:", err);
-      });
-    axios
       .get(`${API_URL}/api/settings/public`)
       .then((res) => setWebsiteSettings(res.data))
       .catch((err) => {
         setError(err);
-        console.error("Error fetching users:", err);
+        console.error("Error fetching settings:", err);
       });
   }, []);
 

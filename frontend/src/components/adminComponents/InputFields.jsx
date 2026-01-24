@@ -39,6 +39,12 @@ const InputFields = ({
   // Ministry Resources type options (matching database ENUM)
   const merchTypeOptions = ['Apparel', 'Accessories', 'Posters & Art', 'Merchandise'];
 
+  // Helper to check if a field is album_type
+  const isAlbumTypeField = (field) => field === 'album_type';
+
+  // Album type options (matching database ENUM)
+  const albumTypeOptions = ['Digital Album', 'Physical Album', 'Limited Edition', 'EP', 'Single'];
+
   // Helper to parse genre value (comma-separated string to array)
   const parseGenreValue = (value) => {
     if (!value) return [];
@@ -251,6 +257,23 @@ const InputFields = ({
             >
               <option value="">Select merchandise type</option>
               {merchTypeOptions.map(option => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          ) : isAlbumTypeField(field) ? (
+            <select
+              className="w-full p-2 border rounded"
+              value={fieldValues[field] || ""}
+              onChange={(e) =>
+                setFieldValues({ ...fieldValues, [field]: e.target.value })
+              }
+              required={requiredFields.includes(field)}
+              disabled={isRestrictedField(field)}
+            >
+              <option value="">Select album type</option>
+              {albumTypeOptions.map(option => (
                 <option key={option} value={option}>
                   {option}
                 </option>

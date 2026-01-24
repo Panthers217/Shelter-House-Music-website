@@ -5,7 +5,7 @@ const router = Router();
 
 /**
  * GET /api/purchase-history/user-email/:email
- * Get all purchases and order items for a specific user by email
+ * Get all purchases, donations, and recurring subscriptions for a specific user by email
  */
 router.get('/user-email/:email', async (req, res) => {
   try {
@@ -21,13 +21,14 @@ router.get('/user-email/:email', async (req, res) => {
       return res.json({
         email: email,
         purchase_count: 0,
-        purchases: []
+        purchases: [],
+        subscriptions: []
       });
     }
 
     const userId = users[0].id;
 
-    // Get user's purchases with order items
+    // Get user's purchases with order items and product images
     const [purchases] = await db.query(
       `SELECT 
         p.id as purchase_id,
@@ -47,11 +48,42 @@ router.get('/user-email/:email', async (req, res) => {
         oi.item_title,
         oi.artist_name,
         oi.quantity,
-        oi.price as item_price
+        oi.price as item_price,
+        CASE 
+          WHEN oi.item_type LIKE '%Album%' OR oi.item_type LIKE '%Limited Edition%' THEN alb.cover_url
+          WHEN oi.item_type LIKE '%shirt%' OR oi.item_type LIKE '%Shirt%' OR oi.item_type LIKE '%Hat%' OR oi.item_type LIKE '%Merchandise%' OR oi.item_type LIKE '%Merch%' OR oi.item_type LIKE '%Apparel%' OR oi.item_type LIKE '%Aparal%' OR oi.item_type LIKE '%Ministry Resource%' THEN merch.image_url
+          WHEN oi.item_type LIKE '%Track%' THEN ai.image_url
+          ELSE NULL
+        END AS item_image_url
       FROM purchases p
       LEFT JOIN order_items oi ON p.id = oi.purchase_id
+      LEFT JOIN albums alb ON (oi.item_type LIKE '%Album%' OR oi.item_type LIKE '%Limited Edition%') AND oi.item_id = alb.id
+      LEFT JOIN merchandise merch ON (oi.item_type LIKE '%shirt%' OR oi.item_type LIKE '%Shirt%' OR oi.item_type LIKE '%Hat%' OR oi.item_type LIKE '%Merchandise%' OR oi.item_type LIKE '%Merch%' OR oi.item_type LIKE '%Apparel%' OR oi.item_type LIKE '%Aparal%' OR oi.item_type LIKE '%Ministry Resource%') 
+        AND ((oi.item_id > 0 AND oi.item_id = merch.id) OR (oi.item_id = 0 AND (oi.artist_name = merch.title OR oi.item_title = merch.title)))
+      LEFT JOIN promotional_tracks pt ON oi.item_type LIKE '%Track%' AND oi.item_id = pt.id
+      LEFT JOIN artist_images ai ON pt.artist_image_id = ai.id
       WHERE p.user_id = ?
       ORDER BY p.purchased_at DESC, oi.id`,
+      [userId]
+    );
+
+    // Get user's recurring subscriptions
+    const [subscriptions] = await db.query(
+      `SELECT 
+        id,
+        stripe_subscription_id,
+        stripe_customer_id,
+        donor_name,
+        donor_email,
+        amount,
+        status,
+        next_billing_date,
+        created_at,
+        updated_at,
+        cancelled_at
+      FROM recurring_donations
+      WHERE user_id = ?
+      ORDER BY created_at DESC`,
       [userId]
     );
 
@@ -83,7 +115,8 @@ router.get('/user-email/:email', async (req, res) => {
           item_title: row.item_title,
           artist_name: row.artist_name,
           quantity: row.quantity,
-          price: row.item_price
+          price: row.item_price,
+          item_image_url: row.item_image_url
         });
       }
     });
@@ -94,7 +127,9 @@ router.get('/user-email/:email', async (req, res) => {
       email: email,
       user_id: userId,
       purchase_count: purchaseHistory.length,
-      purchases: purchaseHistory
+      subscription_count: subscriptions.length,
+      purchases: purchaseHistory,
+      subscriptions: subscriptions
     });
   } catch (error) {
     console.error('Error fetching purchase history by email:', error);
@@ -111,7 +146,7 @@ router.get('/user/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
 
-    // Get user's purchases with order items
+    // Get user's purchases with order items and product images
     const [purchases] = await db.query(
       `SELECT 
         p.id as purchase_id,
@@ -131,9 +166,20 @@ router.get('/user/:userId', async (req, res) => {
         oi.item_title,
         oi.artist_name,
         oi.quantity,
-        oi.price as item_price
+        oi.price as item_price,
+        CASE 
+          WHEN oi.item_type LIKE '%Album%' OR oi.item_type LIKE '%Limited Edition%' THEN alb.cover_url
+          WHEN oi.item_type LIKE '%shirt%' OR oi.item_type LIKE '%Shirt%' OR oi.item_type LIKE '%Hat%' OR oi.item_type LIKE '%Merchandise%' OR oi.item_type LIKE '%Merch%' OR oi.item_type LIKE '%Apparel%' OR oi.item_type LIKE '%Aparal%' OR oi.item_type LIKE '%Ministry Resource%' THEN merch.image_url
+          WHEN oi.item_type LIKE '%Track%' THEN ai.image_url
+          ELSE NULL
+        END AS item_image_url
       FROM purchases p
       LEFT JOIN order_items oi ON p.id = oi.purchase_id
+      LEFT JOIN albums alb ON (oi.item_type LIKE '%Album%' OR oi.item_type LIKE '%Limited Edition%') AND oi.item_id = alb.id
+      LEFT JOIN merchandise merch ON (oi.item_type LIKE '%shirt%' OR oi.item_type LIKE '%Shirt%' OR oi.item_type LIKE '%Hat%' OR oi.item_type LIKE '%Merchandise%' OR oi.item_type LIKE '%Merch%' OR oi.item_type LIKE '%Apparel%' OR oi.item_type LIKE '%Aparal%' OR oi.item_type LIKE '%Ministry Resource%') 
+        AND ((oi.item_id > 0 AND oi.item_id = merch.id) OR (oi.item_id = 0 AND (oi.artist_name = merch.title OR oi.item_title = merch.title)))
+      LEFT JOIN promotional_tracks pt ON oi.item_type LIKE '%Track%' AND oi.item_id = pt.id
+      LEFT JOIN artist_images ai ON pt.artist_image_id = ai.id
       WHERE p.user_id = ?
       ORDER BY p.purchased_at DESC, oi.id`,
       [userId]
@@ -167,7 +213,8 @@ router.get('/user/:userId', async (req, res) => {
           item_title: row.item_title,
           artist_name: row.artist_name,
           quantity: row.quantity,
-          price: row.item_price
+          price: row.item_price,
+          item_image_url: row.item_image_url
         });
       }
     });

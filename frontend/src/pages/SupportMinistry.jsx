@@ -8,7 +8,8 @@ import {
 } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
 import { FiHeart, FiMusic, FiTrendingUp, FiGlobe } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useUserLogin } from "../hooks/useUserLogin";
 
 // Initialize Stripe
 const stripePromise = loadStripe(
@@ -39,6 +40,7 @@ function DonationForm() {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useUserLogin(); // Add auth hook
   const [donationAmount, setDonationAmount] = useState("");
   const [customAmount, setCustomAmount] = useState("");
   const [isRecurring, setIsRecurring] = useState(false);
@@ -49,6 +51,16 @@ function DonationForm() {
   });
 
   const suggestedAmounts = [25, 50, 100, 250];
+
+  // Pre-fill email if user is logged in
+  React.useEffect(() => {
+    if (user?.email && !donorInfo.email) {
+      setDonorInfo((prev) => ({
+        ...prev,
+        email: user.email,
+      }));
+    }
+  }, [user]);
 
   const handleAmountSelect = (amount) => {
     setDonationAmount(amount);
@@ -76,6 +88,13 @@ function DonationForm() {
       return;
     }
 
+    // Check if user is logged in for recurring donations
+    if (isRecurring && !user) {
+      toast.error("Please sign in to set up monthly recurring support");
+      navigate("/login", { state: { from: "/support-ministry", isRecurring: true } });
+      return;
+    }
+
     const amount = parseFloat(donationAmount || customAmount);
 
     if (!amount || amount < 1) {
@@ -91,66 +110,124 @@ function DonationForm() {
     setProcessing(true);
 
     try {
-      // Create payment intent for donation
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/payments/create-payment-intent`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            amount: Math.round(amount * 100), // Convert to cents
-            cart: [
-              {
-                type: "Donation",
-                title: isRecurring ? "Monthly Ministry Support" : "One-Time Ministry Support",
-                price: amount,
-                quantity: 1,
-              },
-            ],
-            customerInfo: {
-              email: donorInfo.email,
-              name: donorInfo.name,
-            },
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to create payment intent");
-      }
-
-      const { clientSecret } = await response.json();
-
-      // Confirm payment
       const cardElement = elements.getElement(CardElement);
-      const { error, paymentIntent } = await stripe.confirmCardPayment(
-        clientSecret,
-        {
-          payment_method: {
-            card: cardElement,
-            billing_details: {
-              name: donorInfo.name,
-              email: donorInfo.email,
-            },
-          },
-        }
-      );
 
-      if (error) {
-        toast.error(error.message);
-        setProcessing(false);
-      } else if (paymentIntent.status === "succeeded") {
-        toast.success("Thank you for your generous support!");
-        navigate("/donation-confirmation", { 
-          state: { 
-            paymentIntent,
-            donationAmount: amount,
-            isRecurring: isRecurring 
-          } 
+      // If recurring, create subscription instead of one-time payment
+      if (isRecurring) {
+        // Create payment method first
+        const { error: pmError, paymentMethod } = await stripe.createPaymentMethod({
+          type: "card",
+          card: cardElement,
+          billing_details: {
+            name: donorInfo.name,
+            email: donorInfo.email,
+          },
         });
+
+        if (pmError) {
+          toast.error(pmError.message);
+          setProcessing(false);
+          return;
+        }
+
+        // Get Firebase auth token
+        const token = await user.getIdToken(true);
+
+        // Create subscription via backend
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/subscriptions/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              email: donorInfo.email,
+              name: donorInfo.name,
+              amount: amount,
+              paymentMethodId: paymentMethod.id,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to create subscription");
+        }
+
+        const subscriptionData = await response.json();
+        
+        toast.success("Monthly support set up successfully!");
+        navigate("/donation-confirmation", {
+          state: {
+            isRecurring: true,
+            donationAmount: amount,
+            subscriptionId: subscriptionData.subscriptionId,
+            nextBillingDate: subscriptionData.nextBillingDate,
+          },
+        });
+      } else {
+        // One-time payment flow (existing code)
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/payments/create-payment-intent`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              amount: Math.round(amount * 100), // Convert to cents
+              cart: [
+                {
+                  type: "Donation",
+                  title: "One-Time Ministry Support",
+                  price: amount,
+                  quantity: 1,
+                },
+              ],
+              customerInfo: {
+                email: donorInfo.email,
+                name: donorInfo.name,
+              },
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to create payment intent");
+        }
+
+        const { clientSecret } = await response.json();
+
+        // Confirm payment
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
+          clientSecret,
+          {
+            payment_method: {
+              card: cardElement,
+              billing_details: {
+                name: donorInfo.name,
+                email: donorInfo.email,
+              },
+            },
+          }
+        );
+
+        if (error) {
+          toast.error(error.message);
+          setProcessing(false);
+        } else if (paymentIntent.status === "succeeded") {
+          toast.success("Thank you for your generous support!");
+          navigate("/donation-confirmation", {
+            state: {
+              paymentIntent,
+              donationAmount: amount,
+              isRecurring: false,
+            },
+          });
+        }
       }
     } catch (error) {
       console.error("Error processing donation:", error);
@@ -384,6 +461,15 @@ function DonationForm() {
             </label>
             <p className="text-shelter-gray text-sm mt-2 ml-8">
               Monthly giving provides consistent support for ongoing ministry operations
+              {!user && (
+                <span className="block mt-1 text-shelter-honey">
+                  Note: You'll need to{" "}
+                  <Link to="/login" className="underline hover:text-shelter-amber">
+                    sign in
+                  </Link>{" "}
+                  to set up monthly support
+                </span>
+              )}
             </p>
           </div>
 

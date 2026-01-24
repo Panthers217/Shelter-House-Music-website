@@ -1239,6 +1239,307 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
 }
 
 /**
+ * Send subscription confirmation email for recurring donations
+ * @param {Object} subscriptionData - Subscription data
+ * @returns {Promise<Object>} Result of email sending
+ */
+export async function sendSubscriptionConfirmationEmail(subscriptionData) {
+  try {
+    const config = await getEmailConfig();
+    const transporter = await createTransporter();
+    const fromEmail = await getSenderEmail();
+    const fromName = config.email_from_name || "Shelter House Music";
+
+    const {
+      email,
+      name,
+      amount,
+      subscriptionId,
+      nextBillingDate,
+      status,
+    } = subscriptionData;
+
+    // Format billing date
+    const billingDate = new Date(nextBillingDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    // Generate HTML email
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Subscription Confirmed</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    .email-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+    }
+    .header {
+      background: linear-gradient(135deg, #1E1E1E 0%, #D4A24C 100%);
+      padding: 40px 30px;
+      text-align: center;
+      color: #F5F5F2;
+    }
+    .header img {
+      max-width: 600px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #F5F5F2;
+    }
+    .header p {
+      margin: 10px 0 0;
+      font-size: 16px;
+      color: #D4A24C;
+    }
+    .content {
+      padding: 40px 30px;
+    }
+    .greeting {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .subscription-info {
+      background-color: #f9f9f9;
+      border-left: 4px solid #D4A24C;
+      padding: 25px;
+      margin: 25px 0;
+      border-radius: 8px;
+    }
+    .subscription-info h2 {
+      margin: 0 0 20px;
+      font-size: 20px;
+      color: #D4A24C;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0;
+      padding: 12px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .info-row:last-child {
+      border-bottom: none;
+    }
+    .info-label {
+      font-weight: 600;
+      color: #666;
+    }
+    .info-value {
+      font-weight: 700;
+      color: #333;
+    }
+    .amount-highlight {
+      font-size: 32px;
+      color: #D4A24C;
+      font-weight: 700;
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: #fff9e6;
+      border-radius: 10px;
+    }
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #D4A24C 0%, #B8872A 100%);
+      color: #1E1E1E;
+      text-decoration: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(212, 162, 76, 0.3);
+    }
+    .note {
+      background-color: #f0f7ff;
+      border-left: 4px solid #2196F3;
+      padding: 20px;
+      margin: 25px 0;
+      font-size: 14px;
+      line-height: 1.6;
+      border-radius: 4px;
+    }
+    .footer {
+      background-color: #333;
+      color: #ffffff;
+      padding: 30px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .footer a {
+      color: #D4A24C;
+      text-decoration: none;
+    }
+    @media only screen and (max-width: 600px) {
+      .content {
+        padding: 30px 20px;
+      }
+      .header {
+        padding: 30px 20px;
+      }
+      .amount-highlight {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <div class="header">
+      <img src="https://res.cloudinary.com/webprojectimages/image/upload/v1769193742/Shelter-house-transparent-text-logo.png" alt="Shelter House Music Logo" />
+      <h1>🎵 Monthly Subscription Confirmed!</h1>
+      <p>Thank you for your ongoing support</p>
+    </div>
+    
+    <div class="content">
+      <p class="greeting">Hi ${name},</p>
+      
+      <p>Thank you for setting up your monthly gift to Shelter House Music! Your recurring donation will help sustain our ministry and support the artists who create music that glorifies God.</p>
+      
+      <div class="amount-highlight">
+        $${parseFloat(amount).toFixed(2)}/month
+      </div>
+      
+      <div class="subscription-info">
+        <h2>Subscription Details</h2>
+        <div class="info-row">
+          <span class="info-label">Monthly Amount:</span>
+          <span class="info-value">$${parseFloat(amount).toFixed(2)}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Next Billing Date:</span>
+          <span class="info-value">${billingDate}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Status:</span>
+          <span class="info-value" style="color: #4caf50; text-transform: capitalize;">${status}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Subscription ID:</span>
+          <span class="info-value" style="font-size: 12px; color: #999;">${subscriptionId}</span>
+        </div>
+      </div>
+      
+      <div class="note">
+        <strong>💳 Automatic Recurring Billing</strong><br>
+        Your card will be automatically charged $${parseFloat(amount).toFixed(2)} on the ${billingDate.split(' ')[1]} of each month. You'll receive a receipt for each payment via email.
+      </div>
+      
+      <p style="text-align: center; margin: 30px 0;">
+        <a href="${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}/manage-subscriptions" class="cta-button">
+          Manage Your Subscription
+        </a>
+      </p>
+      
+      <div class="note" style="background-color: #fff9e6; border-left-color: #D4A24C;">
+        <strong>✏️ You're in Control</strong><br>
+        You can update your monthly amount, pause, or cancel your subscription anytime from your account dashboard. No questions asked, no hassle.
+      </div>
+      
+      <p style="margin-top: 30px;">Your generosity makes a real difference. Thank you for partnering with us in ministry!</p>
+      
+      <p style="margin-top: 30px;">
+        Blessings,<br>
+        <strong>The Shelter House Music Team</strong>
+      </p>
+    </div>
+    
+    <div class="footer">
+      <p><strong>Shelter House Music</strong></p>
+      <p>Questions? Contact us at <a href="mailto:${config.contact_email || config.smtp_user}">${config.contact_email || config.smtp_user}</a></p>
+      <p style="margin-top: 15px;">
+        <a href="${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}/manage-subscriptions">Manage Subscription</a> | 
+        <a href="${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}">Visit Website</a>
+      </p>
+      <p style="margin-top: 20px; opacity: 0.8; font-size: 12px;">
+        © ${new Date().getFullYear()} Shelter House Music. All rights reserved.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+    `;
+
+    // Plain text version
+    const textContent = `
+Monthly Subscription Confirmed!
+
+Hi ${name},
+
+Thank you for setting up your monthly gift to Shelter House Music! Your recurring donation will help sustain our ministry and support the artists who create music that glorifies God.
+
+SUBSCRIPTION DETAILS
+Monthly Amount: $${parseFloat(amount).toFixed(2)}
+Next Billing Date: ${billingDate}
+Status: ${status}
+Subscription ID: ${subscriptionId}
+
+AUTOMATIC RECURRING BILLING
+Your card will be automatically charged $${parseFloat(amount).toFixed(2)} on the ${billingDate.split(' ')[1]} of each month. You'll receive a receipt for each payment via email.
+
+MANAGE YOUR SUBSCRIPTION
+Update, pause, or cancel anytime at:
+${(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '')}/manage-subscriptions
+
+Your generosity makes a real difference. Thank you for partnering with us in ministry!
+
+Blessings,
+The Shelter House Music Team
+
+---
+Questions? Contact us at ${config.contact_email || config.smtp_user}
+© ${new Date().getFullYear()} Shelter House Music
+    `;
+
+    const mailOptions = {
+      from: `"${fromName}" <${fromEmail}>`,
+      to: email,
+      replyTo: config.email_reply_to || fromEmail,
+      subject: "Monthly Subscription Confirmed - Shelter House Music",
+      text: textContent.trim(),
+      html: htmlContent,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log(`✅ Subscription confirmation email sent to ${email}`);
+
+    return {
+      success: true,
+      messageId: info.messageId,
+      recipient: email,
+    };
+  } catch (error) {
+    console.error("❌ Error sending subscription confirmation email:", error);
+    throw error;
+  }
+}
+
+/**
  * Test email configuration
  */
 export async function testEmailConfig(testRecipient) {
@@ -1263,9 +1564,52 @@ export async function testEmailConfig(testRecipient) {
   return await transporter.sendMail(mailOptions);
 }
 
+/**
+ * Generic send email function for custom emails
+ * @param {Object} options - Email options
+ * @param {string} options.to - Recipient email address
+ * @param {string} options.subject - Email subject
+ * @param {string} options.html - HTML email content
+ * @param {string} [options.text] - Plain text email content
+ * @returns {Promise<Object>} Result of email sending
+ */
+export async function sendEmail({ to, subject, html, text }) {
+  try {
+    const config = await getEmailConfig();
+    const transporter = await createTransporter();
+    const fromEmail = await getSenderEmail();
+    const fromName = config.email_from_name || "Shelter House Music";
+
+    const mailOptions = {
+      from: `"${fromName}" <${fromEmail}>`,
+      to,
+      replyTo: config.email_reply_to || fromEmail,
+      subject,
+      text: text || html.replace(/<[^>]*>/g, ''), // Strip HTML tags if no text provided
+      html,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log(`✅ Email sent to ${to}`);
+    console.log(`📧 Message ID: ${info.messageId}`);
+
+    return {
+      success: true,
+      messageId: info.messageId,
+      recipient: to,
+    };
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+    throw error;
+  }
+}
+
 export default {
+  sendEmail,
   sendNewsletterEmail,
   sendPurchaseConfirmationEmail,
+  sendSubscriptionConfirmationEmail,
   testEmailConfig,
   getSenderEmail,
 };

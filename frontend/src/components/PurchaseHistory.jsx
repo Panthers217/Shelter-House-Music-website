@@ -282,23 +282,37 @@ export default function PurchaseHistory() {
                         key={item.order_item_id}
                         className="flex items-start justify-between p-3 bg-gray-50 rounded-lg"
                       >
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-medium text-gray-900">
-                              {item.item_title}
-                            </span>
-                            <span className="px-2 py-0.5 bg-[#aa2a46] text-white text-xs rounded">
-                              {item.item_type}
-                            </span>
-                          </div>
-                          <p className="text-sm text-gray-600 mt-1">
-                            by {item.artist_name || 'Unknown Artist'}
-                          </p>
-                          {item.quantity > 1 && (
-                            <p className="text-xs text-gray-500 mt-1">
-                              Quantity: {item.quantity}
-                            </p>
+                        <div className="flex gap-3 flex-1">
+                          {/* Item Image */}
+                          {item.item_image_url && (
+                            <img
+                              src={item.item_image_url}
+                              alt={item.item_title}
+                              className="w-16 h-16 object-cover rounded"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                              }}
+                            />
                           )}
+                          
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-medium text-gray-900">
+                                {item.item_title}
+                              </span>
+                              <span className="px-2 py-0.5 bg-[#aa2a46] text-white text-xs rounded">
+                                {item.item_type}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-600 mt-1">
+                              by {item.artist_name || 'Unknown Artist'}
+                            </p>
+                            {item.quantity > 1 && (
+                              <p className="text-xs text-gray-500 mt-1">
+                                Quantity: {item.quantity}
+                              </p>
+                            )}
+                          </div>
                         </div>
                         <div className="text-right ml-4">
                           <p className="text-sm font-semibold text-gray-900">

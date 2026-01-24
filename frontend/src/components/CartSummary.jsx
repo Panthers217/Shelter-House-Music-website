@@ -25,7 +25,7 @@ function CartSummary() {
   }
 
   return (
-    <div className="w-full max-w-lg bg-shelter-slate rounded-md shadow-md p-4 mb-6">
+    <div className="w-full max-w-lg bg-shelter-slate rounded-md shadow-md p-4 mb-6 pt-[10%]">
       <h3 className="text-shelter-honey text-lg font-bold mb-2">
         Your Cart
       </h3>
