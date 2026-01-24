@@ -53,7 +53,7 @@ async function checkRecentOrder() {
             FROM albums 
             WHERE id = oi.item_id
           )
-          WHEN oi.item_type IN ('Merchandise', 'Apparel', 'Accessories', 'Other') THEN (
+          WHEN oi.item_type IN ('Merchandise', 'Apparel', 'Accessories', 'Ministry Resources', 'Other') THEN (
             SELECT image_url 
             FROM merchandise 
             WHERE id = oi.item_id

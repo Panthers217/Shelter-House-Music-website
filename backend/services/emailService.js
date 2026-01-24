@@ -974,7 +974,7 @@ function generatePurchaseEmailTemplate(data) {
                   <div class="item-title">${item.item_title}</div>
                   <span class="item-type">${item.item_type}</span>
                   <div class="item-artist">♫ ${
-                    ['Merchandise', 'Apparel', 'Accessories', 'Other'].includes(item.item_type)
+                    ['Merchandise', 'Apparel', 'Accessories', 'Ministry Resources', 'Other'].includes(item.item_type)
                       ? (item.merch_type || 'General Merchandise')
                       : `by ${item.artist_name || "Unknown Artist"}`
                   }</div>
@@ -1083,7 +1083,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
 
     const hasMerchandise = items.some(
       (item) =>
-        ['Merchandise', 'Apparel', 'Accessories', 'Other', 'Physical Album'].includes(item.item_type)
+        ['Merchandise', 'Apparel', 'Accessories', 'Ministry Resources', 'Other', 'Physical Album'].includes(item.item_type)
     );
 
     // Parse shipping address if it's a string
@@ -1240,7 +1240,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
     textContent += `${isMinistryDonation ? 'DONATION' : 'ORDER'} SUMMARY\n`;
     itemsWithDownloadLinks.forEach((item) => {
       textContent += `- ${item.item_title} (${item.item_type}) ${
-        ['Merchandise', 'Apparel', 'Accessories', 'Other'].includes(item.item_type)
+        ['Merchandise', 'Apparel', 'Accessories', 'Ministry Resources', 'Other'].includes(item.item_type)
           ? (item.merch_type || 'General Merchandise')
           : item.item_type === 'Donation' ? 'Ministry Support' : `by ${item.artist_name || 'Unknown Artist'}`
       }\n`;

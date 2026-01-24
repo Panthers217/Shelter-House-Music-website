@@ -698,8 +698,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
       }
       // For albums from database, check album_type
       else if (product.album_type) {
-        tabMatch =
-          product.album_type === "digital" || product.album_type === "vinyl";
+        tabMatch = true; // Include all albums regardless of album_type
       }
       // For demo products, check type
       else {
