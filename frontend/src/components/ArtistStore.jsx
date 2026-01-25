@@ -1,5 +1,6 @@
 // Demo merch products
 import React, { useState, useEffect, useRef } from "react";
+import { useUserLogin } from "../hooks/useUserLogin";
 import { useApiData } from "../context/ApiDataContext.jsx";
 import SearchBar from "./SearchBar.jsx";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -483,6 +484,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
   const { cart, addToCart, removeFromCart, getCartCount, getCartTotal } =
     useCart();
   const { isEnabled } = useFeatures();
+  const { user } = useUserLogin();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const highlightedAlbumId = searchParams.get('albumId');
@@ -782,7 +784,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
   return (
     <>
     <ZoomFit> 
-      <div className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal flex flex-col items-center relative overflow-hidden mt-[1%] minMobile:mt-[5%] sm:mt-[2%] lg:mt-[5%] ">
+      <div className={`w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal flex flex-col items-center relative overflow-hidden mt-[1%] minMobile:mt-[5%] sm:mt-[2%] lg:mt-[5%]  ${user ? 'pt-[7%]' : 'pt-[3%]'}`}>
         {/* Artist Background Image - Only visible on individual artist pages */}
         {optimizedBackgroundUrl && (
           <div 

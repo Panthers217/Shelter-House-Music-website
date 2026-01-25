@@ -1078,7 +1078,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
 
     // Determine if order has digital items or merchandise
     const hasDigitalItems = items.some(
-      (item) => item.item_type === "Track" || item.item_type === "Digital Album"
+      (item) => item.item_type === "Track" || item.item_type === "Digital Album" || item.item_type === "Limited Edition" || item.item_type === "EP" || item.item_type === "Single"
     );
 
     const hasMerchandise = items.some(
@@ -1137,7 +1137,7 @@ export async function sendPurchaseConfirmationEmail(purchaseData) {
 
     // Generate secure download links for digital items
     const itemsWithDownloadLinks = items.map((item) => {
-      if (item.item_type === "Track" || item.item_type === "Digital Album") {
+      if (item.item_type === "Track" || item.item_type === "Digital Album" || item.item_type === "Limited Edition" || item.item_type === "EP" || item.item_type === "Single") {
         // Remove trailing slash from FRONTEND_URL to prevent double slashes
         const baseUrl = (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, '');
         // Create a secure download link that will verify purchase and generate signed URL

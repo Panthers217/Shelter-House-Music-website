@@ -75,7 +75,7 @@ router.get('/file/:token', async (req, res) => {
       
       fileUrl = tracks[0].audio_url;
       fileName = `${tracks[0].title.replace(/[^a-z0-9]/gi, '_')}.mp3`;
-    } else if (itemType === 'Digital Album' && trackId) {
+    } else if ((itemType === 'Digital Album' || itemType === 'Limited Edition' || itemType === 'EP' || itemType === 'Single') && trackId) {
       // Single track from album
       const [tracks] = await db.query(
         'SELECT title, audio_url FROM tracks WHERE id = ? AND album_id = ?',
@@ -182,7 +182,7 @@ router.post('/generate-url', async (req, res) => {
         trackId: tracks[0].id
       });
 
-    } else if (itemType === 'Digital Album') {
+    } else if (itemType === 'Digital Album' || itemType === 'Limited Edition' || itemType === 'EP' || itemType === 'Single') {
       // Get all tracks for the album
       const [tracks] = await db.query(
         'SELECT id, title FROM tracks WHERE album_id = ? ORDER BY id',
@@ -211,7 +211,7 @@ router.post('/generate-url', async (req, res) => {
       });
     } else {
       return res.status(400).json({ 
-        error: 'Invalid item type. Only Track and Digital Album can be downloaded.' 
+        error: 'Invalid item type. Only Track, Digital Album, Limited Edition, EP, and Single can be downloaded.' 
       });
     }
 
@@ -278,7 +278,7 @@ router.post('/generate-album-zip', async (req, res) => {
        FROM order_items oi
        JOIN purchases p ON oi.purchase_id = p.id
        WHERE p.customer_email = ? 
-       AND oi.item_type = 'Digital Album' 
+       AND (oi.item_type = 'Digital Album' OR oi.item_type = 'Limited Edition' OR oi.item_type = 'EP' OR oi.item_type = 'Single') 
        AND oi.item_id = ?
        AND p.payment_status = 'succeeded'
        LIMIT 1`,

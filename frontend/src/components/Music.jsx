@@ -195,7 +195,7 @@ const Music = () => {
         url="https://shelterhousemusic.com/music"
       />
      
-      <section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center py-10 px-4 md:px-12 opacity-80">
+      <section className="w-full min-h-screen bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal  flex flex-col items-center py-10 px-4 md:px-12 opacity-80 pt-[4%]">
         
         {/* Overlay div to hide scrolling content - Only visible on lg/xl screens */}
         {/* <div className="overlayBlock hidden lg:block fixed xl:absolute lg:top-[27rem] xl:top-[30rem] left-0 w-full h-[10rem] bg-shelter-charcoal z-[200] pointer-events-none"></div> */}
