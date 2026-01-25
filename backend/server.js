@@ -70,7 +70,7 @@ const allowedOrigins = [
   'http://localhost:3001',       // Alternative local
   process.env.FRONTEND_URL,      // From env variable
   'https://curly-umbrella-j9xjjg545v9f5jwx-5173.app.github.dev',  // GitHub Codespaces frontend
-  'https://soulfeltmusicdemo.netlify.app',  // Production Netlify URL
+  'https://shmdemo.netlify.app/',  // Production Netlify URL
   // Add your production URLs here when deploying:
   // 'https://your-site.netlify.app',
   // 'https://soulfeltmusic.com',
