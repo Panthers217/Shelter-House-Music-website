@@ -8,7 +8,7 @@ import { useApiData } from "../context/ApiDataContext.jsx";
 
 const DemoBannerMobile = ({ albumImages, fadeOut, textHeadline, isDataLoaded }) => {
   return (
-    <div data-layer="Frame 32" className="Frame32  w-[30rem]  h-auto aspect-[425/630] minMobile:aspect-[320/475]  relative ">
+    <div data-layer="Frame 32" className="Frame32  w-[23rem]  h-auto aspect-[425/630] minMobile:aspect-[320/475]  relative ">
        {/* welcome logo */}
 
       <div data-layer="WelcomeSvg" className="Welcomesvg z-10 w-full h-48 right-[10%] top-[0%] minMobile:ml-[11%] absolute opacity-30"  style={{ width: '-webkit-fill-available', minwidth: '-webkit-fill-available' }}>
