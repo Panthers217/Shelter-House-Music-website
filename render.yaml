@@ -1,18 +1,74 @@
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "backend/server.js"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
-}
+# Render Blueprint Specification for Shelter House Music Backend
+# https://render.com/docs/blueprint-spec
+
+services:
+  # Backend Web Service
+  - type: web
+    name: shelter-house-music-backend
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Database credentials - set these in Render dashboard
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false
+      # Firebase Admin SDK - set these in Render dashboard
+      - key: FIREBASE_TYPE
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY_ID
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_CLIENT_ID
+        sync: false
+      - key: FIREBASE_AUTH_URI
+        value: https://accounts.google.com/o/oauth2/auth
+      - key: FIREBASE_TOKEN_URI
+        value: https://oauth2.googleapis.com/token
+      - key: FIREBASE_AUTH_PROVIDER_X509_CERT_URL
+        value: https://www.googleapis.com/oauth2/v1/certs
+      - key: FIREBASE_CLIENT_X509_CERT_URL
+        sync: false
+      - key: FIREBASE_UNIVERSE_DOMAIN
+        value: googleapis.com
+      # Stripe - set these in Render dashboard
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      # Cloudinary - set these in Render dashboard
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      # Email (Resend) - set these in Render dashboard
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        sync: false
+      # Frontend URL - UPDATE THIS after Netlify deployment
+      - key: FRONTEND_URL
+        value: http://localhost:5173
+    healthCheckPath: /health
+

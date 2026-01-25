@@ -108,7 +108,8 @@ export async function deleteRecord(req, res) {
 // Insert a new record
 export async function insertRecord(req, res) {
   const { table } = req.params;
-  const mode = req.headers['x-mode'] || req.headers['xmode'] || req.body.mode;
+  // DEMO BRANCH: Force demo mode for all uploads
+  const mode = 'demo'; // Original: req.headers['x-mode'] || req.headers['xmode'] || req.body.mode;
 
   const columns = Object.keys(req.body).map(key => `\`${key}\``);
   // Convert empty strings to null for all values
@@ -314,7 +315,8 @@ export async function getRecords(req, res) {
 
 export async function updateRecord(req, res) {
   const { table, id } = req.params;
-  const mode = req.headers['x-mode'] || req.headers['xmode'] || req.body.mode || 'live';
+  // DEMO BRANCH: Force demo mode for all uploads
+  const mode = 'demo'; // Original: req.headers['x-mode'] || req.headers['xmode'] || req.body.mode || 'live';
   
   // Debug logging
   console.log('Update Record - Mode Detection:', {

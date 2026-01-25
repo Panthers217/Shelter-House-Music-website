@@ -103,7 +103,8 @@ export async function createEvent(req, res) {
       const file = req.files.find(f => f.fieldname === 'event_image');
       
       if (file) {
-        const mode = req.headers['x-mode'] || req.headers['xmode'] || 'demo';
+        // DEMO BRANCH: Force demo mode for all uploads
+        const mode = 'demo'; // Original: req.headers['x-mode'] || req.headers['xmode'] || 'demo';
         
         // Get cloudinary folder paths from database
         const folders = await getCloudinaryFolders();
@@ -195,7 +196,8 @@ export async function updateEvent(req, res) {
       const file = req.files.find(f => f.fieldname === 'event_image');
       
       if (file) {
-        const mode = req.headers['x-mode'] || req.headers['xmode'] || 'demo';
+        // DEMO BRANCH: Force demo mode for all uploads
+        const mode = 'demo'; // Original: req.headers['x-mode'] || req.headers['xmode'] || 'demo';
         
         // Delete old image from Cloudinary if exists
         const oldPublicId = existing[0].image_public_identifier;

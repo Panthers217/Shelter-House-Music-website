@@ -1,6 +1,7 @@
 // Stylish TableSelector component for table selection (used in ExistingArtist)
 
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useApiData } from "../context/ApiDataContext";
 import { useNavbar } from "../context/NavbarContext";
 import CalendarModal from "./modal/CalendarModal";
@@ -568,6 +569,51 @@ function AdminDashboard() {
   const [rows, setRows] = useState("");
   const [message, setMessage] = useState("");
   const [tableOptions, setTableOptions] = useState([]);
+
+  // Show demo mode reminder toast on component mount (only once)
+  useEffect(() => {
+    // Check if toast has been shown before
+    const hasShownDemoReminder = localStorage.getItem('demoModeReminderShown');
+    
+    if (!hasShownDemoReminder) {
+      toast(
+        (t) => (
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">⚠️</span>
+              <div className="font-bold text-lg">Development Mode Active</div>
+            </div>
+            <div className="text-sm">
+              All uploads are forced to <strong>DEMO mode</strong> and will go to demo folders in Cloudinary.
+            </div>
+            <div className="text-xs mt-2 p-2 bg-gray-100 rounded">
+              <strong>To change:</strong> Edit backend files:
+              <br />• adminController.js (lines 111, 317)
+              <br />• eventController.js (lines 106, 199)
+              <br />Change <code className="bg-gray-200 px-1 rounded">mode = 'demo'</code> back to original code
+            </div>
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+            >
+              Got it!
+            </button>
+          </div>
+        ),
+        {
+          duration: 10000,
+          position: 'top-center',
+          style: {
+            maxWidth: '500px',
+            padding: '16px',
+          },
+        }
+      );
+      
+      // Mark as shown in localStorage
+      localStorage.setItem('demoModeReminderShown', 'true');
+    }
+  }, []);
   const [isSettingsSidebarOpen, setIsSettingsSidebarOpen] = useState(false);
   const { dbSnapshot, mode, setMode } = useApiData();
   const { isNavbarOpen } = useNavbar();
