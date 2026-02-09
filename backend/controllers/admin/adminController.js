@@ -108,13 +108,15 @@ export async function deleteRecord(req, res) {
 // Insert a new record
 export async function insertRecord(req, res) {
   const { table } = req.params;
-  // DEMO BRANCH: Force demo mode for all uploads
-  const mode = 'demo'; // Original: req.headers['x-mode'] || req.headers['xmode'] || req.body.mode;
+  
+  try {
+    // DEMO BRANCH: Force demo mode for all uploads
+    const mode = 'demo'; // Original: req.headers['x-mode'] || req.headers['xmode'] || req.body.mode;
 
-  const columns = Object.keys(req.body).map(key => `\`${key}\``);
-  // Convert empty strings to null for all values
-  const values = Object.values(req.body).map(v => v === "" ? null : v);
-  const placeholders = columns.map(() => '?');
+    const columns = Object.keys(req.body).map(key => `\`${key}\``);
+    // Convert empty strings to null for all values
+    const values = Object.values(req.body).map(v => v === "" ? null : v);
+    const placeholders = columns.map(() => '?');
 
     // Create an object from columns and values (columns as keys, values as values)
     // Remove backticks from column names for object keys
@@ -123,20 +125,9 @@ export async function insertRecord(req, res) {
     columnKeys.forEach((key, idx) => {
       columnValueObj[key] = values[idx];
     });
-        
-    // You can now use columnValueObj as needed
 
-    const fieldValues = { ...req.body.fields };
-
-  // console.log(`Insert mode: ${mode}`);
-  // const { fields, rows, formData } = req.body;
-  // console.log('Form Data on line 28:', { body: req.body, file: req.file, files: req.files });
-
-  // Retrieve xmode from header (case-insensitive)
- 
-
-  // Unified logic for live and demo modes
-  if (req.files && Array.isArray(req.files) && (mode === "live" || mode === "demo") && columns.length > 0) {
+    // Unified logic for live and demo modes
+    if (req.files && Array.isArray(req.files) && (mode === "live" || mode === "demo") && columns.length > 0) {
     // Get cloudinary folder paths from database
     const folders = await getCloudinaryFolders();
     
@@ -244,44 +235,49 @@ export async function insertRecord(req, res) {
     const insertSql = `INSERT INTO \`${table}\` (${col}) VALUES (${placeholders})`;
     await pool.query(insertSql, values);
     res.json({ success: true, inserted: filteredObj });
-    return;
-  }
-  else {
-    // Build columns and values from fieldValues
-    //   const columns = Object.keys(req.body).map(key => `\`${key}\``);
-    //   const values = Object.values(req.body);
-    // const placeholders = columns.map(() => '?');
-
-    // if (columns.length > 0) {
-    // //   console.log("Prepared to insert record with fields:", fieldValues);
-    //   console.log("Columns:", columns);
-    //   console.log("Values:", values);
-    //   console.log("Placeholders:", placeholders);
-    //   // Fix: log req.body as JSON string if it's an object
-     
-    //   // Uncomment below to actually perform the insert
-    //   const insertSql = `INSERT INTO \`${table}\` (${columns.join(", ")}) VALUES (${placeholders.join(", ")})`;
-    //   await pool.query(insertSql, values);
-    //   res.json({ success: true, inserted: fieldValues });
-    // } else {
-    //   console.log("No valid fields to insert.");
-    //   res.status(400).json({ success: false, message: "No valid fields to insert." });
-    // }
-    // console.log("No files uploaded or multer not configured.");
-  }
-  // upload to database
-
-   if (columns.length > 0) {
-      const insertSql = `INSERT INTO \`${table}\` (${columns.join(", ")}) VALUES (${placeholders.join(", ")})`;
-      await pool.query(insertSql, values);
-      res.json({ success: true, inserted: columnValueObj });
+  } else {
+    // No files uploaded - insert directly from req.body
+    if (columns.length > 0) {
+      // Filter against actual table fields
+      const [tableFields] = await pool.query(`SHOW COLUMNS FROM \`${table}\``);
+      const validFields = tableFields.map(f => f.Field);
+      const filteredObj = {};
+      
+      Object.keys(columnValueObj).forEach(key => {
+        if (validFields.includes(key)) {
+          let value = columnValueObj[key];
+          
+          // Convert boolean-like strings to actual boolean values
+          if (typeof value === 'string') {
+            const lowerValue = value.toLowerCase();
+            if (lowerValue === 'yes' || lowerValue === 'true') {
+              value = true;
+            } else if (lowerValue === 'no' || lowerValue === 'false') {
+              value = false;
+            }
+          }
+          
+          filteredObj[key] = value;
+        }
+      });
+      
+      const c = Object.keys(filteredObj);
+      const val = Object.values(filteredObj);
+      const col = c.map(f => `\`${f}\``).join(", ");
+      const ph = c.map(() => "?").join(", ");
+      
+      const insertSql = `INSERT INTO \`${table}\` (${col}) VALUES (${ph})`;
+      await pool.query(insertSql, val);
+      res.json({ success: true, inserted: filteredObj });
     } else {
-      // console.log("No valid fields to insert.");
       res.status(400).json({ success: false, message: "No valid fields to insert." });
     }
-    return;
-
-} // <-- Add this closing brace to properly end insertRecord function
+  }
+  } catch (err) {
+    console.error('Error in insertRecord:', err);
+    res.status(500).json({ error: err.message, details: err.stack });
+  }
+}
 
 // Admin controller: retrieve tables, fields, records, and update records
 
@@ -305,7 +301,24 @@ export async function getFields(req, res) {
 export async function getRecords(req, res) {
   const { table } = req.params;
   try {
-    const [records] = await pool.query(`SELECT * FROM \`${table}\``);
+    // Tables that have a 'demos' field
+    const tablesWithDemos = ['albums', 'artists', 'tracks', 'promotional_tracks', 'promotional_videos', 'videos', 'merchandise', 'purchases', 'artist_images'];
+    
+    let query = `SELECT * FROM \`${table}\``;
+    
+    // Filter based on NODE_ENV: exclude demos (where demos = 1 or true) in production
+    if (process.env.NODE_ENV === 'production' && tablesWithDemos.includes(table)) {
+      query += ' WHERE (demos IS NULL OR demos = 0)';
+    }
+    
+    // Debug logging
+    console.log(`\n🔍 getRecords Debug for table: ${table}`);
+    console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+    console.log(`Is table in tablesWithDemos: ${tablesWithDemos.includes(table)}`);
+    console.log(`SQL Query: ${query}\n`);
+    
+    const [records] = await pool.query(query);
+    console.log(`Records returned: ${records.length}`);
     res.json(records);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -589,6 +602,9 @@ export async function updateRecord(req, res) {
 
 export async function getTablesWithFieldsAndRecords(req, res) {
   try {
+    // Tables that have a 'demos' field
+    const tablesWithDemos = ['albums', 'artists', 'tracks', 'promotional_tracks', 'promotional_videos', 'videos', 'merchandise', 'purchases', 'artist_images'];
+    
     // Get all table names
     const [tables] = await pool.query("SHOW TABLES");
     const tableNames = tables.map((obj) => Object.values(obj)[0]);
@@ -596,8 +612,14 @@ export async function getTablesWithFieldsAndRecords(req, res) {
     for (const table of tableNames) {
       // Get fields
       const [fields] = await pool.query(`SHOW COLUMNS FROM \`${table}\``);
-      // Get records
-      const [records] = await pool.query(`SELECT * FROM \`${table}\``);
+      
+      // Get records with demo filtering in production
+      let query = `SELECT * FROM \`${table}\``;
+      if (process.env.NODE_ENV === 'production' && tablesWithDemos.includes(table)) {
+        query += ' WHERE (demos IS NULL OR demos = 0)';
+      }
+      const [records] = await pool.query(query);
+      
       result[table] = {
         fields: fields.map((f) => f.Field),
         records: records,
