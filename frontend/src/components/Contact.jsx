@@ -782,10 +782,10 @@ const Contact = () => {
         <div className='Tablet hidden md:block lg:hidden xl:hidden'>
             {renderContactTablet()}
         </div>
-        <div className='Desktop hidden md:hidden lg:block xl:block'>
+        <div className='Desktop hidden md:hidden lg:block xl:block pt-[3%]'>
             {renderContactDesktop()}
         </div>
-        <div className="Laptop hidden md:hidden lg:hidden xl:hidden">
+        <div className="Laptop hidden md:hidden lg:hidden xl:hidden pt-[3%]">
             {renderContactLaptop()}
         </div>
     

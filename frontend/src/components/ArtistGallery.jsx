@@ -62,7 +62,7 @@ export const ArtistGallery = () => {
                   alt={artistName}
                   width="259"
                   height="194"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75"
+                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75"
                 />
                 <div className="absolute inset-0 flex flex-col justify-end items-center bg-gradient-to-t from-shelter-charcoal/90 via-shelter-charcoal/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-full px-3 py-2 text-center">

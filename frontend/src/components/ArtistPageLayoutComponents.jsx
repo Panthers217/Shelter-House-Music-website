@@ -114,7 +114,9 @@ const ArtistPageComponent = () => {
   // --- INTERACTIVE STATE (MUST BE AT TOP) ---
   const [selectedCountry, setSelectedCountry] = useState("All countries");
   const [selectedPartnerType, setSelectedPartnerType] = useState("All");
+  const [selectedGenre, setSelectedGenre] = useState("All Genres");
   const [hoveredArtist, setHoveredArtist] = useState(null);
+  const [showGenreFilter, setShowGenreFilter] = useState(false);
   const [trackModal, setTrackModal] = useState({ open: false, track: null });
   const [searchResults, setSearchResults] = useState(null);
   const [albumImage, setAlbumImage] = useState(null);
@@ -283,7 +285,11 @@ const ArtistPageComponent = () => {
     ...new Set(artists.map((a) => a.country).filter(Boolean)),
   ];
   const countries = ["All countries", ...uniqueCountries.sort()];
-
+  // Derive unique genres from database, with "All Genres" as first option
+  const uniqueGenres = [
+    ...new Set(artists.map((a) => a.genre).filter(Boolean)),
+  ];
+  const genres = ["All Genres", ...uniqueGenres.sort()];
   const handleSearchResults = React.useCallback((results) => {
     // console.log("🔍 Search results received:", results);
     setSearchResults(results);
@@ -295,6 +301,14 @@ const ArtistPageComponent = () => {
     const map = {};
     artists.forEach((a) => {
       map[a.name] = a.country;
+    });
+    return map;
+  }, [artists]);
+  
+  const artistGenreMap = React.useMemo(() => {
+    const map = {};
+    artists.forEach((a) => {
+      map[a.name] = a.genre;
     });
     return map;
   }, [artists]);
@@ -332,12 +346,15 @@ const ArtistPageComponent = () => {
         partnerMatch = a.church_partner;
       }
       
-      return countryMatch && partnerMatch;
+      // Filter by genre
+      const genreMatch = selectedGenre === "All Genres" || a.genre === selectedGenre;
+      
+      return countryMatch && partnerMatch && genreMatch;
     });
     
     // console.log("🌍 Country filter:", selectedCountry, "→", filtered.length, "artists");
     return filtered;
-  }, [sourceArtists, selectedCountry, selectedPartnerType]);
+  }, [sourceArtists, selectedCountry, selectedPartnerType, selectedGenre]);
 
   // --- REUSABLE COMPONENTS ---
   const Banner = ({ image, title, className = "" }) => (
@@ -419,6 +436,33 @@ const ArtistPageComponent = () => {
     );
   };
 
+  const GenreFilter = ({ genres, selected, onSelect }) => {
+    return (
+      <div className="flex gap-2 flex-wrap">
+        {genres.map((genre) => {
+          const isActive = selected === genre;
+          return (
+            <button
+              key={genre}
+              type="button"
+              className={`px-4 py-2 rounded-sm flex justify-center items-center shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] focus:outline-none focus:ring-2 focus:ring-shelter-honey transition-all duration-150
+              ${
+                isActive
+                  ? "bg-shelter-honey text-shelter-charcoal font-bold scale-105"
+                  : "bg-shelter-slate text-shelter-white/60 font-medium hover:bg-shelter-honey/20"
+              }`}
+              onClick={() => onSelect(genre)}
+            >
+              <span className="text-sm font-['Roboto'] leading-tight">
+                {genre}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  };
+
   const ArtistGrid = ({
     artists,
     positions,
@@ -439,7 +483,7 @@ const ArtistPageComponent = () => {
               sessionStorage.setItem(`album:${art.id}`, JSON.stringify(art));
             }}
             style={{ ...positions[idx], position: "absolute" }}
-            className={`w-44 h-60 p-4 transition-all duration-150 ${cardClass} ${
+            className={`w-44 h-72 p-4 transition-all duration-150 ${cardClass} ${
               hovered === art.name
                 ? "ring-4 ring-shelter-honey scale-105 z-10"
                 : ""
@@ -458,13 +502,13 @@ const ArtistPageComponent = () => {
                   alt={art.name}
                 />
               </div>
-              <div className="py-4 flex flex-col items-center">
-                <div className="text-center text-shelter-white/60 text-base font-normal font-['Roboto']">
+              <div className="py-4 flex flex-col items-center w-full">
+                <div className="text-center text-shelter-white/60 text-base font-normal font-['Roboto'] w-full px-1">
                   {art.name}
                 </div>
                 {hovered === art.name && (
-                  <div className="mt-2 text-shelter-honey text-xs">
-                    Country: {artistCountryMap[art.name]}
+                  <div className="mt-2 text-shelter-honey text-xs text-center w-full px-2 break-words line-clamp-2">
+                    {artistGenreMap[art.name] || "Genre not specified"}
                   </div>
                 )}
               </div>
@@ -578,6 +622,36 @@ const ArtistPageComponent = () => {
                 />
               </div>
             </div>
+            <div className="w-full pb-4 flex flex-row items-start">
+              <div className="py-2 flex flex-col justify-center items-start">
+                <div className="h-16 flex flex-col justify-start items-start">
+                  <button
+                    onClick={() => setShowGenreFilter(!showGenreFilter)}
+                    className="flex items-center gap-2 text-shelter-white hover:text-shelter-honey transition-colors focus:outline-none focus:ring-2 focus:ring-shelter-honey rounded px-2 py-1"
+                  >
+                    <span className="text-base font-normal font-['Roboto']">Genre</span>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-200 ${
+                        showGenreFilter ? 'rotate-180' : 'rotate-0'
+                      }`} 
+                      fill="currentColor" 
+                      viewBox="0 0 20 20"
+                    >
+                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              {showGenreFilter && (
+                <div className="px-4 flex flex-col justify-center items-start w-full">
+                  <GenreFilter
+                    genres={genres}
+                    selected={selectedGenre}
+                    onSelect={setSelectedGenre}
+                  />
+                </div>
+              )}
+            </div>
             {/*/<div className="w-full pb-6 flex flex-row items-start">
               <div className="py-2 flex flex-col justify-center items-start">
                 <div className="h-16 flex flex-col justify-start items-start">
@@ -638,6 +712,36 @@ const ArtistPageComponent = () => {
             />
           </div>
         </div>
+        <div className="w-full pb-4 flex flex-row items-start">
+          <div className="py-2 flex flex-col justify-center items-start">
+            <div className="h-16 flex flex-col justify-start items-start">
+              <button
+                onClick={() => setShowGenreFilter(!showGenreFilter)}
+                className="flex items-center gap-2 text-shelter-white hover:text-shelter-honey transition-colors focus:outline-none focus:ring-2 focus:ring-shelter-honey rounded px-2 py-1"
+              >
+                <span className="text-base font-normal font-['Roboto']">Genre</span>
+                <svg 
+                  className={`w-5 h-5 transition-transform duration-200 ${
+                    showGenreFilter ? 'rotate-180' : 'rotate-0'
+                  }`} 
+                  fill="currentColor" 
+                  viewBox="0 0 20 20"
+                >
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          {showGenreFilter && (
+            <div className="px-4 flex flex-col justify-center items-start w-full">
+              <GenreFilter
+                genres={genres}
+                selected={selectedGenre}
+                onSelect={setSelectedGenre}
+              />
+            </div>
+          )}
+        </div>
        {/*} <div className="w-full pb-6 flex flex-row items-start">
           <div className="py-2 flex flex-col justify-center items-start">
             <div className="h-16 flex flex-col justify-start items-start">
@@ -695,6 +799,30 @@ const ArtistPageComponent = () => {
               onSelect={setSelectedPartnerType}
             />
           </div>
+          <div className="w-full pb-4">
+            <button
+              onClick={() => setShowGenreFilter(!showGenreFilter)}
+              className="flex items-center gap-2 text-shelter-white hover:text-shelter-honey transition-colors focus:outline-none focus:ring-2 focus:ring-shelter-honey rounded px-2 py-1 mb-2"
+            >
+              <span className="text-base font-normal font-['Roboto']">Genre</span>
+              <svg 
+                className={`w-5 h-5 transition-transform duration-200 ${
+                  showGenreFilter ? 'rotate-180' : 'rotate-0'
+                }`} 
+                fill="currentColor" 
+                viewBox="0 0 20 20"
+              >
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+            {showGenreFilter && (
+              <GenreFilter
+                genres={genres}
+                selected={selectedGenre}
+                onSelect={setSelectedGenre}
+              />
+            )}
+          </div>
           {/*<div className="w-full pb-6 flex flex-row items-start">
             <div className="py-2 flex flex-col justify-center items-start">
               <div className="h-12 flex flex-col justify-start items-start">
@@ -744,12 +872,12 @@ const ArtistPageComponent = () => {
                       alt={art.name}
                     />
                   </div>
-                  <div className="py-2 flex flex-col items-center">
-                    <div className="text-center text-shelter-white/60 text-base font-normal font-['Roboto']">
+                  <div className="py-2 flex flex-col items-center w-full">
+                    <div className="text-center text-shelter-white/60 text-sm font-normal font-['Roboto'] w-full px-1 break-words">
                       {art.name}
                     </div>
-                    <div className="mt-1 text-shelter-honey text-xs">
-                      Country: {artistCountryMap[art.name]}
+                    <div className="mt-1 text-shelter-honey text-xs text-center w-full px-1 break-words">
+                      {artistGenreMap[art.name] || "Genre not specified"}
                     </div>
                   </div>
                 </div>
@@ -863,9 +991,9 @@ const ArtistPageComponent = () => {
   };
 
   // Memoize the rendered components to prevent re-creation on state changes
-  const desktopView = React.useMemo(() => <ArtistDesktopPage artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType]);
-  const tabletView = React.useMemo(() => <ArtistPageTablet artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType]);
-  const mobileView = React.useMemo(() => <ArtistMobilePage artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType]);
+  const desktopView = React.useMemo(() => <ArtistDesktopPage artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType, selectedGenre, showGenreFilter]);
+  const tabletView = React.useMemo(() => <ArtistPageTablet artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType, selectedGenre, showGenreFilter]);
+  const mobileView = React.useMemo(() => <ArtistMobilePage artisImage={albumImage} />, [albumImage, filteredArtists, hoveredArtist, selectedCountry, selectedPartnerType, selectedGenre, showGenreFilter]);
 
   // Wait for data to load
   if (!dbSnapshot) {

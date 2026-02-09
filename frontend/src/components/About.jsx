@@ -80,7 +80,7 @@ const About = () => {
         url="https://shelterhousemusic.com/about"
       />
       <ZoomFit>
-      <div className="min-h-screen py-16 px-4 bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal">
+      <div className="min-h-screen py-16 px-4 bg-gradient-to-br from-transparent via-shelter-slate to-shelter-charcoal lg: pt-[8%] xl: pt-[8%]">
       <div className="max-w-7xl mx-auto">
         
         {/* Demo Banner - Detailed variant for About page */}

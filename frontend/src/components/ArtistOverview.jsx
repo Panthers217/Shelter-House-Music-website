@@ -526,7 +526,7 @@ function ArtistOverview() {
 
   return (
     <ZoomFit>
-    <div className="relative flex flex-col min-h-screen w-full bg-shelter-charcoal text-shelter-white overflow-hidden">
+    <div className="relative flex flex-col min-h-screen w-full bg-shelter-charcoal text-shelter-white overflow-hidden lg: pt-[8%] xl: pt-[8%]">
       {/* Artist Background Image */}
       {optimizedBackgroundUrl && (
         <div 
