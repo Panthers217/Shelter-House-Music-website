@@ -251,9 +251,11 @@ const ArtistPageComponent = () => {
       apple_music_url: artist.apple_music_url,
       tiktok_url: artist.tiktok_url,
       facebook_url: artist.facebook_url,
+      activate: artist.activate,
     };
   });
   
+ 
   // console.log("artists with genre from database:", artists);
   // console.log("Featured tracks for first artist:", artists[0]?.featured_tracks);
 
@@ -470,9 +472,15 @@ const ArtistPageComponent = () => {
     hovered,
     setHovered,
   }) => {
+    const activeArtists = artists.filter((art) => {
+      // Handle various formats: 1, "1", true, "true"
+      return art.activate === 1 || art.activate === "1" || art.activate === true || art.activate === "true";
+    });
+  
+    
     return (
       <div className="ArtistLinks relative w-full h-[1200px]">
-        {artists.map((art, idx) => (
+        {activeArtists.map((art, idx) => (
           <Link
             key={art.name}
             to={`/artist/${encodeURIComponent([art.name])}`}

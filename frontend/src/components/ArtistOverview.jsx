@@ -179,7 +179,7 @@ function FeaturedTracks({ tracks, artistId }) {
             Featured Tracks
           </h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-1  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-5">
           {(tracks && tracks.length > 0
             ? tracks
             : [
@@ -189,7 +189,7 @@ function FeaturedTracks({ tracks, artistId }) {
           ).map((track, idx) => (
             <div
               key={idx}
-              className="group sm:flex sm:flex-col sm:w-[200%] relative bg-shelter-charcoal rounded-lg overflow-hidden ring-1 ring-shelter-honey/10 hover:bg-shelter-slate hover:ring-shelter-honey/30 transition-all duration-300"
+              className="group sm:flex sm:flex-col sm:w-[100%] relative bg-shelter-charcoal rounded-lg overflow-hidden ring-1 ring-shelter-honey/10 hover:bg-shelter-slate hover:ring-shelter-honey/30 transition-all duration-300"
             >
               {/* Track Image - Square Album Cover */}
               <div className="relative w-full aspect-square overflow-hidden bg-shelter-slate">
@@ -428,6 +428,7 @@ function ArtistOverview() {
   // console.log("Artist influences:", artistInfluences);
   // console.log("Featured tracks:", featuredTracks);
   
+  
   // Parse career_highlights if it's a newline-separated string
   const parsedHighlights = careerHighlights
     ? careerHighlights.split("\n").filter((line) => line.trim())
@@ -449,10 +450,10 @@ function ArtistOverview() {
         .filter((g) => g)
     : [];
 
-  // Extract stats with fallback values
-  const rating = album?.rating || "4.8";
-  const monthlyListeners = album?.monthly_listeners || "2.3M";
-  const albumsReleased = album?.albums_released || "47";
+  // Extract stats - only use if they have actual values from database
+  const rating = album?.rating || null;
+  const monthlyListeners = album?.monthly_listeners || null;
+  const albumsReleased = album?.albums_released || null;
 
   // console.log("Genre parsed from database:", genre);
   // console.log("Artist rating:", album);
@@ -569,20 +570,28 @@ function ArtistOverview() {
             )) : null}
           </div>
           {/* Stats row */}
-          <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-shelter-gray">
-            <div className="flex items-center gap-2">
-              <span className="i-lucide-star" aria-hidden />
-              <span>{rating}/5 Rating</span>
+          {(rating || monthlyListeners || albumsReleased) && (
+            <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-shelter-gray">
+              {rating && (
+                <div className="flex items-center gap-2">
+                  <span className="i-lucide-star" aria-hidden />
+                  <span>{rating}/5 Rating</span>
+                </div>
+              )}
+              {monthlyListeners && (
+                <div className="flex items-center gap-2">
+                  <span className="i-lucide-disc" aria-hidden />
+                  <span>{monthlyListeners} Monthly Listeners</span>
+                </div>
+              )}
+              {albumsReleased && (
+                <div className="flex items-center gap-2">
+                  <span className="i-lucide-library" aria-hidden />
+                  <span>{albumsReleased} Albums Released</span>
+                </div>
+              )}
             </div>
-            <div className="flex items-center gap-2">
-              <span className="i-lucide-disc" aria-hidden />
-              <span>{monthlyListeners} Monthly Listeners</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="i-lucide-library" aria-hidden />
-              <span>{albumsReleased} Albums Released</span>
-            </div>
-          </div>
+          )}
           {/* CTA buttons */}
           <div className="mt-5 md:mt-6 flex flex-col gap-4">
             <div className="flex items-center gap-3">
@@ -675,20 +684,28 @@ function ArtistOverview() {
               )) : null}
             </div>
             {/* Stats row */}
-            <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-shelter-gray">
-              <div className="flex items-center gap-2">
-                <span className="i-lucide-star" aria-hidden />
-                <span>{rating}/5 Rating</span>
+            {(rating || monthlyListeners || albumsReleased) && (
+              <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-shelter-gray">
+                {rating && (
+                  <div className="flex items-center gap-2">
+                    <span className="i-lucide-star" aria-hidden />
+                    <span>{rating}/5 Rating</span>
+                  </div>
+                )}
+                {monthlyListeners && (
+                  <div className="flex items-center gap-2">
+                    <span className="i-lucide-disc" aria-hidden />
+                    <span>{monthlyListeners} Monthly Listeners</span>
+                  </div>
+                )}
+                {albumsReleased && (
+                  <div className="flex items-center gap-2">
+                    <span className="i-lucide-library" aria-hidden />
+                    <span>{albumsReleased} Albums Released</span>
+                  </div>
+                )}
               </div>
-              <div className="flex items-center gap-2">
-                <span className="i-lucide-disc" aria-hidden />
-                <span>{monthlyListeners} Monthly Listeners</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="i-lucide-library" aria-hidden />
-                <span>{albumsReleased} Albums Released</span>
-              </div>
-            </div>
+            )}
             {/* CTA buttons */}
             <div className="mt-5 md:mt-6 flex flex-col gap-4">
               <div className="flex items-center gap-3">
@@ -773,16 +790,22 @@ function ArtistOverview() {
           <ArtistBio bio={artistBio} />
 
           {/* Two info cards (static for now, replace with dynamic if available) */}
-          <div className="mt-5 md:mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            <div className="rounded-lg bg-shelter-charcoal/40 p-4 md:p-5 ring-1 ring-shelter-honey/20">
-              <h3 className="font-semibold text-shelter-white">Career Highlights</h3>
-              <CareerHighlights highlights={parsedHighlights} />
+          {(parsedHighlights?.length > 0 || parsedInfluences?.length > 0) && (
+            <div className="career-highlights mt-5 md:mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              {parsedHighlights?.length > 0 && (
+                <div className="rounded-lg bg-shelter-charcoal/40 p-4 md:p-5 ring-1 ring-shelter-honey/20">
+                  <h3 className="font-semibold text-shelter-white">Career Highlights</h3>
+                  <CareerHighlights highlights={parsedHighlights} />
+                </div>
+              )}
+              {parsedInfluences?.length > 0 && (
+                <div className="influences rounded-lg bg-shelter-charcoal/40 p-4 md:p-5 ring-1 ring-shelter-honey/20">
+                  <h3 className="font-semibold text-shelter-white">Influences</h3>
+                  <Influences influences={parsedInfluences} />
+                </div>
+              )}
             </div>
-            <div className="rounded-lg bg-shelter-charcoal/40 p-4 md:p-5 ring-1 ring-shelter-honey/20">
-              <h3 className="font-semibold text-shelter-white">Influences</h3>
-              <Influences influences={parsedInfluences} />
-            </div>
-          </div>
+          )}
         </div>
       </section>
 

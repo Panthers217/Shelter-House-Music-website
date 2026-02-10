@@ -23,7 +23,11 @@ import {
 
 
 
-const upload = multer();
+const upload = multer({
+  limits: {
+    fileSize: 50 * 1024 * 1024 // 50MB limit for audio files
+  }
+});
 
 const router = express.Router();
 export async function requireAdmin(req, res, next) {

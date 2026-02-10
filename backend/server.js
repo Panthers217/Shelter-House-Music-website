@@ -115,8 +115,9 @@ app.options('*', cors(corsOptions));
 // Stripe webhook needs raw body - must come BEFORE bodyParser.json()
 app.use('/api/payments/webhook', express.raw({ type: 'application/json' }));
 
-// Parse JSON for all other routes
-app.use(bodyParser.json());
+// Parse JSON for all other routes with increased size limit for file uploads
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Debug logging for auth routes
 app.use('/api/auth', (req, res, next) => {

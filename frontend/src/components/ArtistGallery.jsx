@@ -22,6 +22,11 @@ export const ArtistGallery = () => {
     return url;
   };
 
+  const activeArtists = artists.filter((art) => {
+      // Handle various formats: 1, "1", true, "true"
+      return art.activate === 1 || art.activate === "1" || art.activate === true || art.activate === "true";
+    });
+  
   
 
   return (
@@ -37,7 +42,7 @@ export const ArtistGallery = () => {
           Recording Artists & Church Partners
         </h2>
         <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-6">
-          {artists.map((artist, idx) => {
+          {activeArtists.map((artist, idx) => {
             // Use helper function to build artist data
             const artistData = buildArtistData(artist, dbSnapshot);
             const artistName = artist.name || artist.artist_name;
