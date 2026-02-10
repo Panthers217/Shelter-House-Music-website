@@ -111,8 +111,7 @@ export async function insertRecord(req, res) {
   
   try {
     // DEMO BRANCH: Force demo mode for all uploads
-    const mode = 'demo'; // Original: req.headers['x-mode'] || req.headers['xmode'] || req.body.mode;
-
+  const mode = req.headers['x-mode'] || req.headers['xmode'] || req.body.mode || 'live';
     const columns = Object.keys(req.body).map(key => `\`${key}\``);
     // Convert empty strings to null for all values
     const values = Object.values(req.body).map(v => v === "" ? null : v);
@@ -135,26 +134,52 @@ export async function insertRecord(req, res) {
     for (const file of req.files) {
       let folderPath = "";
       let fieldKey = file.fieldname;
-      // Set folderPath based on mode and fieldname
+      // Set folderPath based on mode and exact fieldname
       if (mode === "live") {
-        switch (true) {
-          case fieldKey.includes("cover_url"): folderPath = `${folders.imageFolder}/AlbumCovers`; break;
-          case fieldKey.includes("image_url"): folderPath = `${folders.imageFolder}/ArtistImages`; break;
-          case fieldKey.includes("audio_url"): folderPath = `${folders.audioFolder}/Tracks`; break;
-          case fieldKey.includes("promo_audio_url"): folderPath = `${folders.audioFolder}/PromoTracks`; break;
-          case fieldKey.includes("video_url"): folderPath = `${folders.videoFolder}/Videos`; break;
-          case fieldKey.includes("promo_video_url"): folderPath = `${folders.videoFolder}/PromoVideos`; break;
-          default: folderPath = `${folders.merchFolder}/Misc`;
+        switch (fieldKey) {
+          case "cover_url": 
+            folderPath = `${folders.imageFolder}/AlbumCovers`; 
+            break;
+          case "image_url": 
+            folderPath = `${folders.imageFolder}/ArtistImages`; 
+            break;
+          case "promo_audio_url": 
+            folderPath = `${folders.audioFolder}/PromoTracks`; 
+            break;
+          case "audio_url": 
+            folderPath = `${folders.audioFolder}/Tracks`; 
+            break;
+          case "promo_video_url": 
+            folderPath = `${folders.videoFolder}/PromoVideos`; 
+            break;
+          case "video_url": 
+            folderPath = `${folders.videoFolder}/Videos`; 
+            break;
+          default: 
+            folderPath = `${folders.merchFolder}/Misc`;
         }
       } else {
-        switch (true) {
-          case fieldKey.includes("cover_url"): folderPath = `${folders.imageFolder}/Demos`; break;
-          case fieldKey.includes("image_url"): folderPath = `${folders.imageFolder}/Demos`; break;
-          case fieldKey.includes("audio_url"): folderPath = `${folders.audioFolder}/Demos`; break;
-          case fieldKey.includes("promo_audio_url"): folderPath = `${folders.audioFolder}/Demos`; break;
-          case fieldKey.includes("video_url"): folderPath = `${folders.videoFolder}/Demos`; break;
-          case fieldKey.includes("promo_video_url"): folderPath = `${folders.videoFolder}/Demos`; break;
-          default: folderPath = `${folders.merchFolder}/DemoMisc`;
+        switch (fieldKey) {
+          case "cover_url": 
+            folderPath = `${folders.imageFolder}/Demos`; 
+            break;
+          case "image_url": 
+            folderPath = `${folders.imageFolder}/Demos`; 
+            break;
+          case "promo_audio_url": 
+            folderPath = `${folders.audioFolder}/Demos`; 
+            break;
+          case "audio_url": 
+            folderPath = `${folders.audioFolder}/Demos`; 
+            break;
+          case "promo_video_url": 
+            folderPath = `${folders.videoFolder}/Demos`; 
+            break;
+          case "video_url": 
+            folderPath = `${folders.videoFolder}/Demos`; 
+            break;
+          default: 
+            folderPath = `${folders.merchFolder}/DemoMisc`;
         }
       }
       // Upload to Cloudinary
@@ -328,8 +353,8 @@ export async function getRecords(req, res) {
 
 export async function updateRecord(req, res) {
   const { table, id } = req.params;
-  // DEMO BRANCH: Force demo mode for all uploads
-  const mode = 'demo'; // Original: req.headers['x-mode'] || req.headers['xmode'] || req.body.mode || 'live';
+
+  const mode = req.headers['x-mode'] || req.headers['xmode'] || req.body.mode || 'live';
   
   // Debug logging
   console.log('Update Record - Mode Detection:', {
@@ -374,49 +399,49 @@ export async function updateRecord(req, res) {
           fileName: file.originalname
         });
         
-        // Set folderPath based on mode and fieldname
+        // Set folderPath based on mode and exact fieldname
         if (mode === "live") {
-          switch (true) {
-            case fieldKey.includes("cover_url"):
+          switch (fieldKey) {
+            case "cover_url":
               folderPath = `${folders.imageFolder}/AlbumCovers`;
               break;
-            case fieldKey.includes("image_url"):
+            case "image_url":
               folderPath = `${folders.imageFolder}/ArtistImages`;
               break;
-            case fieldKey.includes("audio_url"):
-              folderPath = `${folders.audioFolder}/Tracks`;
-              break;
-            case fieldKey.includes("promo_audio_url"):
+            case "promo_audio_url":
               folderPath = `${folders.audioFolder}/PromoTracks`;
               break;
-            case fieldKey.includes("video_url"):
-              folderPath = `${folders.videoFolder}/Videos`;
+            case "audio_url":
+              folderPath = `${folders.audioFolder}/Tracks`;
               break;
-            case fieldKey.includes("promo_video_url"):
+            case "promo_video_url":
               folderPath = `${folders.videoFolder}/PromoVideos`;
+              break;
+            case "video_url":
+              folderPath = `${folders.videoFolder}/Videos`;
               break;
             default:
               folderPath = `${folders.merchFolder}/Merch`;
           }
         } else {
-          switch (true) {
-            case fieldKey.includes("cover_url"):
+          switch (fieldKey) {
+            case "cover_url":
               folderPath = `${folders.imageFolder}/Demos/AlbumCoversDemos`;
               break;
-            case fieldKey.includes("image_url"):
+            case "image_url":
               folderPath = `${folders.imageFolder}/Demos/ArtistImagesDemo`;
               break;
-            case fieldKey.includes("audio_url"):
-              folderPath = `${folders.audioFolder}/Demos/Track`;
-              break;
-            case fieldKey.includes("promo_audio_url"):
+            case "promo_audio_url":
               folderPath = `${folders.audioFolder}/Demos/PromoTrack`;
               break;
-            case fieldKey.includes("video_url"):
-              folderPath = `${folders.videoFolder}/Demos/DemoVideos`;
+            case "audio_url":
+              folderPath = `${folders.audioFolder}/Demos/Track`;
               break;
-            case fieldKey.includes("promo_video_url"):
+            case "promo_video_url":
               folderPath = `${folders.videoFolder}/Demos/DemoPromoVideos`;
+              break;
+            case "video_url":
+              folderPath = `${folders.videoFolder}/Demos/DemoVideos`;
               break;
             default:
               folderPath = `${folders.merchFolder}/Demos/DemoMerch`;
