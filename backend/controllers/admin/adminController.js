@@ -537,11 +537,41 @@ export async function updateRecord(req, res) {
         //Reassign to updates for SQL update
         updates[fieldKey] = await result.secure_url;
         updates[`${fieldKey}_public_identifier`] = await result.public_id;
+        
+        // Add metadata fields from Cloudinary result if they exist
+        if ('duration' in result) updates['duration'] = result.duration;
+        if ('format' in result) updates['format'] = result.format;
+        if ('bytes' in result) updates['file_size'] = result.bytes;
       }
     }
     if (Object.keys(updates).length === 0) {
       return res.status(400).json({ success: false, message: "No fields to update." });
     }
+    
+    // Filter updates against actual table columns to prevent errors
+    const [tableFields] = await pool.query(`SHOW COLUMNS FROM \`${table}\``);
+    const validFields = tableFields.map(f => f.Field);
+    const validatedUpdates = {};
+    Object.keys(updates).forEach(key => {
+      if (validFields.includes(key)) {
+        let value = updates[key];
+        
+        // Convert boolean-like strings to actual boolean values
+        if (typeof value === 'string') {
+          const lowerValue = value.toLowerCase();
+          if (lowerValue === 'yes' || lowerValue === 'true') {
+            value = true;
+          } else if (lowerValue === 'no' || lowerValue === 'false') {
+            value = false;
+          }
+        }
+        
+        validatedUpdates[key] = value;
+      }
+    });
+    
+    // Replace updates with validated updates
+    updates = validatedUpdates;
     // Update Cloudinary metadata even if no file is present
     // Only run if audio_url, image_url, video_url, promo_audio_url, promo_video_url exist in updates
     const metaDataFields = ['title', 'tags', 'image_description', 'video_description', 'audio_description', 'genre'];
