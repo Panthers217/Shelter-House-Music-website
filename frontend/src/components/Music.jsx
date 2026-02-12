@@ -313,28 +313,31 @@ const Music = () => {
               } else {
                 // Album filtering
                 if (section.key === "all") {
-                  sectionItems = sourceData.albums;
+                  sectionItems = sourceData.albums.filter(
+                    (album) => album.activate !== 0 && album.activate !== false
+                  );
                 } else if (section.key === "featured") {
                   sectionItems = sourceData.albums.filter(
-                    (album) => album.featured === 1
+                    (album) => album.featured === 1 && album.activate !== 0 && album.activate !== false
                   );
                 } else if (section.key === "new") {
                   sectionItems = sourceData.albums.filter(
-                    (album) => album.new_release === 1
+                    (album) => album.new_release === 1 && album.activate !== 0 && album.activate !== false
                   );
                 } else if (section.key === "popular") {
                   sectionItems = sourceData.albums.filter(
-                    (album) => album.popular === 1
+                    (album) => album.popular === 1 && album.activate !== 0 && album.activate !== false
                   );
                 } else if (section.key === "recommended") {
                   sectionItems = sourceData.albums.filter(
-                    (album) => album.recommended === 1
+                    (album) => album.recommended === 1 && album.activate !== 0 && album.activate !== false
                   );
                 } else {
                   // Genre filtering for albums
                   const genreName = section.genreName || section.label;
                   sectionItems = sourceData.albums.filter((album) => {
                     if (!album.genre) return false;
+                    if (album.activate === 0 || album.activate === false) return false;
                     const albumGenres = album.genre
                       .split(",")
                       .map((g) => g.trim().toLowerCase());

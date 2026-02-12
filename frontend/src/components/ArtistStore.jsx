@@ -538,9 +538,10 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
   // Get albums from database, optionally filtered by artist
   let albumProducts = [];
   if (dbSnapshot && dbSnapshot.albums && dbSnapshot.albums.records) {
-    const filteredAlbums = artistId
+    const filteredAlbums = (artistId
       ? sourceAlbums.filter((album) => album.artist_id === parseInt(artistId))
-      : sourceAlbums;
+      : sourceAlbums
+    ).filter((album) => album.activate !== 0 && album.activate !== false);
 
     albumProducts = filteredAlbums.map((album) => {
       // Parse price - handle both string and number formats
