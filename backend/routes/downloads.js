@@ -65,16 +65,40 @@ router.get('/file/:token', async (req, res) => {
     
     if (itemType === 'Track') {
       const [tracks] = await db.query(
-        'SELECT title, audio_url FROM tracks WHERE id = ?',
+        'SELECT id, title, audio_url, album_id FROM tracks WHERE id = ?',
         [trackId || itemId]
       );
-      
-      if (tracks.length === 0 || !tracks[0].audio_url) {
-        return res.status(404).json({ error: 'Track not found' });
+
+      if (tracks.length > 0 && tracks[0].audio_url) {
+        fileUrl = tracks[0].audio_url;
+        fileName = `${tracks[0].title.replace(/[^a-z0-9]/gi, '_')}.mp3`;
+      } else {
+        // Fallback: resolve promo track IDs stored in order_items
+        const [promoTracks] = await db.query(
+          'SELECT id, title, album_id, promo_audio_url FROM promotional_tracks WHERE id = ?',
+          [trackId || itemId]
+        );
+
+        if (promoTracks.length === 0) {
+          return res.status(404).json({ error: 'Track not found' });
+        }
+
+        const promoTrack = promoTracks[0];
+        const [fullTracks] = await db.query(
+          'SELECT id, title, audio_url FROM tracks WHERE album_id = ? AND title = ? LIMIT 1',
+          [promoTrack.album_id, promoTrack.title]
+        );
+
+        if (fullTracks.length > 0 && fullTracks[0].audio_url) {
+          fileUrl = fullTracks[0].audio_url;
+          fileName = `${fullTracks[0].title.replace(/[^a-z0-9]/gi, '_')}.mp3`;
+        } else if (promoTrack.promo_audio_url) {
+          fileUrl = promoTrack.promo_audio_url;
+          fileName = `${promoTrack.title.replace(/[^a-z0-9]/gi, '_')}.mp3`;
+        } else {
+          return res.status(404).json({ error: 'Track not found' });
+        }
       }
-      
-      fileUrl = tracks[0].audio_url;
-      fileName = `${tracks[0].title.replace(/[^a-z0-9]/gi, '_')}.mp3`;
     } else if ((itemType === 'Digital Album' || itemType === 'Limited Edition' || itemType === 'EP' || itemType === 'Single') && trackId) {
       // Single track from album
       const [tracks] = await db.query(
