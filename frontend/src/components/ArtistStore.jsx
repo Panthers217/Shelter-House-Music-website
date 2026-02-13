@@ -633,9 +633,11 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
         (a) => a.id === track.album_id
       );
 
+      const canonicalTrackId = track.track_id || track.id;
+
       return {
-        id: track.id,
-        trackId: track.id,
+        id: canonicalTrackId,
+        trackId: canonicalTrackId,
         albumId: track.album_id || null,
         artistId: track.artist_id,
         artist_name: getArtistDataById(track.artist_id, dbSnapshot)?.name || 'Unknown Artist',

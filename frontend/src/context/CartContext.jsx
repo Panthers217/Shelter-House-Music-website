@@ -33,13 +33,15 @@ export const CartProvider = ({ children }) => {
     const isAlbum = rawItem.type?.includes('Album') || rawItem.type?.includes('Vinyl') || rawItem.type?.includes('Record');
     
     // Extract IDs with fallbacks
-    let trackId = isTrack ? (rawItem.id || rawItem.trackId) : null;
+    let trackId = isTrack ? (rawItem.track_id || rawItem.trackId || rawItem.id) : null;
     let albumId = isAlbum ? (rawItem.id || rawItem.albumId) : null;
     let artistId = rawItem.artistId || rawItem.artist_id;
     
     // If we have a track ID but missing other data, look it up from dbSnapshot
     if (trackId && dbSnapshot?.promotional_tracks?.records) {
-      const trackData = dbSnapshot.promotional_tracks.records.find(t => t.id === trackId);
+      const trackData = dbSnapshot.promotional_tracks.records.find(
+        t => t.id === trackId || t.track_id === trackId
+      );
       if (trackData) {
         artistId = artistId || trackData.artist_id;
         albumId = albumId || trackData.album_id;
@@ -82,7 +84,9 @@ export const CartProvider = ({ children }) => {
     
     // Get track data if we have trackId
     if (trackId && dbSnapshot?.promotional_tracks?.records) {
-      const trackData = dbSnapshot.promotional_tracks.records.find(t => t.id === trackId);
+      const trackData = dbSnapshot.promotional_tracks.records.find(
+        t => t.id === trackId || t.track_id === trackId
+      );
       if (trackData) {
         purchaseLink = purchaseLink || trackData.purchase_link;
         audioUrl = audioUrl || trackData.promo_audio_url;
@@ -101,7 +105,7 @@ export const CartProvider = ({ children }) => {
     
     // Return normalized cart item with consistent structure
     const normalized = {
-      id: rawItem.id || trackId || albumId, // Main ID for the item
+      id: isTrack ? trackId : (rawItem.id || albumId), // Main ID for the item
       trackId: trackId || null, // Specific track ID
       albumId: albumId || null, // Specific album ID
       artistId: artistId || null,
