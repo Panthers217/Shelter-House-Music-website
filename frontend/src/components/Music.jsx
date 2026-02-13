@@ -7,6 +7,7 @@ import CartSummary from "./CartSummary";
 import SEO from "./SEO";
 import DemoBanner from "./DemoBanner";
 import axios from "axios";
+import { resolveTrackPricing } from "../utils/trackPricing";
 
 const Music = () => {
   const { dbSnapshot } = useApiData();
@@ -108,7 +109,11 @@ const Music = () => {
   ];
 
   // Get promotional tracks and albums from database
-  const tracks = dbSnapshot?.promotional_tracks?.records || [];
+  const dbTracks = dbSnapshot?.tracks?.records || [];
+  const tracks = (dbSnapshot?.promotional_tracks?.records || []).map((track) => ({
+    ...track,
+    track_pricing: resolveTrackPricing(track, dbTracks),
+  }));
   const albums = dbSnapshot?.albums?.records || [];
   const artistImages = dbSnapshot?.artist_images?.records || [];
   const artists = dbSnapshot?.artists?.records || [];
