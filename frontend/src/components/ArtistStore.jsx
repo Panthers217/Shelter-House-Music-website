@@ -10,6 +10,7 @@ import NotAvailableModal from "./modal/NotAvailableModal.jsx";
 import TrackCard from "./TrackCard.jsx";
 import CartSummary from "./CartSummary.jsx";
 import { getArtistDataById } from "../utils/artistDataHelper.js";
+import { resolveTrackPricing } from "../utils/trackPricing.js";
 import ZoomFit from "./ZoomFit.jsx";
 import DemoBanner from "./DemoBanner.jsx";
 
@@ -609,13 +610,18 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
       : dbSnapshot.promotional_tracks.records;
 
     trackProducts = filteredTracks.map((track) => {
+      const resolvedTrackPricing = resolveTrackPricing(
+        track,
+        dbSnapshot?.tracks?.records || []
+      );
+
       // Parse price - handle both string and number formats
       let parsedPrice = 0;
-      if (track.track_pricing != null && track.track_pricing !== "") {
+      if (resolvedTrackPricing != null && resolvedTrackPricing !== "") {
         const priceValue =
-          typeof track.track_pricing === "string"
-            ? parseFloat(track.track_pricing)
-            : Number(track.track_pricing);
+          typeof resolvedTrackPricing === "string"
+            ? parseFloat(resolvedTrackPricing)
+            : Number(resolvedTrackPricing);
 
         if (!isNaN(priceValue)) {
           parsedPrice = priceValue / 100; // Convert cents to dollars
@@ -638,6 +644,7 @@ const ArtistStore = ({ artistId = null, artistName = "Artist" }) => {
         price: parsedPrice > 0 ? `$${parsedPrice.toFixed(2)}` : "$0.00",
         img: album?.cover_url || "https://placehold.co/265x265",
         isTrack: true,
+        track_pricing: resolvedTrackPricing,
         album_type: undefined,
         merch_type: undefined,
         purchaseLink: track.purchase_link || '',

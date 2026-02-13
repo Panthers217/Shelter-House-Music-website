@@ -1,3 +1,5 @@
+import { resolveTrackPricing } from './trackPricing';
+
 /**
  * Artist Data Helper Utilities
  * 
@@ -64,6 +66,7 @@ export const buildFeaturedTracks = (artistId, artistName, dbSnapshot) => {
   const promotionalTracks = dbSnapshot?.promotional_tracks?.records || [];
   const artistImages = dbSnapshot?.artist_images?.records || [];
   const albums = dbSnapshot?.albums?.records || [];
+  const dbTracks = dbSnapshot?.tracks?.records || [];
   
   // console.log("🔍 buildFeaturedTracks called with:", {
   //   artistId,
@@ -98,7 +101,8 @@ export const buildFeaturedTracks = (artistId, artistName, dbSnapshot) => {
     img: getPromotionalTrackImage(track, artistImages, albums),
     promo_audio_url: track.promo_audio_url,
     artist_name: artistName,
-    purchaseLink: track.purchase_link  // Map snake_case to camelCase
+    purchaseLink: track.purchase_link, // Map snake_case to camelCase
+    track_pricing: resolveTrackPricing(track, dbTracks),
   }));
   
   // console.log("✅ Returning mapped featured tracks:", mapped);
