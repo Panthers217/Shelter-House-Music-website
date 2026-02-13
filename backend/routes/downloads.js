@@ -187,8 +187,40 @@ router.post('/generate-url', async (req, res) => {
         [itemId]
       );
 
-      if (tracks.length === 0) {
-        return res.status(404).json({ error: 'Track not found' });
+      let trackTitle = null;
+      let trackId = null;
+
+      if (tracks.length > 0) {
+        trackTitle = tracks[0].title;
+        trackId = tracks[0].id;
+      } else {
+        // Fallback: resolve promo track IDs stored in order_items
+        const [promoTracks] = await db.query(
+          'SELECT id, title, album_id, track_id FROM promotional_tracks WHERE id = ?',
+          [itemId]
+        );
+
+        if (promoTracks.length === 0) {
+          return res.status(404).json({ error: 'Track not found' });
+        }
+
+        const promoTrack = promoTracks[0];
+        trackTitle = promoTrack.title;
+        trackId = promoTrack.track_id || null;
+
+        if (!trackId && promoTrack.album_id && promoTrack.title) {
+          const [fullTracks] = await db.query(
+            'SELECT id FROM tracks WHERE album_id = ? AND title = ? LIMIT 1',
+            [promoTrack.album_id, promoTrack.title]
+          );
+          if (fullTracks.length > 0) {
+            trackId = fullTracks[0].id;
+          }
+        }
+
+        if (!trackId) {
+          trackId = promoTrack.id;
+        }
       }
 
       // Create download token
@@ -196,14 +228,14 @@ router.post('/generate-url', async (req, res) => {
         userEmail,
         itemType,
         itemId,
-        trackId: tracks[0].id,
+        trackId,
         expires: expiresAt
       })).toString('base64');
 
       downloadLinks.push({
-        title: tracks[0].title,
+        title: trackTitle,
         downloadUrl: `/api/downloads/file/${token}`,
-        trackId: tracks[0].id
+        trackId
       });
 
     } else if (itemType === 'Digital Album' || itemType === 'Limited Edition' || itemType === 'EP' || itemType === 'Single') {
@@ -410,7 +442,7 @@ router.post('/generate-album-zip', async (req, res) => {
     // Step 8: Clean up local ZIP file
     fs.unlink(zipFilePath, (err) => {
       if (err) console.error('Error deleting temp ZIP:', err);
-KU    });
+    });
 
     // Step 9: Schedule Cloudinary ZIP deletion after 3 hours
     setTimeout(async () => {
