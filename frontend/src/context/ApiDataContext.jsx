@@ -17,6 +17,55 @@ export const ApiDataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [refreshSqlViewerTable, setRefreshSqlViewerTable] = useState(false);
   const [websiteUser, setWebsiteUser] = useState(null);
+
+  const isDemoRecord = (record) => {
+    if (!record || typeof record !== "object") {
+      return false;
+    }
+    const demoValue = record.demos;
+    return demoValue === true || demoValue === 1 || demoValue === "1";
+  };
+
+  const filterDemoRecords = (data) => {
+    if (Array.isArray(data)) {
+      return data.filter((record) => !isDemoRecord(record));
+    }
+    if (isDemoRecord(data)) {
+      return null;
+    }
+    return data;
+  };
+
+  const filterDemoSnapshot = (snapshot) => {
+    if (!snapshot || typeof snapshot !== "object") {
+      return snapshot;
+    }
+    return Object.fromEntries(
+      Object.entries(snapshot).map(([tableName, tableData]) => {
+        if (!tableData || typeof tableData !== "object") {
+          return [tableName, tableData];
+        }
+        const fields = Array.isArray(tableData.fields)
+          ? tableData.fields
+          : [];
+        const records = Array.isArray(tableData.records)
+          ? tableData.records
+          : null;
+        const hasDemosField = fields.includes("demos");
+        const filteredRecords =
+          records && hasDemosField
+            ? records.filter((record) => !isDemoRecord(record))
+            : records;
+        return [
+          tableName,
+          {
+            ...tableData,
+            records: filteredRecords,
+          },
+        ];
+      })
+    );
+  };
   
   const triggerRefreshSqlViewerTable = () =>
     setRefreshSqlViewerTable((prev) => !prev);
@@ -82,28 +131,28 @@ export const ApiDataProvider = ({ children }) => {
     const API_URL = import.meta.env.VITE_API_URL;
     axios
       .get(`${API_URL}/api/artists`)
-      .then((res) => setArtists(res.data))
+      .then((res) => setArtists(filterDemoRecords(res.data) || []))
       .catch((err) => {
         setError(err);
         console.error("Error fetching artists:", err);
       });
     axios
       .get(`${API_URL}/api/albums`)
-      .then((res) => setAlbums(res.data))
+      .then((res) => setAlbums(filterDemoRecords(res.data) || []))
       .catch((err) => {
         setError(err);
         console.error("Error fetching albums:", err);
       });
     axios
       .get(`${API_URL}/api/tracks`)
-      .then((res) => setTracks(res.data))
+      .then((res) => setTracks(filterDemoRecords(res.data) || []))
       .catch((err) => {
         setError(err);
         console.error("Error fetching tracks:", err);
       });
     axios
       .get(`${API_URL}/api/settings/public`)
-      .then((res) => setWebsiteSettings(res.data))
+      .then((res) => setWebsiteSettings(filterDemoRecords(res.data)))
       .catch((err) => {
         setError(err);
         console.error("Error fetching settings:", err);
@@ -128,7 +177,7 @@ export const ApiDataProvider = ({ children }) => {
           `${API_URL}/api/admin/tables-with-fields-records`,
           config
         );
-        setDbSnapshot(res.data);
+        setDbSnapshot(filterDemoSnapshot(res.data));
         // console.log("DB Snapshot:", res.data);
       } catch (err) {
         console.error("Error fetching DB snapshot:", err);
