@@ -63,7 +63,7 @@ function UploadNewArtist() {
           },
         };
         const response = await axios.post(
-          `/api/admin/records/${table}`,
+          `${import.meta.env.VITE_API_URL}/api/admin/records/${table}`,
           formData,
           config
         );
@@ -101,7 +101,7 @@ function UploadNewArtist() {
           },
         };
         const response = await axios.post(
-          `/api/admin/records/${table}`,
+          `${import.meta.env.VITE_API_URL}/api/admin/records/${table}`,
           formData,
           config
         );
