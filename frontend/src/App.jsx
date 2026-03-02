@@ -2,7 +2,7 @@ import AdminDashboard from './components/AdminDashboard';
 import AdminLogin from './components/AdminLogin'; // Import AdminLogin component
 import AdminSqlViewer from './components/AdminSqlViewer';
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
 import backgroundImage from './assets/Shelter-House-img2.png';
 import { NavbarProvider, useNavbar } from './context/NavbarContext';
 
@@ -180,6 +180,9 @@ function AppContent() {
             <Route path="/admin/dashboard" element={<AdminDashboardRoute />} /> {/* Protected admin dashboard route */}
             <Route path="/admin/newsletter" element={<AdminDashboardRoute />} /> {/* Protected newsletter campaigns route */}
             <Route path="/admin/faq" element={<AdminDashboardRoute />} /> {/* Protected FAQ management route */}
+            
+            {/* Ministry redirect to landing page */}
+            <Route path="/ministry/*" element={<Navigate to="https://shelterhousemusiclanding.netlify.app/ministry/" replace />} />
             
             {/* 404 Catch-all route - must be last */}
             <Route path="*" element={<NotFound />} />
