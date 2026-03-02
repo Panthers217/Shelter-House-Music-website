@@ -65,6 +65,14 @@ function ArtistStoreWrapper() {
   return <ArtistStore artistId={artistId} artistName={artistName} />;
 }
 
+function ExternalRedirect({ to }) {
+  React.useEffect(() => {
+    window.location.replace(to);
+  }, [to]);
+
+  return null;
+}
+
 function AppContent() {
   const { user, loading } = useUserLogin();
   const { websiteSettings } = useApiData();
@@ -182,7 +190,8 @@ function AppContent() {
             <Route path="/admin/faq" element={<AdminDashboardRoute />} /> {/* Protected FAQ management route */}
             
             {/* Ministry redirect to landing page */}
-            <Route path="/ministry/*" element={<Navigate to="https://shelterhousemusiclanding.netlify.app/ministry/" replace />} />
+            <Route path="/ministry/*" element={<ExternalRedirect to="https://shelterhousemusiclanding.netlify.app/ministry/" />} />
+            <Route path="/minstry/*" element={<ExternalRedirect to="https://shelterhousemusiclanding.netlify.app/ministry/" />} />
             
             {/* 404 Catch-all route - must be last */}
             <Route path="*" element={<NotFound />} />
