@@ -43,7 +43,7 @@ import ScrollToTop from './components/ScrollToTop';
 import NotFound from './pages/NotFound';
 import { Toaster } from 'react-hot-toast';
 import { useUserLogin } from './hooks/useUserLogin.js';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useApiData } from './context/ApiDataContext';
 import ProjectWalkthroughVideo from './components/ProjectWalkthroughVideo';
 import ZoomFit from './components/ZoomFit.jsx';

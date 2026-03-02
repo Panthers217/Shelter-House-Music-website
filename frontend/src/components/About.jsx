@@ -113,14 +113,12 @@ const About = () => {
             {websiteSettings?.about_hero_tagline || 'Connecting Faith and Music to Inspire Worship and Community.'}
           </p>
           <div className="mt-8">
-            <a
-              href="https://shelterhousemusic.com/ministry/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/ministry/"
               className="inline-block bg-shelter-honey hover:bg-shelter-amber text-shelter-charcoal px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Learn More About Our Ministry
-            </a>
+            </Link>
           </div>
         </div>
 
