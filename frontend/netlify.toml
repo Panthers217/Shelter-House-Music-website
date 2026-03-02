@@ -25,11 +25,19 @@
 # - VITE_SITE_URL=https://your-site.netlify.app
 # - VITE_SITE_NAME=Shelter House Music
 
+# Redirecting the ministry page
+  [[redirects]]
+  from = "/ministry"
+  to = "https://shelterhousemusiclanding.netlify.app/ministry/"
+  status = 200
+
 # Redirects for SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+
 
 # Security headers
 [[headers]]
